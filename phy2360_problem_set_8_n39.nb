@@ -1,0 +1,185 @@
+Notebook[{Cell[
+CellGroupData[{Cell[
+BoxData[RowBox[{"Solve","[","x","^","4","==","16",",","x","]"," "," ","(*"," ","N39a"," ","*)"}]],
+"Input",CellID->2,CellLabel->"In[7]:= "],Cell[
+BoxData[RowBox[{"{",RowBox[{RowBox[
+{"{",RowBox[{"x","\[Rule]",RowBox[{"-","2"}]}],"}"}],",",RowBox[{"{",RowBox[{"x","\[Rule]",RowBox[
+{RowBox[{"-","2"}]," ","\[ImaginaryI]"}]}],"}"}],",",RowBox[{"{",RowBox[{"x","\[Rule]",RowBox[
+{"2"," ","\[ImaginaryI]"}]}],"}"}],",",RowBox[{"{",RowBox[{"x","\[Rule]","2"}],"}"}]}],"}"}],
+StandardForm],"Output",CellID->37,CellLabel->"Out[7]= "]},Open]],Cell[
+CellGroupData[
+{Cell[
+BoxData[RowBox[{"Solve","[","Cos","[","x","]","==","0",",","x","]"," "," "," "," ","(*"," ","N39b"," ","*)"}]],
+"Input",CellID->165,CellLabel->"In[31]:= "],Cell[
+BoxData[RowBox[{"{",RowBox[{RowBox[
+{"{",RowBox[{"x","\[Rule]",RowBox[{"ConditionalExpression","[",RowBox[{RowBox[{RowBox[
+{"-",FractionBox["\[Pi]","2"]}],"+",RowBox[{"2"," ","\[Pi]"," ",RowBox[{"C","[","1","]"}]}]}],",",RowBox[
+{RowBox[{"C","[","1","]"}],"\[Element]","Integers"}]}],"]"}]}],"}"}],",",RowBox[{"{",RowBox[
+{"x","\[Rule]",RowBox[{"ConditionalExpression","[",RowBox[{RowBox[{FractionBox["\[Pi]",
+"2"],"+",RowBox[{"2"," ","\[Pi]"," ",RowBox[{"C","[","1","]"}]}]}],",",RowBox[{RowBox[
+{"C","[","1","]"}],"\[Element]","Integers"}]}],"]"}]}],"}"}]}],"}"}],StandardForm],
+"Output",CellID->166,CellLabel->"Out[31]= "]},Open]],Cell[
+CellGroupData[{Cell[
+BoxData[
+RowBox[{"FindRoot","[","Cos","[","x","]","==","0",",","{","x",",","3","}","]"," "," "," "," ","(*"," ","N39b"," ","*)"}]],
+"Input",CellID->184,CellLabel->"In[35]:= "],Cell[
+BoxData[RowBox[{"{",RowBox[{"x","\[Rule]",RowBox[
+{"-","4.71238898038469`"}]}],"}"}],StandardForm],"Output",CellID->190,CellLabel->"Out[35]= "]},
+Open]],Cell[
+CellGroupData[{Cell[
+BoxData[RowBox[{"FindRoot","[","Cos","[","x","]","==","0",",","{","x",",","1","}","]"," "," "," "," ","(*"," ","N39b"," ","*)"}]],
+"Input",CellID->172,CellLabel->"In[33]:= "],Cell[
+BoxData[RowBox[{"{",RowBox[{"x","\[Rule]","1.5707963267948966`"}],"}"}],
+StandardForm],"Output",CellID->179,CellLabel->"Out[33]= "]},Open]],Cell[
+CellGroupData[
+{Cell[
+BoxData[RowBox[{"FindRoot","[","Cos","[","x","]","==","0",",","{","x",",","-","1","}","]"," "," "," "," ","(*"," ","N39b"," ","*)"}]],
+"Input",CellID->16,CellLabel->"In[24]:= "],Cell[
+BoxData[RowBox[{"{",RowBox[{"x","\[Rule]",RowBox[
+{"-","1.5707963267948966`"}]}],"}"}],StandardForm],"Output",CellID->128,CellLabel->"Out[24]= "]},
+Open]],Cell[
+CellGroupData[{Cell[
+BoxData[RowBox[{"FindRoot","[","Cos","[","x","]","==","0",",","{","x",",","-","3","}","]"," "," "," "," ","(*"," ","N39b"," ","*)"}]],
+"Input",CellID->133,CellLabel->"In[26]:= "],Cell[
+BoxData[RowBox[{"{",RowBox[{"x","\[Rule]","4.71238898038469`"}],"}"}],
+StandardForm],"Output",CellID->139,CellLabel->"Out[26]= "]},Open]],Cell[
+CellGroupData[
+{Cell[
+BoxData[RowBox[{"FindRoot","[","Cos","[","x","]","==","0",",","{","x",",","-","7","}","]"," "," "," "," ","(*"," ","N39b"," ","*)"}]],
+"Input",CellID->144,CellLabel->"In[30]:= "],Cell[
+BoxData[RowBox[{"{",RowBox[{"x","\[Rule]",RowBox[
+{"-","7.853981633974483`"}]}],"}"}],StandardForm],"Output",CellID->160,CellLabel->"Out[30]= "]},
+Open]],Cell[
+CellGroupData[{Cell[
+BoxData[RowBox[{"FindRoot","[","Log","[","x","]","==","Cos","[","x","]",","," ","{","x",",","10","}","]"," "," "," ","(*"," ","N39c"," ","*)"}]],
+"Input",CellID->48,CellLabel->"In[52]:= "],Cell[
+BoxData[RowBox[{StyleBox[RowBox[
+{"FindRoot","::","lstol"}],"MessageName"],": ","\"The line search decreased the step size to within tolerance specified by AccuracyGoal and PrecisionGoal but was unable to find a sufficient decrease in the merit function. You may need more than \\!\\(\\*\\\"MachinePrecision\\\"\\) digits of working precision to meet these tolerances.\""}],
+StandardForm],"Message",CellID->296],Cell[
+BoxData[RowBox[{"{",RowBox[{"x","\[Rule]","18.796327970463476`"}],"}"}],
+StandardForm],"Output",CellID->298,CellLabel->"Out[52]= "]},Open]],Cell[
+CellGroupData[
+{Cell[
+BoxData[RowBox[{"FindRoot","[","Log","[","x","]","==","Cos","[","x","]",","," ","{","x",",","4","}","]"," "," "," ","(*"," ","N39c"," ","*)"}]],
+"Input",CellID->225,CellLabel->"In[50]:= "],Cell[
+BoxData[RowBox[{StyleBox[RowBox[
+{"FindRoot","::","lstol"}],"MessageName"],": ","\"The line search decreased the step size to within tolerance specified by AccuracyGoal and PrecisionGoal but was unable to find a sufficient decrease in the merit function. You may need more than \\!\\(\\*\\\"MachinePrecision\\\"\\) digits of working precision to meet these tolerances.\""}],
+StandardForm],"Message",CellID->283],Cell[
+BoxData[RowBox[{"{",RowBox[{"x","\[Rule]","6.119023027004608`"}],"}"}],
+StandardForm],"Output",CellID->285,CellLabel->"Out[50]= "]},Open]],Cell[
+CellGroupData[
+{Cell[
+BoxData[RowBox[{"FindRoot","[","Log","[","x","]","==","Cos","[","x","]",","," ","{","x",",","1","}","]"," "," "," ","(*"," ","N39c"," ","*)"}]],
+"Input",CellID->289,CellLabel->"In[53]:= "],Cell[
+BoxData[RowBox[{"{",RowBox[{"x","\[Rule]","1.3029640012160126`"}],"}"}],
+StandardForm],"Output",CellID->302,CellLabel->"Out[53]= "]},Open]],Cell[
+CellGroupData[
+{Cell[
+BoxData[RowBox[{"FindRoot","[","Log","[","x","]","==","Cos","[","x","]",","," ","{","x",",","-","1","}","]"," "," "," ","(*"," ","N39c"," ","*)"}]],
+"Input",CellID->307,CellLabel->"In[54]:= "],Cell[
+BoxData[RowBox[{"{",RowBox[{"x","\[Rule]",RowBox[
+{RowBox[{"-","1.286612808284083`"}],"+",RowBox[{"1.5883524862099425`"," ","\[ImaginaryI]"}]}]}],"}"}],
+StandardForm],"Output",CellID->308,CellLabel->"Out[54]= "]},Open]],Cell[
+CellGroupData[
+{Cell[
+BoxData[RowBox[{"FindRoot","[","Log","[","x","]","==","Cos","[","x","]",","," ","{","x",",","-","2","}","]"," "," "," ","(*"," ","N39c"," ","*)"}]],
+"Input",CellID->314,CellLabel->"In[62]:= "],Cell[
+BoxData[RowBox[{"{",RowBox[{"x","\[Rule]",RowBox[
+{RowBox[{"-","1.286612808284083`"}],"+",RowBox[{"1.5883524862099425`"," ","\[ImaginaryI]"}]}]}],"}"}],
+StandardForm],"Output",CellID->352,CellLabel->"Out[62]= "]},Open]],Cell[
+CellGroupData[
+{Cell[
+BoxData[RowBox[{"FindRoot","[","Log","[","x","]","==","Cos","[","x","]",","," ","{","x",",","-","4","}","]"," "," "," ","(*"," ","N39c"," ","*)"}]],
+"Input",CellID->357,CellLabel->"In[64]:= "],Cell[
+BoxData[RowBox[{StyleBox[RowBox[
+{"FindRoot","::","lstol"}],"MessageName"],": ","\"The line search decreased the step size to within tolerance specified by AccuracyGoal and PrecisionGoal but was unable to find a sufficient decrease in the merit function. You may need more than \\!\\(\\*\\\"MachinePrecision\\\"\\) digits of working precision to meet these tolerances.\""}],
+StandardForm],"Message",CellID->363],Cell[
+BoxData[RowBox[{"{",RowBox[{"x","\[Rule]",RowBox[
+{RowBox[{"-","4.000000000000005`"}],"-",RowBox[{"8.809095690695997`*^-15"," ","\[ImaginaryI]"}]}]}],"}"}],
+StandardForm],"Output",CellID->365,CellLabel->"Out[64]= "]},Open]],Cell[
+CellGroupData[
+{Cell[
+BoxData[RowBox[{"FindRoot","[","Log","[","x","]","==","Cos","[","x","]",","," ","{","x",",","-","5","}","]"," "," "," ","(*"," ","N39c"," ","*)"}]],
+"Input",CellID->369,CellLabel->"In[65]:= "],Cell[
+BoxData[RowBox[{StyleBox[RowBox[
+{"FindRoot","::","lstol"}],"MessageName"],": ","\"The line search decreased the step size to within tolerance specified by AccuracyGoal and PrecisionGoal but was unable to find a sufficient decrease in the merit function. You may need more than \\!\\(\\*\\\"MachinePrecision\\\"\\) digits of working precision to meet these tolerances.\""}],
+StandardForm],"Message",CellID->370],Cell[
+BoxData[RowBox[{"{",RowBox[{"x","\[Rule]",RowBox[
+{RowBox[{"-","5.000000000000005`"}],"-",RowBox[{"1.1765262560438409`*^-14"," ","\[ImaginaryI]"}]}]}],"}"}],
+StandardForm],"Output",CellID->372,CellLabel->"Out[65]= "]},Open]],Cell[
+CellGroupData[
+{Cell[
+BoxData[RowBox[{"FindRoot","[","Log","[","x","]","==","Cos","[","x","]",","," ","{","x",",","-","6","}","]"," "," "," ","(*"," ","N39c"," ","*)"}]],
+"Input",CellID->376,CellLabel->"In[66]:= "],Cell[
+BoxData[RowBox[{"{",RowBox[{"x","\[Rule]",RowBox[
+{RowBox[{"-","7.261208847566647`"}],"-",RowBox[{"1.9575344532759025`"," ","\[ImaginaryI]"}]}]}],"}"}],
+StandardForm],"Output",CellID->377,CellLabel->"Out[66]= "]},Open]],Cell[
+CellGroupData[
+{Cell[
+BoxData[RowBox[{"FindRoot","[","Log","[","x","]","==","Cos","[","x","]",","," ","{","x",",","-","7","}","]"," "," "," ","(*"," ","N39c"," ","*)"}]],
+"Input",CellID->382,CellLabel->"In[67]:= "],Cell[
+BoxData[RowBox[{"{",RowBox[{"x","\[Rule]",RowBox[
+{RowBox[{"-","7.261208847566647`"}],"+",RowBox[{"1.9575344532759025`"," ","\[ImaginaryI]"}]}]}],"}"}],
+StandardForm],"Output",CellID->383,CellLabel->"Out[67]= "]},Open]],Cell[
+CellGroupData[
+{Cell[
+BoxData[RowBox[{"FindRoot","[","Log","[","x","]","==","Cos","[","x","]",","," ","{","x",",","-","10","}","]"," "," "," ","(*"," ","N39c"," ","*)"}]],
+"Input",CellID->388,CellLabel->"In[70]:= "],Cell[
+BoxData[RowBox[{StyleBox[RowBox[
+{"FindRoot","::","lstol"}],"MessageName"],": ","\"The line search decreased the step size to within tolerance specified by AccuracyGoal and PrecisionGoal but was unable to find a sufficient decrease in the merit function. You may need more than \\!\\(\\*\\\"MachinePrecision\\\"\\) digits of working precision to meet these tolerances.\""}],
+StandardForm],"Message",CellID->399],Cell[
+BoxData[RowBox[{"{",RowBox[{"x","\[Rule]",RowBox[
+{RowBox[{"-","10.000000000000016`"}],"-",RowBox[{"1.686888389348242`*^-14"," ","\[ImaginaryI]"}]}]}],"}"}],
+StandardForm],"Output",CellID->401,CellLabel->"Out[70]= "]},Open]],Cell[
+CellGroupData[
+{Cell[
+BoxData[RowBox[{"FindRoot","[","Cos","[","Sin","[","4","x","]","]","==","Sqrt","[","x","]",",","{","x",",","100","}","]"," "," "," ","(*"," ","N39d"," ","*)"}]],
+"Input",CellID->405,CellLabel->"In[85]:= "],Cell[
+BoxData[RowBox[{"{",RowBox[{"x","\[Rule]",RowBox[
+{RowBox[{"-","11.155861041301295`"}],"-",RowBox[{"0.4020876036623856`"," ","\[ImaginaryI]"}]}]}],"}"}],
+StandardForm],"Output",CellID->492,CellLabel->"Out[85]= "]},Open]],Cell[
+CellGroupData[
+{Cell[
+BoxData[RowBox[{"FindRoot","[","Cos","[","Sin","[","4","x","]","]","==","Sqrt","[","x","]",",","{","x",",","10","}","]"," "," "," ","(*"," ","N39d"," ","*)"}]],
+"Input",CellID->474,CellLabel->"In[86]:= "],Cell[
+BoxData[RowBox[{"{",RowBox[{"x","\[Rule]","0.5951373872094181`"}],"}"}],
+StandardForm],"Output",CellID->497,CellLabel->"Out[86]= "]},Open]],Cell[
+CellGroupData[
+{Cell[
+BoxData[RowBox[{"FindRoot","[","Cos","[","Sin","[","4","x","]","]","==","Sqrt","[","x","]",",","{","x",",","0","}","]"," "," "," ","(*"," ","N39d"," ","*)"}]],
+"Input",CellID->480,CellLabel->"In[83]:= "],Cell[
+BoxData[RowBox[{"{",RowBox[{"x","\[Rule]","0.32529296993367146`"}],"}"}],
+StandardForm],"Output",CellID->481,CellLabel->"Out[83]= "]},Open]],Cell[
+CellGroupData[
+{Cell[
+BoxData[RowBox[{"FindRoot","[","Cos","[","Sin","[","4","x","]","]","==","Sqrt","[","x","]",",","{","x",",","-","10","}","]"," "," "," ","(*"," ","N39d"," ","*)"}]],
+"Input",CellID->486,CellLabel->"In[88]:= "],Cell[
+BoxData[RowBox[{StyleBox[RowBox[
+{"FindRoot","::","lstol"}],"MessageName"],": ","\"The line search decreased the step size to within tolerance specified by AccuracyGoal and PrecisionGoal but was unable to find a sufficient decrease in the merit function. You may need more than \\!\\(\\*\\\"MachinePrecision\\\"\\) digits of working precision to meet these tolerances.\""}],
+StandardForm],"Message",CellID->507],Cell[
+BoxData[RowBox[{"{",RowBox[{"x","\[Rule]",RowBox[
+{RowBox[{"-","9.999999999999993`"}],"-",RowBox[{"1.9323236912709014`*^-14"," ","\[ImaginaryI]"}]}]}],"}"}],
+StandardForm],"Output",CellID->509,CellLabel->"Out[88]= "]},Open]],Cell[
+CellGroupData[
+{Cell[
+BoxData[RowBox[{"FindRoot","[","{","x","+","2","y","-","z","==","1",",","2","x","-","y","-","z","==","3",",","-","1","x","+","2","y","+","3","z","==","7","}",",","{","x",",","1000","}",",","{","y",",","1000","}",",","{","z",",","1000","}","]"," "," "," ","(*"," ","N39e"," ","*)"}]],
+"Input",CellID->437,CellLabel->"In[94]:= "],Cell[
+BoxData[RowBox[{"{",RowBox[{RowBox[
+{"x","\[Rule]","3.2857142857142856`"}],",",RowBox[{"y","\[Rule]","0.42857142857142855`"}],",",RowBox[
+{"z","\[Rule]","3.142857142857143`"}]}],"}"}],StandardForm],"Output",CellID->542,
+CellLabel->"Out[94]= "]},Open]],Cell[
+CellGroupData[{Cell[
+BoxData[RowBox[{"FindRoot","[","{","x","+","2","y","-","z","==","1",",","2","x","-","y","-","z","==","3",",","-","1","x","+","2","y","+","3","z","==","7","}",",","{","x",",","0","}",",","{","y",",","0","}",",","{","z",",","0","}","]"," "," "," ","(*"," ","N39e"," ","*)"}]],
+"Input",CellID->514,CellLabel->"In[89]:= "],Cell[
+BoxData[RowBox[{"{",RowBox[{RowBox[
+{"x","\[Rule]","3.285714285714286`"}],",",RowBox[{"y","\[Rule]","0.42857142857142866`"}],",",RowBox[
+{"z","\[Rule]","3.1428571428571432`"}]}],"}"}],StandardForm],"Output",CellID->515,
+CellLabel->"Out[89]= "]},Open]],Cell[
+CellGroupData[{Cell[
+BoxData[RowBox[{"FindRoot","[","{","x","+","2","y","-","z","==","1",",","2","x","-","y","-","z","==","3",",","-","1","x","+","2","y","+","3","z","==","7","}",",","{","x",",","-","10","}",",","{","y",",","0","}",",","{","z",",","-","10000","}","]"," "," "," ","(*"," ","N39e"," ","*)"}]],
+"Input",CellID->520,CellLabel->"In[96]:= "],Cell[
+BoxData[RowBox[{"{",RowBox[{RowBox[
+{"x","\[Rule]","3.2857142857142856`"}],",",RowBox[{"y","\[Rule]","0.4285714285714286`"}],",",RowBox[
+{"z","\[Rule]","3.142857142857143`"}]}],"}"}],StandardForm],"Output",CellID->552,
+CellLabel->"Out[96]= "]},Open]]},StyleDefinitions->"Default.nb",WindowSize->{976,610},
+FrontEndVersion->"10.0 for Wolfram Cloud Platform (June 2 2014)"]
