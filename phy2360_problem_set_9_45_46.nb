@@ -1,0 +1,60 @@
+Notebook[{Cell[
+CellGroupData[{Cell[
+BoxData[RowBox[{"Integrate","[","(","5","x","-","2",")","*","DiracDelta","[","2","-","x","]",","," ","{","x",","," ","0",","," ","3","}","]"," "," ","(*N45a*)"}]],
+"Input",CellID->57,CellLabel->"In[26]:= "],Cell[
+BoxData["8",StandardForm],"Output",
+CellID->90,CellLabel->"Out[26]= "]},Open]],Cell[
+CellGroupData[{Cell[
+BoxData[RowBox[
+{"Integrate","[","Cos","[","x","]","*","DiracDelta","[","-","2","x","]",","," ","{","x",","," ","-","1",",","1","}","]"," "," ","(*N45b*)"}]],
+"Input",CellID->2,CellLabel->"In[31]:= "],Cell[
+BoxData[FractionBox["1","2"],StandardForm],
+"Output",CellID->3,CellLabel->"Out[31]= "]},Open]],Cell[
+CellGroupData[{Cell[
+BoxData[
+RowBox[{"Integrate","[","(","Tan","[","\[Theta]","]","/","(","1","+","(","Sin","[","\[Theta]","]",")","^","2",")",")","*","DiracDelta","[","\[Theta]","+","Pi","]",","," ","{","\[Theta]",","," ","0",",","2","*","Pi","}","]"," "," ","(*N45c*)"}]],
+"Input",CellID->7,CellLabel->"In[34]:= "],Cell[
+BoxData["0",StandardForm],"Output",
+CellID->21,CellLabel->"Out[34]= "]},Open]],Cell[
+CellGroupData[{Cell[
+BoxData[RowBox[
+{"Integrate","[","\[Phi]","[","x","]","*","DiracDelta","[","x","^","2","-","a","^","2","]",","," ","{","x",","," ","0",",","Infinity","}","]"," "," ","(*N45d*)"}]],
+"Input",CellID->20,CellLabel->"In[35]:= "],Cell[
+BoxData[FormBox[RowBox[{"ConditionalExpression","[",RowBox[
+{FractionBox[RowBox[{RowBox[{RowBox[{"\[Phi]","(",RowBox[{"-","a"}],")"}]," ",RowBox[
+{"Boole","[",RowBox[{"a","<","0"}],"]"}]}],"+",RowBox[{RowBox[{"\[Phi]","(","a",")"}]," ",RowBox[
+{"Boole","[",RowBox[{"a",">","0"}],"]"}]}]}],RowBox[{"2"," ",TemplateBox[{"a"},"Abs"]}]],",",RowBox[
+{"a","\[NotEqual]","0"}]}],"]"}],TraditionalForm]],"Output",CellLabel->"Out[35]= "]},
+Open]],Cell[
+CellGroupData[{Cell[
+BoxData[RowBox[{"Integrate","[","Cos","[","x","]","*","DiracDelta","[","Sin","[","x","]","]",","," ","{","x",","," ","-","Pi","/","2",",","Pi","/","2","}","]"," "," ","(*N45e*)"}]],
+"Input",CellID->28,CellLabel->"In[36]:= "],Cell[
+BoxData["1",StandardForm],"Output",
+CellID->29,CellLabel->"Out[36]= "]},Open]],Cell[
+CellGroupData[{Cell[
+BoxData[{RowBox[
+{"(*"," ","UNFINISHED"," ","CODE"," ","BELOW"," ","THIS"," ","LINE"," ","*)","\n","dirac\[LetterSpace]delta\[LetterSpace]3d","[","{","r_",",","\[Theta]_",",","\[Phi]_","}",",","{","r0_",",","\[Theta]0_",",","\[Phi]0_","}","]","=","(","DiracDelta","[","r","-","r0","]","/","r","^","2",")","*","(","DiracDelta","[","Cos","[","\[Theta]","]","-","Cos","[","\[Theta]0","]","]",")","*","(","DiracDelta","[","\[Phi]","-","\[Phi]0","]",")"," "," ","(*N46*)"}],"\n",RowBox[
+{"dirac\[LetterSpace]delta\[LetterSpace]3d\[LetterSpace]phi","[","{","r_",",","\[Theta]_",",","\[Phi]_","}",",","{","r0_",",","\[Theta]0_",",","\[Phi]0_","}","]","=","dirac\[LetterSpace]delta\[LetterSpace]3d","[","{","r",",","\[Theta]",",","\[Phi]","}",",","{","r0",",","\[Theta]0",",","\[Phi]0","}","]","*","\[Phi]","[","{","r",",","\[Theta]",",","\[Phi]","}","]"," "}],"\n",RowBox[
+{"Integrate","[","\n","Integrate","[","\n","Integrate","[","dirac\[LetterSpace]delta\[LetterSpace]3d\[LetterSpace]phi","[","{","r",",","\[Theta]",",","\[Phi]","}",",","{","r0",",","\[Theta]0",",","\[Phi]0","}","]","*","r","^","2","*","Sin","[","\[Theta]","]",",","r","]",",","\n","\[Theta]","]",",","\n","\[Phi]","]"}]}],
+"Input",CellID->34,CellLabel->"In[121]:= "],Cell[
+BoxData[FractionBox[RowBox[{RowBox[
+{"DiracDelta","[",RowBox[{"r","-","r0"}],"]"}]," ",RowBox[{"DiracDelta","[",RowBox[
+{"\[Phi]","-","\[Phi]0"}],"]"}]," ",RowBox[{"DiracDelta","[",RowBox[{RowBox[{"Cos","[","\[Theta]","]"}],"-",RowBox[
+{"Cos","[","\[Theta]0","]"}]}],"]"}]}],SuperscriptBox["r","2"]],StandardForm],"Output",
+CellID->183,CellLabel->"Out[121]= "],Cell[
+BoxData[FractionBox[RowBox[{RowBox[{"DiracDelta","[",RowBox[
+{"r","-","r0"}],"]"}]," ",RowBox[{"DiracDelta","[",RowBox[{"\[Phi]","-","\[Phi]0"}],"]"}]," ",RowBox[
+{"DiracDelta","[",RowBox[{RowBox[{"Cos","[","\[Theta]","]"}],"-",RowBox[{"Cos","[","\[Theta]0","]"}]}],"]"}]," ",RowBox[
+{"\[Phi]","[",RowBox[{"{",RowBox[{"r",",","\[Theta]",",","\[Phi]"}],"}"}],"]"}]}],
+SuperscriptBox["r","2"]],StandardForm],"Output",CellID->185,CellLabel->"Out[122]= "],Cell[
+BoxData[
+RowBox[{"\[Integral]",RowBox[{RowBox[{RowBox[{"DiracDelta","[",RowBox[{"\[Phi]","-","\[Phi]0"}],"]"}]," ",RowBox[
+{"\[Integral]",RowBox[{RowBox[{RowBox[{"DiracDelta","[",RowBox[{RowBox[{"Cos","[","\[Theta]","]"}],"-",RowBox[
+{"Cos","[","\[Theta]0","]"}]}],"]"}]," ",RowBox[{"(",RowBox[{"\[Integral]",RowBox[
+{RowBox[{RowBox[{"DiracDelta","[",RowBox[{"r","-","r0"}],"]"}]," ",RowBox[{"\[Phi]","[",RowBox[
+{"{",RowBox[{"r",",","\[Theta]",",","\[Phi]"}],"}"}],"]"}]}],RowBox[{"\[DifferentialD]","r"}]}]}],")"}]," ",RowBox[
+{"Sin","[","\[Theta]","]"}]}],RowBox[{"\[DifferentialD]","\[Theta]"}]}]}]}],RowBox[
+{"\[DifferentialD]","\[Phi]"}]}]}],StandardForm],"Output",CellID->186,CellLabel->"Out[123]= "]},
+Open]],Cell[
+BoxData[RowBox[{}]],"Input",CellID->58]},StyleDefinitions->"Default.nb",
+WindowSize->{976,610},FrontEndVersion->"10.0 for Wolfram Cloud Platform (June 2 2014)"]
