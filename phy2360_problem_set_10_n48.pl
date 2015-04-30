@@ -50,7 +50,7 @@ $template_sequence =~ s/C/X/gxms;
 $template_sequence =~ s/G/C/gxms;
 $template_sequence =~ s/X/G/gxms;
 
-my string__array_ref $template_sequence_split
+my string_arrayref $template_sequence_split
     = [ split "\n", $template_sequence ];
 $template_sequence_split = [ reverse @{$template_sequence_split} ];
 
@@ -78,7 +78,7 @@ print '[[ DNA DICTIONARY ]]' . "\n\n";
 
 print '[ QUESTION 1 ]' . "\n";
 
-my string__hash_ref $codon_table = {
+my string_hashref $codon_table = {
     'TTT' => 'F', 'TTC' => 'F', 'TTA' => 'L', 'TTG' => 'L',
     'TCT' => 'S', 'TCC' => 'S', 'TCA' => 'S', 'TCG' => 'S',
     'TAT' => 'Y', 'TAC' => 'Y', 'TAA' => '*', 'TAG' => '*',
@@ -105,7 +105,7 @@ print '$codon_table->{' . $codon . '} = ' . $codon_table->{$codon} . "\n\n";
 
 print '[ QUESTION 2 ]' . "\n";
 
-my string__hash_ref $amino_acid_table = {
+my string_hashref $amino_acid_table = {
     'A' => 'alanine',
     'C' => 'cystine',
     'D' => 'aspartic acid',
@@ -137,7 +137,7 @@ print '$amino_acid_table->{$codon_table->{'
 print '[ QUESTION 3 ]' . "\n";
 
 use Storable qw(dclone);
-my string__hash_ref $mitochondrial_table = dclone $codon_table;
+my string_hashref $mitochondrial_table = dclone $codon_table;
 $mitochondrial_table->{AGA} = '*';    # stop
 $mitochondrial_table->{AGG} = '*';    # stop
 $mitochondrial_table->{TGA} = 'W';    # tryptophan
@@ -149,7 +149,7 @@ print '$mitochondrial_table =' . "\n"
 
 print '[ QUESTION 4 BONUS ]' . "\n";
 
-my string__array_ref $codon_table_serine = [];
+my string_arrayref $codon_table_serine = [];
 
 foreach my string $codon ( sort keys %{$codon_table} ) {
     if ( $codon_table->{$codon} eq 'S' ) {
@@ -215,7 +215,7 @@ print "\n";
 
 print '[ QUESTION 4 BONUS ]' . "\n";
 
-my integer__hash_ref $codon_count = {};
+my integer_hashref $codon_count = {};
 foreach my string $amino_acid_abbreviation (sort keys %{$amino_acid_table}) {
     $codon_count->{$amino_acid_abbreviation} = 0;
 }
@@ -241,7 +241,7 @@ print '$combinations = ' . $combinations . "\n\n";
 print '[[[ PROBLEM SET 10, N48B BONUS ]]]' . "\n\n";
 
 my integer $base_count = length $coding_sequence_flat;
-#my string__hash_ref $base_table = {
+#my string_hashref $base_table = {
 #    A => 'adenine',
 #    C => 'cytosine',
 #    G => 'guanine',
