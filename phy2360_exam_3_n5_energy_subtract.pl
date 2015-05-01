@@ -24,9 +24,9 @@ Will the Chill -L<e-mail|william.braswell@autoparallel.com>
 =cut
 
 # [[[ USER-EDITABLE INPUT VARIABLES ]]]
-my string $input_data1a_file = 'phy2360_exam_3_data1a.txt';
-my string $input_data1b_file = 'phy2360_exam_3_data1b.txt';
-my string $output_data_file  = 'phy2360_exam_3_data_subtracted.txt';
+my string $input_data1a_file = 'phy2360_exam_3_n5_data1a.txt';
+my string $input_data1b_file = 'phy2360_exam_3_n5_data1b.txt';
+my string $output_data_file  = 'phy2360_exam_3_n5_data_subtracted.txt';
 
 # [[[ INCLUDES ]]]
 

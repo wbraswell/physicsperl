@@ -111,7 +111,7 @@ for my integer $a ( $a_min .. $a_max ) {
 }
 
 print '$pythagorean_triples = ' . "\n"
-    . stringify_pythagorean_triples($pythagorean_triples) . "\n";
+    . stringify_pythagorean_triples($pythagorean_triples) . "\n\n";
 
 $is_primitive = 1;
 foreach my integer_arrayref $pythagorean_triple ( @{$pythagorean_triples} )
