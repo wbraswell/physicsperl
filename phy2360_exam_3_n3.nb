@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    134679,       2366]
-NotebookOptionsPosition[    133949,       2337]
-NotebookOutlinePosition[    134283,       2352]
-CellTagsIndexPosition[    134240,       2349]
+NotebookDataLength[    144675,       2569]
+NotebookOptionsPosition[    143855,       2538]
+NotebookOutlinePosition[    144189,       2553]
+CellTagsIndexPosition[    144146,       2550]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -22,20 +22,31 @@ Notebook[{
 Cell[CellGroupData[{
 Cell[BoxData[{
  RowBox[{
-  RowBox[{"ClearAll", "[", "\[CapitalPhi]", "]"}], ";", "  ", 
+  RowBox[{"ClearAll", "[", "\[CapitalPhi]\[LetterSpace]spherical", "]"}], ";",
+   "  ", 
   RowBox[{"ClearAll", "[", "r", "]"}], ";", "  ", 
   RowBox[{"ClearAll", "[", "\[Theta]", "]"}], ";", "  ", 
   RowBox[{"ClearAll", "[", "\[Phi]", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ClearAll", "[", "r\[LetterSpace]val", "]"}], ";", "  ", 
+  RowBox[{"ClearAll", "[", "\[Theta]\[LetterSpace]val", "]"}], ";", "  ", 
+  RowBox[{"ClearAll", "[", "\[Phi]\[LetterSpace]val", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ClearAll", "[", "r\[LetterSpace]name", "]"}], ";", "  ", 
+  RowBox[{"ClearAll", "[", "\[Theta]\[LetterSpace]name", "]"}], ";", "  ", 
+  RowBox[{"ClearAll", "[", "\[Phi]\[LetterSpace]name", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
  RowBox[{"  ", 
   RowBox[{
    RowBox[{"ClearAll", "[", "\[Epsilon]0", "]"}], ";", "  ", 
    RowBox[{"ClearAll", "[", "p", "]"}], ";", "  ", 
-   RowBox[{"ClearAll", "[", "Electrostatic", "]"}], 
+   RowBox[{"ClearAll", "[", "Electrostatic\[LetterSpace]spherical", "]"}], 
    ";"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
-    RowBox[{"\[CapitalPhi]", "[", 
+    RowBox[{"\[CapitalPhi]\[LetterSpace]spherical", "[", 
      RowBox[{"r_", ",", "\[Theta]_", ",", "\[Phi]_"}], "]"}], ":=", 
     RowBox[{
      RowBox[{"(", 
@@ -50,42 +61,68 @@ Cell[BoxData[{
        RowBox[{"(", 
         RowBox[{"r", "^", "2"}], ")"}]}], ")"}]}]}], ";"}], 
   " "}], "\[IndentingNewLine]", 
- RowBox[{"\"\<\[CapitalPhi](r,\[Theta],\[Phi]) = \>\"", " ", "<>", " ", 
+ RowBox[{"\"\<\[CapitalPhi]\[LetterSpace]spherical[r,\[Theta],\[Phi]] = \>\"",
+   " ", "<>", " ", 
   RowBox[{"ToString", "[", 
    RowBox[{
-    RowBox[{"\[CapitalPhi]", "[", 
+    RowBox[{"\[CapitalPhi]\[LetterSpace]spherical", "[", 
      RowBox[{"r", ",", "\[Theta]", ",", "\[Phi]"}], "]"}], ",", " ", 
     "TraditionalForm"}], "]"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-   RowBox[{
-    RowBox[{"Electrostatic", "[", 
-     RowBox[{"r_", ",", "\[Theta]_", ",", "\[Phi]_"}], "]"}], ":=", 
-    RowBox[{"Normal", "[", 
-     RowBox[{"-", 
-      RowBox[{"Grad", "[", 
-       RowBox[{
-        RowBox[{"\[CapitalPhi]", "[", 
-         RowBox[{"r", ",", "\[Theta]", ",", "\[Phi]"}], "]"}], ",", 
-        RowBox[{"{", 
-         RowBox[{"r", ",", "\[Theta]", ",", "\[Phi]"}], "}"}], ",", 
-        "\"\<Spherical\>\""}], "]"}]}], "]"}]}], ";"}], "  ", 
-  RowBox[{"(*", " ", "N3a", " ", "*)"}]}], "\[IndentingNewLine]", 
- RowBox[{"\"\<Electrostatic(r,\[Theta],\[Phi]) = \>\"", " ", "<>", " ", 
-  RowBox[{"ToString", "[", 
-   RowBox[{
-    RowBox[{"Electrostatic", "[", 
-     RowBox[{"r", ",", "\[Theta]", ",", "\[Phi]"}], "]"}], ",", " ", 
-    "TraditionalForm"}], "]"}]}]}], "Input"],
+   RowBox[{"Electrostatic\[LetterSpace]spherical", "[", 
+    RowBox[{
+    "r\[LetterSpace]val_", ",", "\[Theta]\[LetterSpace]val_", ",", 
+     "\[Phi]\[LetterSpace]val_", ",", "r\[LetterSpace]name_", ",", 
+     "\[Theta]\[LetterSpace]name_", ",", "\[Phi]\[LetterSpace]name_", ",", 
+     "coords\[LetterSpace]name_"}], "]"}], ":=", 
+   RowBox[{"Normal", "[", 
+    RowBox[{"-", 
+     RowBox[{"Grad", "[", 
+      RowBox[{
+       RowBox[{"\[CapitalPhi]\[LetterSpace]spherical", "[", 
+        RowBox[{
+        "r\[LetterSpace]val", ",", "\[Theta]\[LetterSpace]val", ",", 
+         "\[Phi]\[LetterSpace]val"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+        "r\[LetterSpace]name", ",", "\[Theta]\[LetterSpace]name", ",", 
+         "\[Phi]\[LetterSpace]name"}], "}"}], ",", 
+       "coords\[LetterSpace]name"}], "]"}]}], "]"}]}], ";", "  ", 
+  RowBox[{"(*", " ", "N3a", " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+  "\"\<Electrostatic\[LetterSpace]spherical[r,\[Theta],\[Phi],r,\[Theta],\
+\[Phi]] = \>\"", " ", "<>", " ", 
+   RowBox[{"ToString", "[", 
+    RowBox[{
+     RowBox[{"Electrostatic\[LetterSpace]spherical", "[", 
+      RowBox[{
+      "r", ",", "\[Theta]", ",", "\[Phi]", ",", "r", ",", "\[Theta]", ",", 
+       "\[Phi]", ",", "\"\<Spherical\>\""}], "]"}], ",", " ", 
+     "TraditionalForm"}], "]"}]}]}]}], "Input",
+ CellChangeTimes->{{3.639691049891815*^9, 3.6396910507950687`*^9}, {
+  3.6396913408891277`*^9, 3.6396913423258343`*^9}, {3.6396947444496717`*^9, 
+  3.639694806469822*^9}, {3.639695151029006*^9, 3.6396951510414352`*^9}, {
+  3.639696941010603*^9, 3.639696979927395*^9}, {3.639697110897655*^9, 
+  3.6396972112365913`*^9}, {3.639697317893442*^9, 3.639697351951249*^9}}],
 
-Cell[BoxData["\<\"\[CapitalPhi](r,\[Theta],\[Phi]) = \\!\\(TraditionalForm\\`\
-\\(p\\\\ \\(\\(cos(\[Theta])\\)\\)\\)\\/\\(4\\\\ \[Pi]\\\\ r\\^2\\\\ \
-\[Epsilon]0\\)\\)\"\>"], "Output"],
+Cell[BoxData["\<\"\[CapitalPhi]\[LetterSpace]spherical[r,\[Theta],\[Phi]] = \
+\\!\\(TraditionalForm\\`\\(p\\\\ \\(\\(cos(\[Theta])\\)\\)\\)\\/\\(4\\\\ \
+\[Pi]\\\\ r\\^2\\\\ \[Epsilon]0\\)\\)\"\>"], "Output",
+ CellChangeTimes->{
+  3.6396954815068417`*^9, 3.6396970273755608`*^9, {3.639697141094242*^9, 
+   3.6396971589196033`*^9}, 3.639697213696137*^9, 3.639697358119536*^9, 
+   3.639697761688608*^9}],
 
-Cell[BoxData["\<\"Electrostatic(r,\[Theta],\[Phi]) = \\!\\(TraditionalForm\\`\
-\\({\\(p\\\\ \\(\\(cos(\[Theta])\\)\\)\\)\\/\\(2\\\\ \[Pi]\\\\ r\\^3\\\\ \
-\[Epsilon]0\\), \\(p\\\\ \\(\\(sin(\[Theta])\\)\\)\\)\\/\\(4\\\\ \[Pi]\\\\ \
-r\\^3\\\\ \[Epsilon]0\\), 0}\\)\\)\"\>"], "Output"]
+Cell[BoxData["\<\"Electrostatic\[LetterSpace]spherical[r,\[Theta],\[Phi],r,\
+\[Theta],\[Phi]] = \\!\\(TraditionalForm\\`\\({\\(p\\\\ \
+\\(\\(cos(\[Theta])\\)\\)\\)\\/\\(2\\\\ \[Pi]\\\\ r\\^3\\\\ \[Epsilon]0\\), \
+\\(p\\\\ \\(\\(sin(\[Theta])\\)\\)\\)\\/\\(4\\\\ \[Pi]\\\\ r\\^3\\\\ \
+\[Epsilon]0\\), 0}\\)\\)\"\>"], "Output",
+ CellChangeTimes->{
+  3.6396954815068417`*^9, 3.6396970273755608`*^9, {3.639697141094242*^9, 
+   3.6396971589196033`*^9}, 3.639697213696137*^9, 3.639697358119536*^9, 
+   3.639697761695858*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -94,54 +131,64 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"ClearAll", "[", "x", "]"}], ";", "  ", 
   RowBox[{"ClearAll", "[", "y", "]"}], ";", "  ", 
-  RowBox[{"ClearAll", "[", "z", "]"}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"ClearAll", "[", "z", "]"}], ";", "  ", 
+  RowBox[{"ClearAll", "[", "p", "]"}], ";", "  ", 
+  RowBox[{"ClearAll", "[", "\[Epsilon]0", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+  "ClearAll", "[", 
+   "\[CapitalPhi]\[LetterSpace]cartesian\[LetterSpace]spherical", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"ClearAll", "[", "\[CapitalPhi]\[LetterSpace]cartesian", "]"}], 
    ";", "  ", 
    RowBox[{"ClearAll", "[", "Electrostatic\[LetterSpace]cartesian", "]"}], 
-   ";"}], "\[IndentingNewLine]", 
+   ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
   RowBox[{"(*", " ", 
    RowBox[{
-    RowBox[{"NOTE", ":", " ", 
+    RowBox[{"CoordinateTransform", "[", 
      RowBox[{
-     "MUST", " ", "FIRST", " ", "CONVERT", " ", "PHI", " ", "TO", " ", 
-      "CARTESIAN"}]}], ",", " ", 
+      RowBox[{"\"\<Cartesian\>\"", "\[Rule]", "\"\<Spherical\>\""}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], "]"}], "  ", "//", " ", 
     RowBox[{
-    "THEN", " ", "TAKE", " ", "GRAD", " ", "A", " ", "2", "ND", " ", "TIME", 
-     RowBox[{"??", 
-      RowBox[{
-       RowBox[{"?", "\[IndentingNewLine]", 
-        RowBox[{"NEED", " ", "USE", " ", 
-         RowBox[{"CoordinateTransform", "[", "]"}], " ", "TO", " ", "CHECK", 
-         " ", "MY", " ", "OWN", " ", "WORK", " ", "HERE", 
-         "\[IndentingNewLine]", 
-         RowBox[{"CoordinateChartData", "[", 
-          RowBox[{
-          "\"\<Spherical\>\"", ",", "\"\<CoordinateRangeAssumptions\>\""}], 
-          "]"}]}]}], ";", 
+     RowBox[{
+     "InputForm", " ", "\[IndentingNewLine]", "outputs", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
        RowBox[{
-        RowBox[{"Electrostatic\[LetterSpace]cartesian", "[", 
-         RowBox[{"x_", ",", "y_", ",", "z_"}], "]"}], "=", 
-        RowBox[{"CoordinateTransform", "[", 
+        RowBox[{"Sqrt", "[", 
          RowBox[{
-          RowBox[{"\"\<Spherical\>\"", "\[Rule]", "\"\<Cartesian\>\""}], ",", 
-          
-          RowBox[{"Electrostatic", "[", 
-           RowBox[{"r", ",", "\[Theta]", ",", "\[Phi]"}], "]"}]}], 
-         "]"}]}]}]}]}]}], " ", "*)"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+          RowBox[{"x", "^", "2"}], "+", 
+          RowBox[{"y", "^", "2"}], "+", 
+          RowBox[{"z", "^", "2"}]}], "]"}], ",", 
+        RowBox[{"ArcTan", "[", 
+         RowBox[{"z", ",", 
+          RowBox[{"Sqrt", "[", 
+           RowBox[{
+            RowBox[{"x", "^", "2"}], "+", 
+            RowBox[{"y", "^", "2"}]}], "]"}]}], "]"}], ",", 
+        RowBox[{"ArcTan", "[", 
+         RowBox[{"x", ",", "y"}], "]"}]}], "}"}], "\[IndentingNewLine]", 
+      "which", " ", "is", " ", "used", " ", "in", " ", 
+      RowBox[{
+      "\[CapitalPhi]\[LetterSpace]cartesian\[LetterSpace]check", "[", "]"}], 
+      " ", "to", " ", "double"}], "-", 
+     RowBox[{"check", " ", "my", " ", 
+      RowBox[{"\[CapitalPhi]\[LetterSpace]cartesian", "[", "]"}], " ", 
+      "calculation"}]}]}], " ", "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"\[CapitalPhi]\[LetterSpace]cartesian", "[", 
     RowBox[{"x_", ",", "y_", ",", "z_"}], "]"}], ":=", 
-   RowBox[{"\[CapitalPhi]", "[", "\[IndentingNewLine]", 
+   RowBox[{"\[CapitalPhi]\[LetterSpace]spherical", "[", 
     RowBox[{
      RowBox[{"Sqrt", "[", 
       RowBox[{
        RowBox[{"x", "^", "2"}], "+", 
        RowBox[{"y", "^", "2"}], "+", 
-       RowBox[{"z", "^", "2"}]}], "]"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"z", "^", "2"}]}], "]"}], ",", 
      RowBox[{"ArcCos", "[", 
       RowBox[{"z", "/", 
        RowBox[{"Sqrt", "[", 
@@ -149,11 +196,10 @@ Cell[BoxData[{
          RowBox[{"x", "^", "2"}], "+", 
          RowBox[{"y", "^", "2"}], "+", 
          RowBox[{"z", "^", "2"}]}], "]"}]}], "]"}], ",", 
-     "\[IndentingNewLine]", 
      RowBox[{"ArcTan", "[", 
       RowBox[{"y", "/", "x"}], "]"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{"\"\<\[CapitalPhi]\[LetterSpace]cartesian(x,y,z) = \>\"", " ", "<>", 
-  " ", 
+ RowBox[{"\"\<\[CapitalPhi]\[LetterSpace]cartesian[x,y,z] =       \>\"", " ", 
+  "<>", " ", 
   RowBox[{"ToString", "[", 
    RowBox[{
     RowBox[{"\[CapitalPhi]\[LetterSpace]cartesian", "[", 
@@ -161,39 +207,192 @@ Cell[BoxData[{
    "]"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
+   RowBox[{"\[CapitalPhi]\[LetterSpace]cartesian\[LetterSpace]check", "[", 
+    RowBox[{"x_", ",", "y_", ",", "z_"}], "]"}], ":=", 
+   RowBox[{"\[CapitalPhi]\[LetterSpace]spherical", "[", 
+    RowBox[{
+     RowBox[{"Sqrt", "[", 
+      RowBox[{
+       RowBox[{"x", "^", "2"}], "+", 
+       RowBox[{"y", "^", "2"}], "+", 
+       RowBox[{"z", "^", "2"}]}], "]"}], ",", 
+     RowBox[{"ArcTan", "[", 
+      RowBox[{"z", ",", 
+       RowBox[{"Sqrt", "[", 
+        RowBox[{
+         RowBox[{"x", "^", "2"}], "+", 
+         RowBox[{"y", "^", "2"}]}], "]"}]}], "]"}], ",", 
+     RowBox[{"ArcTan", "[", 
+      RowBox[{"x", ",", "y"}], "]"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+  "\"\<\[CapitalPhi]\[LetterSpace]cartesian\[LetterSpace]check[x,y,z] = \>\"",
+    " ", "<>", " ", 
+   RowBox[{"ToString", "[", 
+    RowBox[{
+     RowBox[{"\[CapitalPhi]\[LetterSpace]cartesian\[LetterSpace]check", "[", 
+      RowBox[{"x", ",", "y", ",", "z"}], "]"}], ",", " ", "TraditionalForm"}],
+     "]"}]}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
    RowBox[{
     RowBox[{"Electrostatic\[LetterSpace]cartesian", "[", 
-     RowBox[{"x_", ",", "y_", ",", "z_"}], "]"}], ":=", 
+     RowBox[{
+     "x\[LetterSpace]val_", ",", "y\[LetterSpace]val_", ",", 
+      "z\[LetterSpace]val_"}], "]"}], ":=", 
     RowBox[{"Normal", "[", 
      RowBox[{"-", 
       RowBox[{"Grad", "[", 
        RowBox[{
         RowBox[{"\[CapitalPhi]\[LetterSpace]cartesian", "[", 
-         RowBox[{"x", ",", "y", ",", "z"}], "]"}], ",", 
+         RowBox[{
+         "x\[LetterSpace]val", ",", "y\[LetterSpace]val", ",", 
+          "z\[LetterSpace]val"}], "]"}], ",", 
         RowBox[{"{", 
          RowBox[{"x", ",", "y", ",", "z"}], "}"}], ",", "\"\<Cartesian\>\""}],
         "]"}]}], "]"}]}], ";"}], "  ", 
   RowBox[{"(*", " ", "N3b", " ", "*)"}]}], "\[IndentingNewLine]", 
- RowBox[{"\"\<Electrostatic\[LetterSpace]cartesian(x,y,z) = \>\"", " ", "<>", 
-  " ", 
+ RowBox[{
+  RowBox[{
+  "\"\<Electrostatic\[LetterSpace]cartesian[x,y,z] =            \>\"", " ", "<>",
+    " ", 
+   RowBox[{"ToString", "[", 
+    RowBox[{
+     RowBox[{"Electrostatic\[LetterSpace]cartesian", "[", 
+      RowBox[{"x", ",", "y", ",", "z"}], "]"}], ",", " ", "TraditionalForm"}],
+     "]"}]}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Electrostatic\[LetterSpace]cartesian\[LetterSpace]check", "[", 
+    RowBox[{"x_", ",", "y_", ",", "z_"}], "]"}], ":=", 
+   RowBox[{"Electrostatic\[LetterSpace]spherical", "[", 
+    RowBox[{
+     RowBox[{"Sqrt", "[", 
+      RowBox[{
+       RowBox[{"x", "^", "2"}], "+", 
+       RowBox[{"y", "^", "2"}], "+", 
+       RowBox[{"z", "^", "2"}]}], "]"}], ",", 
+     RowBox[{"ArcTan", "[", 
+      RowBox[{"z", ",", 
+       RowBox[{"Sqrt", "[", 
+        RowBox[{
+         RowBox[{"x", "^", "2"}], "+", 
+         RowBox[{"y", "^", "2"}]}], "]"}]}], "]"}], ",", 
+     RowBox[{"ArcTan", "[", 
+      RowBox[{"x", ",", "y"}], "]"}], ",", "x", ",", "y", ",", "z", ",", 
+     "\"\<Cartesian\>\""}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+  "\"\<Electrostatic\[LetterSpace]cartesian\[LetterSpace]check[x,y,z] =      \
+\>\"", " ", "<>", " ", 
+   RowBox[{"ToString", "[", 
+    RowBox[{
+     RowBox[{"Electrostatic\[LetterSpace]cartesian\[LetterSpace]check", "[", 
+      RowBox[{"x", ",", "y", ",", "z"}], "]"}], ",", " ", "TraditionalForm"}],
+     "]"}]}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+   "Electrostatic\[LetterSpace]cartesian\[LetterSpace]check\[LetterSpace]\
+auto", "[", 
+    RowBox[{"x_", ",", "y_", ",", "z_"}], "]"}], ":=", 
+   RowBox[{"Electrostatic\[LetterSpace]spherical", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"CoordinateTransform", "[", 
+       RowBox[{
+        RowBox[{"\"\<Cartesian\>\"", "\[Rule]", "\"\<Spherical\>\""}], ",", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], "]"}], "[", 
+      RowBox[{"[", "1", "]"}], "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"CoordinateTransform", "[", 
+       RowBox[{
+        RowBox[{"\"\<Cartesian\>\"", "\[Rule]", "\"\<Spherical\>\""}], ",", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], "]"}], "[", 
+      RowBox[{"[", "2", "]"}], "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"CoordinateTransform", "[", 
+       RowBox[{
+        RowBox[{"\"\<Cartesian\>\"", "\[Rule]", "\"\<Spherical\>\""}], ",", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], "]"}], "[", 
+      RowBox[{"[", "3", "]"}], "]"}], ",", "\[IndentingNewLine]", "x", ",", 
+     "y", ",", "z", ",", "\"\<Cartesian\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"\"\<Electrostatic\[LetterSpace]cartesian\[LetterSpace]check\
+\[LetterSpace]auto[x,y,z] = \>\"", " ", "<>", " ", 
   RowBox[{"ToString", "[", 
    RowBox[{
-    RowBox[{"Electrostatic\[LetterSpace]cartesian", "[", 
+    RowBox[{
+    "Electrostatic\[LetterSpace]cartesian\[LetterSpace]check\[LetterSpace]\
+auto", "[", 
      RowBox[{"x", ",", "y", ",", "z"}], "]"}], ",", " ", "TraditionalForm"}], 
-   "]"}]}]}], "Input"],
+   "]"}]}]}], "Input",
+ CellChangeTimes->{{3.6396894835570908`*^9, 3.639689571600649*^9}, {
+   3.639689973401348*^9, 3.639690013201971*^9}, {3.639691118000286*^9, 
+   3.639691128197608*^9}, {3.639691385997752*^9, 3.639691389153481*^9}, {
+   3.639691859966724*^9, 3.639692010235651*^9}, {3.6396920681441507`*^9, 
+   3.639692147896986*^9}, {3.639692228207526*^9, 3.639692235390626*^9}, {
+   3.639694676748592*^9, 3.63969467734403*^9}, {3.639694820203635*^9, 
+   3.639694849072541*^9}, {3.639694908728655*^9, 3.639694918938867*^9}, {
+   3.639694980150238*^9, 3.639695064117516*^9}, {3.63969512187992*^9, 
+   3.639695189262364*^9}, {3.639695234563231*^9, 3.639695285428481*^9}, {
+   3.63969555854172*^9, 3.6396956023562202`*^9}, {3.639695633215233*^9, 
+   3.639695670584648*^9}, 3.6396957970529413`*^9, 3.639695861793684*^9, {
+   3.639695902906589*^9, 3.639695935456924*^9}, {3.639695966539332*^9, 
+   3.639696035775383*^9}, {3.639696510999992*^9, 3.639696524274584*^9}, {
+   3.639696566539936*^9, 3.639696612460945*^9}, {3.639696991764689*^9, 
+   3.639697003277739*^9}, {3.639697255402937*^9, 3.639697268406413*^9}, {
+   3.639697393475518*^9, 3.639697443932385*^9}, {3.639697476536635*^9, 
+   3.6396975232357187`*^9}, {3.639697567511587*^9, 3.6396976193386297`*^9}, {
+   3.6396976570417423`*^9, 3.6396977211775303`*^9}}],
 
-Cell[BoxData["\<\"\[CapitalPhi]\[LetterSpace]cartesian(x,y,z) = \
+Cell[BoxData["\<\"\[CapitalPhi]\[LetterSpace]cartesian[x,y,z] =       \
 \\!\\(TraditionalForm\\`\\(p\\\\ z\\)\\/\\(4\\\\ \[Pi]\\\\ \[Epsilon]0\\\\ \
-\\((x\\^2 + y\\^2 + z\\^2)\\)\\^\\(3/2\\)\\)\\)\"\>"], "Output"],
+\\((x\\^2 + y\\^2 + z\\^2)\\)\\^\\(3/2\\)\\)\\)\"\>"], "Output",
+ CellChangeTimes->{{3.639697591936541*^9, 3.63969761976125*^9}, {
+   3.6396976788407593`*^9, 3.639697722246587*^9}, 3.639697762109839*^9}],
 
-Cell[BoxData["\<\"Electrostatic\[LetterSpace]cartesian(x,y,z) = \
+Cell[BoxData["\<\"\[CapitalPhi]\[LetterSpace]cartesian\[LetterSpace]check[x,y,\
+z] = \\!\\(TraditionalForm\\`\\(p\\\\ z\\)\\/\\(4\\\\ \[Pi]\\\\ \[Epsilon]0\\\
+\\ \\((x\\^2 + y\\^2 + z\\^2)\\)\\^\\(3/2\\)\\)\\)\"\>"], "Output",
+ CellChangeTimes->{{3.639697591936541*^9, 3.63969761976125*^9}, {
+   3.6396976788407593`*^9, 3.639697722246587*^9}, 3.6396977621142607`*^9}],
+
+Cell[BoxData["\<\"Electrostatic\[LetterSpace]cartesian[x,y,z] =            \
 \\!\\(TraditionalForm\\`\\({\\(3\\\\ p\\\\ x\\\\ z\\)\\/\\(4\\\\ \[Pi]\\\\ \
 \[Epsilon]0\\\\ \\((x\\^2 + y\\^2 + z\\^2)\\)\\^\\(5/2\\)\\), \\(3\\\\ p\\\\ \
 y\\\\ z\\)\\/\\(4\\\\ \[Pi]\\\\ \[Epsilon]0\\\\ \\((x\\^2 + y\\^2 + z\\^2)\\)\
 \\^\\(5/2\\)\\), \\(\\(\\(3\\\\ p\\\\ z\\^2\\)\\/\\(4\\\\ \[Pi]\\\\ \
 \[Epsilon]0\\\\ \\((x\\^2 + y\\^2 + z\\^2)\\)\\^\\(5/2\\)\\) - p\\/\\(4\\\\ \
 \[Pi]\\\\ \[Epsilon]0\\\\ \\((x\\^2 + y\\^2 + z\\^2)\\)\\^\\(3/2\\)\\)\\)\\)}\
-\\)\\)\"\>"], "Output"]
+\\)\\)\"\>"], "Output",
+ CellChangeTimes->{{3.639697591936541*^9, 3.63969761976125*^9}, {
+   3.6396976788407593`*^9, 3.639697722246587*^9}, 3.639697762119131*^9}],
+
+Cell[BoxData["\<\"Electrostatic\[LetterSpace]cartesian\[LetterSpace]check[x,y,\
+z] =      \\!\\(TraditionalForm\\`\\({\\(3\\\\ p\\\\ x\\\\ z\\)\\/\\(4\\\\ \
+\[Pi]\\\\ \[Epsilon]0\\\\ \\((x\\^2 + y\\^2 + z\\^2)\\)\\^\\(5/2\\)\\), \
+\\(3\\\\ p\\\\ y\\\\ z\\)\\/\\(4\\\\ \[Pi]\\\\ \[Epsilon]0\\\\ \\((x\\^2 + \
+y\\^2 + z\\^2)\\)\\^\\(5/2\\)\\), \\(\\(\\(3\\\\ p\\\\ z\\^2\\)\\/\\(4\\\\ \
+\[Pi]\\\\ \[Epsilon]0\\\\ \\((x\\^2 + y\\^2 + z\\^2)\\)\\^\\(5/2\\)\\) - p\\/\
+\\(4\\\\ \[Pi]\\\\ \[Epsilon]0\\\\ \\((x\\^2 + y\\^2 + \
+z\\^2)\\)\\^\\(3/2\\)\\)\\)\\)}\\)\\)\"\>"], "Output",
+ CellChangeTimes->{{3.639697591936541*^9, 3.63969761976125*^9}, {
+   3.6396976788407593`*^9, 3.639697722246587*^9}, 3.6396977621240053`*^9}],
+
+Cell[BoxData["\<\"Electrostatic\[LetterSpace]cartesian\[LetterSpace]check\
+\[LetterSpace]auto[x,y,z] = \\!\\(TraditionalForm\\`\\({\\(3\\\\ p\\\\ x\\\\ \
+z\\)\\/\\(4\\\\ \[Pi]\\\\ \[Epsilon]0\\\\ \\((x\\^2 + y\\^2 + \
+z\\^2)\\)\\^\\(5/2\\)\\), \\(3\\\\ p\\\\ y\\\\ z\\)\\/\\(4\\\\ \[Pi]\\\\ \
+\[Epsilon]0\\\\ \\((x\\^2 + y\\^2 + z\\^2)\\)\\^\\(5/2\\)\\), \\(\\(\\(3\\\\ \
+p\\\\ z\\^2\\)\\/\\(4\\\\ \[Pi]\\\\ \[Epsilon]0\\\\ \\((x\\^2 + y\\^2 + \
+z\\^2)\\)\\^\\(5/2\\)\\) - p\\/\\(4\\\\ \[Pi]\\\\ \[Epsilon]0\\\\ \\((x\\^2 + \
+y\\^2 + z\\^2)\\)\\^\\(3/2\\)\\)\\)\\)}\\)\\)\"\>"], "Output",
+ CellChangeTimes->{{3.639697591936541*^9, 3.63969761976125*^9}, {
+   3.6396976788407593`*^9, 3.639697722246587*^9}, 3.639697762221691*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -218,7 +417,7 @@ Cell[BoxData[{
   "<>", 
   RowBox[{"ToString", "[", "\[Epsilon]0", "]"}], "<>", 
   "\"\<)\>\""}], "\[IndentingNewLine]", 
- RowBox[{"\"\<Electrostatic\[LetterSpace]cartesian(x,y,z) = \>\"", " ", "<>", 
+ RowBox[{"\"\<Electrostatic\[LetterSpace]cartesian[x,y,z] = \>\"", " ", "<>", 
   " ", 
   RowBox[{"ToString", "[", 
    RowBox[{
@@ -248,18 +447,21 @@ Cell[BoxData[{
     RowBox[{"AxesLabel", "\[Rule]", 
      RowBox[{"{", 
       RowBox[{"x", ",", "y", ",", "z"}], "}"}]}]}], "]"}], "  ", 
-  RowBox[{"(*", " ", "N3b", " ", "*)"}]}], "\[IndentingNewLine]"}], "Input"],
+  RowBox[{"(*", " ", "N3b", " ", "*)"}]}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{3.63969513591826*^9}],
 
 Cell[BoxData["\<\"USING TEST VALUES (p = 1) and (\[Epsilon]0 = 1)\"\>"], \
-"Output"],
+"Output",
+ CellChangeTimes->{3.639697762293951*^9}],
 
-Cell[BoxData["\<\"Electrostatic\[LetterSpace]cartesian(x,y,z) = \
+Cell[BoxData["\<\"Electrostatic\[LetterSpace]cartesian[x,y,z] = \
 \\!\\(TraditionalForm\\`\\({\\(3\\\\ x\\\\ z\\)\\/\\(4\\\\ \[Pi]\\\\ \
 \\((x\\^2 + y\\^2 + z\\^2)\\)\\^\\(5/2\\)\\), \\(3\\\\ y\\\\ z\\)\\/\\(4\\\\ \
 \[Pi]\\\\ \\((x\\^2 + y\\^2 + z\\^2)\\)\\^\\(5/2\\)\\), \\(\\(\\(3\\\\ \
 z\\^2\\)\\/\\(4\\\\ \[Pi]\\\\ \\((x\\^2 + y\\^2 + z\\^2)\\)\\^\\(5/2\\)\\) - \
 1\\/\\(4\\\\ \[Pi]\\\\ \\((x\\^2 + y\\^2 + z\\^2)\\)\\^\\(3/2\\)\\)\\)\\)}\\)\
-\\)\"\>"], "Output"],
+\\)\"\>"], "Output",
+ CellChangeTimes->{3.639697762362789*^9}],
 
 Cell[BoxData[
  Graphics3DBox[{{}, 
@@ -2319,7 +2521,7 @@ Cell[BoxData[
   BoxRatios->{1, 1, 1},
   DisplayFunction->Identity,
   FaceGridsStyle->Automatic,
-  ImageSize->{463., 501.},
+  ImageSize->{360., 396.34683025720483`},
   Method->{
    "DefaultBoundaryStyle" -> Automatic, "TransparentPolygonMesh" -> True},
   PlotRange->Automatic,
@@ -2328,12 +2530,11 @@ Cell[BoxData[
     Scaled[0.02], 
     Scaled[0.02]},
   Ticks->{Automatic, Automatic, Automatic},
-  ViewPoint->{2.010596308975486, -2.487016149552801, 1.1055555862089075`},
-  ViewVertical->{0.3269717434645925, -0.12333662725924803`, 
-   0.9369512022256219}]], "Output"]
-}, Open  ]],
-
-Cell[BoxData[""], "Input"]
+  ViewPoint->{2.0653056396344307`, -2.5758485377471017`, 0.7412940883888998},
+  ViewVertical->{0.2823971523895909, -0.28654963752958906`, 
+   0.915500493475515}]], "Output",
+ CellChangeTimes->{3.639697762665608*^9}]
+}, Open  ]]
 },
 WindowSize->{1440, 827},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
@@ -2352,25 +2553,26 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 2148, 56, 143, "Input"],
-Cell[2731, 80, 184, 2, 50, "Output"],
-Cell[2918, 84, 282, 3, 51, "Output"]
+Cell[580, 22, 3670, 84, 209, "Input"],
+Cell[4253, 108, 400, 6, 50, "Output"],
+Cell[4656, 116, 518, 8, 51, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3237, 92, 3566, 90, 319, "Input"],
-Cell[6806, 184, 207, 2, 54, "Output"],
-Cell[7016, 188, 551, 7, 60, "Output"]
+Cell[5211, 129, 9229, 220, 583, "Input"],
+Cell[14443, 351, 352, 4, 54, "Output"],
+Cell[14798, 357, 367, 4, 54, "Output"],
+Cell[15168, 363, 701, 9, 60, "Output"],
+Cell[15872, 374, 716, 9, 60, "Output"],
+Cell[16591, 385, 727, 9, 60, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[7604, 200, 1907, 50, 165, "Input"],
-Cell[9514, 252, 84, 1, 32, "Output"],
-Cell[9601, 255, 467, 6, 60, "Output"],
-Cell[10071, 263, 123833, 2069, 516, "Output"]
-}, Open  ]],
-Cell[133919, 2335, 26, 0, 32, "Input"]
+Cell[17355, 399, 1948, 51, 165, "Input"],
+Cell[19306, 452, 126, 2, 32, "Output"],
+Cell[19435, 456, 509, 7, 60, "Output"],
+Cell[19947, 465, 123892, 2070, 411, "Output"]
+}, Open  ]]
 }
 ]
 *)
 
 (* End of internal cache information *)
-
