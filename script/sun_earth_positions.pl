@@ -10,9 +10,9 @@
 # <<< RUN_SUCCESS: 'FOO' >>>
 
 # [[[ HEADER ]]]
+use RPerl;
 use strict;
 use warnings;
-use RPerl;
 our $VERSION = 0.003_000;
 
 # [[[ CRITICS ]]]

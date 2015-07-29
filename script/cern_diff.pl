@@ -7,9 +7,9 @@
 # This software takes as input the output of diff (or bdiff) run on a CERN data file, then splits into 3 output files.
 
 # [[[ HEADER ]]]
+#use RPerl;  # disable RPerl for now, although this file is still very close to proper RPerl syntax
 use strict;
 use warnings;
-#use RPerl;  # disable RPerl for now, although this file is still very close to proper RPerl syntax
 use Carp;
 our $VERSION = 0.001_000;
 
