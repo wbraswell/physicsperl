@@ -104,6 +104,6 @@ our PhysicsPerl::Astro::Body_arrayref::method $test = sub {
     ( my PhysicsPerl::Astro::Body $self ) = @_;
     return [$self, $self];
 };
- 
+
 
 1;    # end of class
