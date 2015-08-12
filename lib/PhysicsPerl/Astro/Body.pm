@@ -92,18 +92,11 @@ our PhysicsPerl::Astro::Body $sun = sub {
     return $p;
 };
 
-our PhysicsPerl::Astro::Body::method $offset_momentum = sub {
+our void::method $offset_momentum = sub {
     ( my PhysicsPerl::Astro::Body $self, my number $px, my number $py, my number $pz ) = @_;
     $self->{vx} = -1 * ( $px / SOLAR_MASS() );
     $self->{vy} = -1 * ( $py / SOLAR_MASS() );
     $self->{vz} = -1 * ( $pz / SOLAR_MASS() );
-    return $self;
 };
-
-our PhysicsPerl::Astro::Body_arrayref::method $test = sub {
-    ( my PhysicsPerl::Astro::Body $self ) = @_;
-    return [$self, $self];
-};
-
 
 1;    # end of class

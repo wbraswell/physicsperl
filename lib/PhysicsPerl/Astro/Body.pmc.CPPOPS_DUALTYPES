@@ -37,7 +37,8 @@ sub cpp_load {
 package main;
 use RPerl::Inline;
 BEGIN { RPerl::diag("[[[ BEGIN 'use Inline' STAGE for 'PhysicsPerl/Astro/Body.cpp' ]]]\n" x 1); }
-use Inline (CPP => '$RPerl::INCLUDE_PATH/PhysicsPerl/Astro/Body.cpp', \%RPerl::Inline::ARGS);
+#use Inline (CPP => '$RPerl::INCLUDE_PATH/PhysicsPerl/Astro/Body.cpp', \%RPerl::Inline::ARGS);
+use Inline (CPP => 'lib/PhysicsPerl/Astro/Body.cpp', \%RPerl::Inline::ARGS);
 RPerl::diag("[[[ END 'use Inline' STAGE for 'PhysicsPerl/Astro/Body.cpp' ]]]\n" x 1);
 1;
 EOF

@@ -37,9 +37,9 @@ use Time::HiRes qw(time);
 my $start = time;
 
 #my integer $n = string_to_integer($ARGV[0]);
-my integer $n = 50;
+#my integer $n = 50;
 #my integer $n = 50_000;
-#my integer $n = 50_000_000;
+my integer $n = 50_000_000;
 
 my PhysicsPerl::Astro::System $system = PhysicsPerl::Astro::System->new();
 $system->init();
