@@ -1,0 +1,301 @@
+// [[[ HEADER ]]]
+using std::cout;  using std::cerr;
+
+#ifndef __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp
+#define __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp 0.003_000
+
+// [[[ INCLUDES ]]]
+
+// NEED FIX
+//#include <PhysicsPerl/Astro/System.h>
+#include "/home/wbraswell/school/physicsperl/physicsperl-latest/lib/PhysicsPerl/Astro/System.h"
+
+# ifdef __PERL__TYPES
+
+Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.__We_need_to_define_only___CPP__TYPES_in_this_file!
+
+# elif defined __CPP__TYPES
+
+// [[[<<< BEGIN CPP TYPES >>>]]]
+// [[[<<< BEGIN CPP TYPES >>>]]]
+// [[[<<< BEGIN CPP TYPES >>>]]]
+
+// [[[ OO METHODS & SUBROUTINES ]]]
+
+void PhysicsPerl__Astro__System::init() {
+    
+    // NEED FIX
+//    this->bodies = {PhysicsPerl__Astro__Body::sun(), PhysicsPerl__Astro__Body::jupiter(), PhysicsPerl__Astro__Body::saturn(), PhysicsPerl__Astro__Body::uranus(), PhysicsPerl__Astro__Body::neptune()};  // WRONG SCOPE
+//    this->bodies = {sun(), jupiter(), saturn(), uranus(), neptune()};  // ERROR
+//    this->bodies = {sun()};  // ERROR
+//    this->bodies[0] = sun();  // SEGFAULT
+    this->bodies.push_back(sun());
+    this->bodies.push_back(jupiter());
+    this->bodies.push_back(saturn());
+    this->bodies.push_back(uranus());
+    this->bodies.push_back(neptune());
+    number px = 0.0;
+    number py = 0.0;
+    number pz = 0.0;
+    for ( integer i = 0; i <= ((this->bodies.size()) - 1); i++ ) {
+//    for ( integer i = 0; i < this->bodies.size(); i++ ) {  // NEED UPGRADE: same as above, but more efficient
+        px += this->bodies[i]->vx * this->bodies[i]->mass;
+        py += this->bodies[i]->vy * this->bodies[i]->mass;
+        pz += this->bodies[i]->vz * this->bodies[i]->mass;
+    }
+
+    // NEED FIX: move to offset_momentum()
+    this->bodies[0]->vx = -1 * (px / SOLAR_MASS);
+    this->bodies[0]->vy = -1 * (py / SOLAR_MASS);
+    this->bodies[0]->vz = -1 * (pz / SOLAR_MASS);
+
+//    this->bodies[0]->offset_momentum( px, py, pz );
+}
+
+//void PhysicsPerl__Astro__System::advance(number dt) {
+void PhysicsPerl__Astro__System::advance(number dt, number_arrayref dx_array, number_arrayref dy_array, number_arrayref dz_array, number_arrayref magnitude_array, unsigned int N) {
+//    number_arrayref dx_array, dy_array, dz_array, magnitude_array;
+//    //cerr << "in advance(), have magnitude_array.size 0 =" << magnitude_array.size() << "\n";
+//    //cerr << "in advance(), have magnitude_array.back 0 = " << magnitude_array.back() << "\n";
+    //cerr << "in advance(), have this->bodies.size() = " << this->bodies.size() << "\n";
+
+    number magnitude;
+
+/*
+    //cerr << "in advance(), have magnitude 0 =           " << magnitude << "\n";
+    magnitude = 42.23;
+    //cerr << "in advance(), have magnitude 1 =           " << magnitude << "\n";
+    magnitude_array.push_back(magnitude);
+    //cerr << "in advance(), have magnitude 2 =           " << magnitude << "\n";
+    //cerr << "in advance(), have magnitude_array.at(0) 0=" << magnitude_array.at(0) << "\n";
+*/
+
+//    __m128d dx, dy, dz, distance_squared, distance;
+    __m128d dx;
+    __m128d dy;
+    __m128d dz;
+    __m128d distance_squared;
+    __m128d distance;
+
+/*
+    unsigned integer N = ((this->bodies.size() - 1) * this->bodies.size()) / 2;
+    dx_array.reserve(N);
+    dy_array.reserve(N);
+    dz_array.reserve(N);
+    magnitude_array.reserve(N);
+*/
+
+    //cerr << "in advance(), have dt =                    " << dt << "\n";
+    //cerr << "in advance(), have N  =                    " << N << "\n";
+
+    integer k = 0;
+    for ( integer i = 0; i <= ((this->bodies.size()) - 1); i++ ) {
+        PhysicsPerl__Astro__Body* i_body = this->bodies[i].get();
+        for ( integer j = i + 1; j <= ((this->bodies.size()) - 1); j++ ) {
+            PhysicsPerl__Astro__Body* j_body = this->bodies[j].get();
+            dx_array[k] = i_body->x - j_body->x;
+            dy_array[k] = i_body->y - j_body->y;
+            dz_array[k] = i_body->z - j_body->z;
+            
+//            dx_array.push_back(i_body->x - j_body->x);
+//            dy_array.push_back(i_body->y - j_body->y);
+//            dz_array.push_back(i_body->z - j_body->z);
+            k++;
+        }
+    }
+
+    for ( integer i = 0; i < N; i++ ) {
+        //cerr << "in advance(), have dx_array.at(" << i << ") =        " << dx_array.at(i) << "\n";
+        //cerr << "in advance(), have dy_array.at(" << i << ") =        " << dy_array.at(i) << "\n";
+        //cerr << "in advance(), have dz_array.at(" << i << ") =        " << dz_array.at(i) << "\n";
+    }
+
+    for ( integer i = 0; i < N; i +=  2) {
+        //cerr << "in advance(), have magloop i =             " << i << "\n";
+//        dx_array.at(0) = 21.12;
+/*
+        //cerr << "in advance(), have dx_array.at(0) 0 =      " << dx_array.at(0) << "\n";
+        //cerr << "in advance(), have dx_array.at(" << i << ") =        " << dx_array.at(i) << "\n";
+        //cerr << "in advance(), have dx_array.at(" << (i + 1) << ") =        " << dx_array.at(i+1) << "\n";
+        //cerr << "in advance(), have dy_array.at(" << i << ") =        " << dy_array.at(i) << "\n";
+        //cerr << "in advance(), have dy_array.at(" << (i + 1) << ") =        " << dy_array.at(i+1) << "\n";
+        //cerr << "in advance(), have dz_array.at(" << i << ") =        " << dz_array.at(i) << "\n";
+        //cerr << "in advance(), have dz_array.at(" << (i + 1) << ") =        " << dz_array.at(i+1) << "\n";
+*/
+
+//        //cerr << "in advance(), have dx_array.at(0) 1a =     " << dx_array.at(0) << "\n";
+//        dx = _mm_loadl_pd(dx, &dx_array.at(i));
+        dx = _mm_loadl_pd(dx, &dx_array[i]);
+//        //cerr << "in advance(), have dx_array.at(0) 1b =     " << dx_array.at(0) << "\n";
+//        dx = _mm_loadh_pd(dx, &dx_array.at(i+1));
+        dx = _mm_loadh_pd(dx, &dx_array[i+1]);
+//        //cerr << "in advance(), have dx_array.at(0) 1c =     " << dx_array.at(0) << "\n";
+//        dy = _mm_loadl_pd(dy, &dy_array.at(i));
+        dy = _mm_loadl_pd(dy, &dy_array[i]);
+//        //cerr << "in advance(), have dx_array.at(0) 1d =     " << dx_array.at(0) << "\n";
+//        dy = _mm_loadh_pd(dy, &dy_array.at(i+1));
+        dy = _mm_loadh_pd(dy, &dy_array[i+1]);
+//        //cerr << "in advance(), have dx_array.at(0) 1e =     " << dx_array.at(0) << "\n";
+//        dz = _mm_loadl_pd(dz, &dz_array.at(i));
+        dz = _mm_loadl_pd(dz, &dz_array[i]);
+//        //cerr << "in advance(), have dx_array.at(0) 1f =     " << dx_array.at(0) << "\n";
+//        dz = _mm_loadh_pd(dz, &dz_array.at(i+1));
+        dz = _mm_loadh_pd(dz, &dz_array[i+1]);
+
+        //cerr << "in advance(), have dx low  =               " << dx[0] << "\n";
+        //cerr << "in advance(), have dx high =               " << dx[1] << "\n";
+        //cerr << "in advance(), have dy low  =               " << dy[0] << "\n";
+        //cerr << "in advance(), have dy high =               " << dy[1] << "\n";
+        //cerr << "in advance(), have dz low  =               " << dz[0] << "\n";
+        //cerr << "in advance(), have dz high =               " << dz[1] << "\n";
+
+//        number distance_squared = (dx * dx) + (dy * dy) + (dz * dz);
+//        //cerr << "in advance(), have dx_array.at(0) 2 =      " << dx_array.at(0) << "\n";
+        distance_squared = (dx * dx) + (dy * dy) + (dz * dz);
+        //cerr << "in advance(), have distance_squared low  = " << distance_squared[0] << "\n";
+        //cerr << "in advance(), have distance_squared high = " << distance_squared[1] << "\n";
+ 
+//        number distance = pow(distance_squared, 0.5);
+//        //cerr << "in advance(), have dx_array.at(0) 3 =      " << dx_array.at(0) << "\n";
+        distance = _mm_cvtps_pd(_mm_rsqrt_ps(_mm_cvtpd_ps(distance_squared)));
+        //cerr << "in advance(), have distance low  0 =       " << distance[0] << "\n";
+        //cerr << "in advance(), have distance high 0 =       " << distance[1] << "\n";
+
+        // NEED ANSWER: WHAT DOES THIS CODE DO???
+//        //cerr << "in advance(), have dx_array.at(0) 4 =      " << dx_array.at(0) << "\n";
+        distance = distance * _mm_set1_pd(1.5) - ((_mm_set1_pd(0.5) * distance_squared) * distance) * (distance * distance);
+        //cerr << "in advance(), have distance low  1 =       " << distance[0] << "\n";
+        //cerr << "in advance(), have distance high 1 =       " << distance[1] << "\n";
+//        //cerr << "in advance(), have dx_array.at(0) 5 =      " << dx_array.at(0) << "\n";
+        distance = distance * _mm_set1_pd(1.5) - ((_mm_set1_pd(0.5) * distance_squared) * distance) * (distance * distance);
+        //cerr << "in advance(), have distance low  2 =       " << distance[0] << "\n";
+        //cerr << "in advance(), have distance high 2 =       " << distance[1] << "\n";
+
+        // NEED FIX: remove dmag variable
+//      number magnitude = dt / (distance_squared * distance);
+//        _mm_store_pd(&magnitude, ((_mm_set1_pd(dt) / distance_squared) * distance));
+//        //cerr << "in advance(), have dx_array.at(0) 6 =      " << dx_array.at(0) << "\n";
+        __m128d dmag = (_mm_set1_pd(dt) / distance_squared) * distance;
+        //cerr << "in advance(), have dmag low  =             " << dmag[0] << "\n";
+        //cerr << "in advance(), have dmag high =             " << dmag[1] << "\n";
+//        //cerr << "in advance(), have dx_array.at(0) 7 =      " << dx_array.at(0) << "\n";
+
+//        _mm_store_pd(&magnitude, dmag);  // NEED RE-ENABLE!!!
+//        magnitude = dmag[0];
+//        magnitude = dmag[1];
+//        magnitude = 42.23;
+
+//        //cerr << "in advance(), have dx_array.at(0) 8a =     " << dx_array.at(0) << "\n";
+//        //cerr << "in advance(), have magnitude 3 =           " << magnitude << "\n";
+//        //cerr << "in advance(), have dx_array.at(0) 8b =     " << dx_array.at(0) << "\n";
+//        //cerr << "in advance(), have magnitude_array.size 1 =" << magnitude_array.size() << "\n";
+//        //cerr << "in advance(), have magnitude_array.back 1 = " << magnitude_array.back() << "\n";
+//        magnitude_array.push_back(magnitude);  // WRONG???
+//        //cerr << "in advance(), have magnitude_array.size 2a=" << magnitude_array.size() << "\n";
+//        magnitude_array.resize(i+1);
+//        //cerr << "in advance(), have magnitude_array.size 2b=" << magnitude_array.size() << "\n";
+//        magnitude_array.at(i) = magnitude;
+
+//        magnitude_array.at(i) = dmag[0];
+//        magnitude_array.at(i+1) = dmag[1];
+        magnitude_array[i] = dmag[0];
+        magnitude_array[i+1] = dmag[1];
+
+        //cerr << "in advance(), have magnitude_array.at(" << i << ") = " << magnitude_array.at(i) << "\n";
+        //cerr << "in advance(), have magnitude_array.at(" << (i + 1) << ") = " << magnitude_array.at(i+1) << "\n";
+//        //cerr << "in advance(), have magnitude_array.size 2c=" << magnitude_array.size() << "\n";
+//        //cerr << "in advance(), have magnitude_array.at(0) 1=" << magnitude_array.at(0) << "\n";
+//        //cerr << "in advance(), have magnitude_array.back 2 = " << magnitude_array.back() << "\n";
+//        //cerr << "in advance(), have dx_array.at(0) 9 =      " << dx_array.at(0) << "\n";
+    }
+    
+    k = 0;
+    for ( integer i = 0; i <= ((this->bodies.size()) - 1); i++ ) {
+        //cerr << "in advance(), have velloop i =             " << i << "\n";
+        PhysicsPerl__Astro__Body* i_body = this->bodies[i].get();
+        for ( integer j = i + 1; j <= ((this->bodies.size()) - 1); j++ ) {
+//            //cerr << "in advance(), have velloop j =             " << j << "\n";
+            PhysicsPerl__Astro__Body* j_body = this->bodies[j].get();
+            //cerr << "in advance(), have i_body->vx 0 =          " << i_body->vx << "\n";
+            //cerr << "in advance(), have j_body->vx 0 =          " << j_body->vx << "\n";
+            //cerr << "in advance(), have i_body->vy 0 =          " << i_body->vy << "\n";
+            //cerr << "in advance(), have j_body->vy 0 =          " << j_body->vy << "\n";
+            //cerr << "in advance(), have i_body->vz 0 =          " << i_body->vz << "\n";
+            //cerr << "in advance(), have j_body->vz 0 =          " << j_body->vz << "\n";
+            //cerr << "in advance(), have i_body->mass =          " << i_body->mass << "\n";
+            //cerr << "in advance(), have j_body->mass =          " << j_body->mass << "\n";
+            //cerr << "in advance(), have dx_array[" << k << "] =           " << dx_array[k] << "\n";
+            //cerr << "in advance(), have dy_array[" << k << "] =           " << dy_array[k] << "\n";
+            //cerr << "in advance(), have dz_array[" << k << "] =           " << dz_array[k] << "\n";
+            //cerr << "in advance(), have magnitude_array[" << k << "] =    " << magnitude_array[k] << "\n";
+            i_body->vx -= dx_array[k] * j_body->mass * magnitude_array[k];
+            j_body->vx += dx_array[k] * i_body->mass * magnitude_array[k];
+            i_body->vy -= dy_array[k] * j_body->mass * magnitude_array[k];
+            j_body->vy += dy_array[k] * i_body->mass * magnitude_array[k];
+            i_body->vz -= dz_array[k] * j_body->mass * magnitude_array[k];
+            j_body->vz += dz_array[k] * i_body->mass * magnitude_array[k];
+            //cerr << "in advance(), have i_body->vx 1 =          " << i_body->vx << "\n";
+            //cerr << "in advance(), have j_body->vx 1 =          " << j_body->vx << "\n";
+            //cerr << "in advance(), have i_body->vy 1 =          " << i_body->vy << "\n";
+            //cerr << "in advance(), have j_body->vy 1 =          " << j_body->vy << "\n";
+            //cerr << "in advance(), have i_body->vz 1 =          " << i_body->vz << "\n";
+            //cerr << "in advance(), have j_body->vz 1 =          " << j_body->vz << "\n";
+            k++;
+        }
+    }
+    
+    for ( integer body_iterator = 0; body_iterator <= ((this->bodies.size()) - 1); body_iterator++ ) {
+        PhysicsPerl__Astro__Body* body = this->bodies[body_iterator].get();
+        body->x += dt * body->vx;
+        body->y += dt * body->vy;
+        body->z += dt * body->vz;
+    }
+}
+
+number PhysicsPerl__Astro__System::energy() {
+    number dx;
+    number dy;
+    number dz;
+    number distance;
+    number e = 0.0;
+    for ( integer i = 0; i <= ((this->bodies.size()) - 1); i++ ) {
+        PhysicsPerl__Astro__Body* i_body = this->bodies[i].get();
+        e += 0.5 * i_body->mass * ((i_body->vx * i_body->vx) + (i_body->vy * i_body->vy) + (i_body->vz * i_body->vz));
+        for ( integer j = (i + 1); j <= ((this->bodies.size()) - 1); j++ ) {
+            PhysicsPerl__Astro__Body* j_body = this->bodies[j].get();
+            dx = i_body->x - j_body->x;
+            dy = i_body->y - j_body->y;
+            dz = i_body->z - j_body->z;
+            distance = pow(((dx * dx) + (dy * dy) + (dz * dz)), 0.5);
+            e -= (i_body->mass * j_body->mass) / distance;
+        }
+    }
+    return e;
+}
+
+void PhysicsPerl__Astro__System::advance_loop(number dt, integer n) {
+    unsigned int N = ((this->bodies.size() - 1) * this->bodies.size()) / 2;
+    number_arrayref dx_array, dy_array, dz_array, magnitude_array;
+    dx_array.resize(N);
+    dy_array.resize(N);
+    dz_array.resize(N);
+    magnitude_array.resize(N);  
+    //cerr << "in advance_loop(), have this->bodies.size() = " << this->bodies.size() << "\n";
+    for ( integer time_step = 1; time_step <= n; time_step++ ) { 
+//        //cerr << "in advance_loop(), have time_step = " << time_step << " of " << n << "\n";
+//        this->advance(dt);
+        this->advance(dt, dx_array, dy_array, dz_array, magnitude_array, N);
+    }
+}
+
+// [[[<<< END CPP TYPES >>>]]]
+// [[[<<< END CPP TYPES >>>]]]
+// [[[<<< END CPP TYPES >>>]]]
+
+# else
+
+Purposefully_die_from_a_compile-time_error,_due_to_neither___PERL__TYPES_nor___CPP__TYPES_being_defined.__We_need_to_define_only___CPP__TYPES_in_this_file!
+
+# endif
+
+#endif

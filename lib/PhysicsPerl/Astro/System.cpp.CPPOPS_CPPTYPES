@@ -2,9 +2,11 @@
 using std::cout;  using std::cerr;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp
-#define __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp 0.002_000
+#define __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp 0.002_100
 
 // [[[ INCLUDES ]]]
+
+// NEED FIX
 //#include <PhysicsPerl/Astro/System.h>
 #include "/home/wbraswell/school/physicsperl/physicsperl-latest/lib/PhysicsPerl/Astro/System.h"
 
@@ -21,6 +23,8 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 // [[[ OO METHODS & SUBROUTINES ]]]
 
 void PhysicsPerl__Astro__System::init() {
+    
+    // NEED FIX
 //    this->bodies = {PhysicsPerl__Astro__Body::sun(), PhysicsPerl__Astro__Body::jupiter(), PhysicsPerl__Astro__Body::saturn(), PhysicsPerl__Astro__Body::uranus(), PhysicsPerl__Astro__Body::neptune()};  // WRONG SCOPE
 //    this->bodies = {sun(), jupiter(), saturn(), uranus(), neptune()};  // ERROR
 //    this->bodies = {sun()};  // ERROR
@@ -34,30 +38,28 @@ void PhysicsPerl__Astro__System::init() {
     number py = 0.0;
     number pz = 0.0;
     for ( integer i = 0; i <= ((this->bodies.size()) - 1); i++ ) {
-//    for ( integer i = 0; i < this->bodies.size(); i++ ) {  // SAME AS ABOVE, MORE EFFICIENT
+//    for ( integer i = 0; i < this->bodies.size(); i++ ) {  // NEED UPGRADE: same as above, but more efficient
         px += this->bodies[i]->vx * this->bodies[i]->mass;
         py += this->bodies[i]->vy * this->bodies[i]->mass;
         pz += this->bodies[i]->vz * this->bodies[i]->mass;
     }
-
 
     // NEED FIX: move to offset_momentum()
     this->bodies[0]->vx = -1 * (px / SOLAR_MASS);
     this->bodies[0]->vy = -1 * (py / SOLAR_MASS);
     this->bodies[0]->vz = -1 * (pz / SOLAR_MASS);
 
-
 //    this->bodies[0]->offset_momentum( px, py, pz );
 }
 
 void PhysicsPerl__Astro__System::advance(number dt) {
     for ( integer i = 0; i <= ((this->bodies.size()) - 1); i++ ) {
-//        std::unique_ptr<PhysicsPerl__Astro__Body> i_body = this->bodies[i];  // WRONG?
         PhysicsPerl__Astro__Body* i_body = this->bodies[i].get();
         for ( integer j = (i + 1); j <= ((this->bodies.size()) - 1); j++ ) {
-            number dx = i_body->x - this->bodies[j]->x;
-            number dy = i_body->y - this->bodies[j]->y;
-            number dz = i_body->z - this->bodies[j]->z;
+            PhysicsPerl__Astro__Body* j_body = this->bodies[j].get();
+            number dx = i_body->x - j_body->x;
+            number dy = i_body->y - j_body->y;
+            number dz = i_body->z - j_body->z;
             number distance_squared = (dx * dx) + (dy * dy) + (dz * dz);
             number distance = pow(distance_squared, 0.5);
             number magnitude = dt / (distance_squared * distance);
@@ -70,7 +72,6 @@ void PhysicsPerl__Astro__System::advance(number dt) {
         }
     }
     for ( integer body_iterator = 0; body_iterator <= ((this->bodies.size()) - 1); body_iterator++ ) {
-//        std::unique_ptr<PhysicsPerl__Astro__Body> body = this->bodies[body_iterator];  // WRONG?
         PhysicsPerl__Astro__Body* body = this->bodies[body_iterator].get();
         body->x += dt * body->vx;
         body->y += dt * body->vy;
@@ -97,6 +98,10 @@ number PhysicsPerl__Astro__System::energy() {
         }
     }
     return e;
+}
+
+void PhysicsPerl__Astro__System::advance_loop(number dt, integer n) {
+    for ( integer time_step = 1; time_step <= n; time_step++ ) { this->advance(dt); }
 }
 
 // [[[<<< END CPP TYPES >>>]]]

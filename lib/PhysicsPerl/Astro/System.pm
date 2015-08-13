@@ -50,9 +50,10 @@ our void::method $advance = sub {
         my PhysicsPerl::Astro::Body $i_body = $self->{bodies}->[$i];
 
         for my integer $j ( ( $i + 1 ) .. ( ( scalar @{ $self->{bodies} } ) - 1 ) ) {
-            my number $dx = $i_body->{x} - $self->{bodies}->[$j]->{x};
-            my number $dy = $i_body->{y} - $self->{bodies}->[$j]->{y};
-            my number $dz = $i_body->{z} - $self->{bodies}->[$j]->{z};
+            my PhysicsPerl::Astro::Body $j_body = $self->{bodies}->[$j];
+            my number $dx = $i_body->{x} - $j_body->{x};
+            my number $dy = $i_body->{y} - $j_body->{y};
+            my number $dz = $i_body->{z} - $j_body->{z};
 
             my number $distance_squared = ( $dx * $dx ) + ( $dy * $dy ) + ( $dz * $dz );
             my number $distance         = $distance_squared**0.5;
@@ -97,6 +98,11 @@ our number::method $energy = sub {
         }
     }
     return $e;
+};
+
+our void::method $advance_loop = sub {
+    ( my PhysicsPerl::Astro::System $self, my number $dt, my integer $n ) = @_;
+    for my integer $i ( 1 .. $n ) { $self->advance($dt); }
 };
 
 1;    # end of class

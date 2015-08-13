@@ -2,11 +2,13 @@
 using std::cout;  using std::cerr;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__System_h
-#define __CPP__INCLUDED__PhysicsPerl__Astro__System_h 0.002_000
+#define __CPP__INCLUDED__PhysicsPerl__Astro__System_h 0.003_000
 
 // [[[ INCLUDES & OO INHERITANCE INCLUDES ]]]
 #include <RPerl.cpp>  // -> RPerl.h -> (rperltypes_mode.h; rperltypes.h; HelperFunctions.cpp)
 #include <RPerl/CompileUnit/Module/Class.cpp>
+
+// NEED FIX
 //#include <PhysicsPerl/Astro/Body.cpp>
 #include "/home/wbraswell/school/physicsperl/physicsperl-latest/lib/PhysicsPerl/Astro/Body.cpp"
 
@@ -25,8 +27,10 @@ class PhysicsPerl__Astro__System : public RPerl__CompileUnit__Module__Class {
 public:
 // [[[ OO METHODS ]]]
     void init();
-    void advance(number dt);
+//    void advance(number dt);
+    void advance(number dt, number_arrayref dx_array, number_arrayref dy_array, number_arrayref dz_array, number_arrayref magnitude_array, unsigned int N);
     number energy();
+    void advance_loop(number dt, integer n);
 
     // <<< OO PROPERTIES, ACCESSORS & MUTATORS >>>
 //    std::vector<std::unique_ptr<PhysicsPerl__Astro__Body>> get_bodies() { return this->bodies; }
