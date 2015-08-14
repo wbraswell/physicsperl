@@ -1,15 +1,10 @@
-// [[[ HEADER ]]]
 using std::cout;  using std::cerr;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__System_h
-#define __CPP__INCLUDED__PhysicsPerl__Astro__System_h 0.003_000
+#define __CPP__INCLUDED__PhysicsPerl__Astro__System_h 0.004_000
 
-// [[[ INCLUDES & OO INHERITANCE INCLUDES ]]]
 #include <RPerl.cpp>  // -> RPerl.h -> (rperltypes_mode.h; rperltypes.h; HelperFunctions.cpp)
 #include <RPerl/CompileUnit/Module/Class.cpp>
-
-// NEED FIX
-//#include <PhysicsPerl/Astro/Body.cpp>
 #include "/home/wbraswell/school/physicsperl/physicsperl-latest/lib/PhysicsPerl/Astro/Body.cpp"
 
 # ifdef __PERL__TYPES
@@ -18,42 +13,19 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 
 # elif defined __CPP__TYPES
 
-// [[[<<< BEGIN CPP TYPES >>>]]]
-// [[[<<< BEGIN CPP TYPES >>>]]]
-// [[[<<< BEGIN CPP TYPES >>>]]]
-
-// [[[ OO INHERITANCE ]]]
 class PhysicsPerl__Astro__System : public RPerl__CompileUnit__Module__Class {
 public:
-// [[[ OO METHODS ]]]
     void init();
-//    void advance(number dt);
-    void advance(number dt, number_arrayref dx_array, number_arrayref dy_array, number_arrayref dz_array, number_arrayref magnitude_array, unsigned int N);
     number energy();
-    void advance_loop(number dt, integer n);
+    void advance_loop(const number dt, const integer n);
 
-    // <<< OO PROPERTIES, ACCESSORS & MUTATORS >>>
-//    std::vector<std::unique_ptr<PhysicsPerl__Astro__Body>> get_bodies() { return this->bodies; }
-//    void set_bodies(std::vector<std::unique_ptr<PhysicsPerl__Astro__Body>> bodies_new) { this->bodies = bodies_new; }
-
-    // <<< CONSTRUCTOR & DESTRUCTOR >>>
     PhysicsPerl__Astro__System() {}
     ~PhysicsPerl__Astro__System() {}
 
-    // <<< CLASS NAME REPORTER >>>
-//    virtual string myclassname() { return (const string) "PhysicsPerl::Astro::System"; }
-
-//private:
-// [[[ OO PROPERTIES ]]]
     std::vector<std::unique_ptr<PhysicsPerl__Astro__Body>> bodies;
 };
 
-// <<< OPERATIONS & DATA TYPES REPORTER >>>
 integer PhysicsPerl__Astro__System__MODE_ID() { return 2; }  // CPPOPS_CPPTYPES is 2
-
-// [[[<<< END CPP TYPES >>>]]]
-// [[[<<< END CPP TYPES >>>]]]
-// [[[<<< END CPP TYPES >>>]]]
 
 # else
 

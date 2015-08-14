@@ -1,13 +1,8 @@
-// [[[ HEADER ]]]
 using std::cout;  using std::cerr;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__Body_cpp
-#define __CPP__INCLUDED__PhysicsPerl__Astro__Body_cpp 0.002_100
+#define __CPP__INCLUDED__PhysicsPerl__Astro__Body_cpp 0.004_000
 
-// [[[ INCLUDES ]]]
-
-// NEED FIX
-//#include <PhysicsPerl/Astro/Body.h>
 #include "/home/wbraswell/school/physicsperl/physicsperl-latest/lib/PhysicsPerl/Astro/Body.h"
 
 # ifdef __PERL__TYPES
@@ -16,23 +11,22 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 
 # elif defined __CPP__TYPES
 
-// [[[<<< BEGIN CPP TYPES >>>]]]
-// [[[<<< BEGIN CPP TYPES >>>]]]
-// [[[<<< BEGIN CPP TYPES >>>]]]
+PhysicsPerl__Astro__Body::PhysicsPerl__Astro__Body() {}
+PhysicsPerl__Astro__Body::~PhysicsPerl__Astro__Body() {}
 
-// [[[ OO METHODS & SUBROUTINES ]]]
-
-// NEED FIX
-/*
-void PhysicsPerl__Astro__Body::offset_momentum(number px, number py, number pz) {
-    this->vx = -1 * (px / SOLAR_MASS);
-    this->vy = -1 * (py / SOLAR_MASS);
-    this->vz = -1 * (pz / SOLAR_MASS);
+std::unique_ptr<PhysicsPerl__Astro__Body> sun() {
+    std::unique_ptr<PhysicsPerl__Astro__Body> p(new PhysicsPerl__Astro__Body);
+    p->x =    0;
+    p->y =    0;
+    p->z =    0;
+    p->vx =   0;
+    p->vy =   0;
+    p->vz =   0;
+    p->mass = SOLAR_MASS;
+    return p;
 }
-*/
 
 std::unique_ptr<PhysicsPerl__Astro__Body> jupiter() {
-    // NEED UPGRADE: use std::make_unique() here and below to fulfill "no naked news", added to C++14 feature set in GCC 4.9, wait for mainstream adoption
     std::unique_ptr<PhysicsPerl__Astro__Body> p(new PhysicsPerl__Astro__Body);
     p->x =    +4.84143144246472090e+00;
     p->y =    -1.16032004402742839e+00;
@@ -79,22 +73,6 @@ std::unique_ptr<PhysicsPerl__Astro__Body> neptune() {
     p->mass = +5.15138902046611451e-05 * SOLAR_MASS;
     return p;
 }
-
-std::unique_ptr<PhysicsPerl__Astro__Body> sun() {
-    std::unique_ptr<PhysicsPerl__Astro__Body> p(new PhysicsPerl__Astro__Body);
-    p->x =    0;
-    p->y =    0;
-    p->z =    0;
-    p->vx =   0;
-    p->vy =   0;
-    p->vz =   0;
-    p->mass = SOLAR_MASS;
-    return p;
-}
-
-// [[[<<< END CPP TYPES >>>]]]
-// [[[<<< END CPP TYPES >>>]]]
-// [[[<<< END CPP TYPES >>>]]]
 
 # else
 

@@ -40,20 +40,20 @@ use Time::HiRes qw(time);
 
 my $start = time;
 
-#my integer $n = string_to_integer($ARGV[0]);
-#my integer $n = 1;
-#my integer $n = 50;
-#my integer $n = 50_000;
-#my integer $n = 500_000;
-#my integer $n = 5_000_000;
-my integer $n = 50_000_000;
+#my integer $time_steps = string_to_integer($ARGV[0]);
+#my integer $time_steps = 1;
+#my integer $time_steps = 50;
+#my integer $time_steps = 50_000;
+#my integer $time_steps = 500_000;
+#my integer $time_steps = 5_000_000;
+my integer $time_steps = 50_000_000;
 
 my PhysicsPerl::Astro::System $system = PhysicsPerl::Astro::System->new();
 $system->init();
 print 'start energy: ' . number_to_string($system->energy()) . "\n";
 
-#for my integer $i ( 1 .. $n ) { $system->advance(0.01); }  # 97 seconds
-$system->advance_loop(0.01, $n);  # 85 seconds; SSE xyz seconds
+#for my integer $i ( 1 .. $time_steps ) { $system->advance(0.01); }  # 97 seconds
+$system->advance_loop(0.01, $time_steps);  # 85 seconds; SSE 13 seconds
 
 print 'end energy:   ' . number_to_string($system->energy()) . "\n";
 
