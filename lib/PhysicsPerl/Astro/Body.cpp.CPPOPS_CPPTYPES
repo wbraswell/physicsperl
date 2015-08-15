@@ -1,7 +1,7 @@
 using std::cout;  using std::cerr;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__Body_cpp
-#define __CPP__INCLUDED__PhysicsPerl__Astro__Body_cpp 0.004_000
+#define __CPP__INCLUDED__PhysicsPerl__Astro__Body_cpp 0.005_000
 
 #include "/home/wbraswell/school/physicsperl/physicsperl-latest/lib/PhysicsPerl/Astro/Body.h"
 
@@ -11,67 +11,79 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 
 # elif defined __CPP__TYPES
 
-PhysicsPerl__Astro__Body::PhysicsPerl__Astro__Body() {}
-PhysicsPerl__Astro__Body::~PhysicsPerl__Astro__Body() {}
-
 std::unique_ptr<PhysicsPerl__Astro__Body> sun() {
-    std::unique_ptr<PhysicsPerl__Astro__Body> p(new PhysicsPerl__Astro__Body);
-    p->x =    0;
-    p->y =    0;
-    p->z =    0;
-    p->vx =   0;
-    p->vy =   0;
-    p->vz =   0;
-    p->mass = SOLAR_MASS;
-    return p;
+    std::unique_ptr<PhysicsPerl__Astro__Body> body(new PhysicsPerl__Astro__Body);
+    body->name = "The Sun (Sol)";
+    body->x =      0;
+    body->y =      0;
+    body->z =      0;
+    body->vx =     0;
+    body->vy =     0;
+    body->vz =     0;
+    body->mass =   SOLAR_MASS;
+    body->radius = 1;
+    body->color  = {255, 245, 240};
+    return body;
 }
 
 std::unique_ptr<PhysicsPerl__Astro__Body> jupiter() {
-    std::unique_ptr<PhysicsPerl__Astro__Body> p(new PhysicsPerl__Astro__Body);
-    p->x =    +4.84143144246472090e+00;
-    p->y =    -1.16032004402742839e+00;
-    p->z =    -1.03622044471123109e-01;
-    p->vx =   +1.66007664274403694e-03 * DAYS_PER_YEAR;
-    p->vy =   +7.69901118419740425e-03 * DAYS_PER_YEAR;
-    p->vz =   -6.90460016972063023e-05 * DAYS_PER_YEAR;
-    p->mass = +9.54791938424326609e-04 * SOLAR_MASS;
-    return p;
+    std::unique_ptr<PhysicsPerl__Astro__Body> body(new PhysicsPerl__Astro__Body);
+    body->name = "Jupiter";
+    body->x =      +4.84143144246472090e+00;
+    body->y =      -1.16032004402742839e+00;
+    body->z =      -1.03622044471123109e-01;
+    body->vx =     +1.66007664274403694e-03 * DAYS_PER_YEAR;
+    body->vy =     +7.69901118419740425e-03 * DAYS_PER_YEAR;
+    body->vz =     -6.90460016972063023e-05 * DAYS_PER_YEAR;
+    body->mass =   +9.54791938424326609e-04 * SOLAR_MASS;
+    body->radius = +1.00403561683183e-01;
+    body->color  = {175, 75, 25};
+    return body;
 }
 
 std::unique_ptr<PhysicsPerl__Astro__Body> saturn() {
-    std::unique_ptr<PhysicsPerl__Astro__Body> p(new PhysicsPerl__Astro__Body);
-    p->x =    +8.34336671824457987e+00;
-    p->y =    +4.12479856412430479e+00;
-    p->z =    -4.03523417114321381e-01;
-    p->vx =   -2.76742510726862411e-03 * DAYS_PER_YEAR;
-    p->vy =   +4.99852801234917238e-03 * DAYS_PER_YEAR;
-    p->vz =   +2.30417297573763929e-05 * DAYS_PER_YEAR;
-    p->mass = +2.85885980666130812e-04 * SOLAR_MASS;
-    return p;
+    std::unique_ptr<PhysicsPerl__Astro__Body> body(new PhysicsPerl__Astro__Body);
+    body->name = "Saturn";
+    body->x =      +8.34336671824457987e+00;
+    body->y =      +4.12479856412430479e+00;
+    body->z =      -4.03523417114321381e-01;
+    body->vx =     -2.76742510726862411e-03 * DAYS_PER_YEAR;
+    body->vy =     +4.99852801234917238e-03 * DAYS_PER_YEAR;
+    body->vz =     +2.30417297573763929e-05 * DAYS_PER_YEAR;
+    body->mass =   +2.85885980666130812e-04 * SOLAR_MASS;
+    body->radius = +8.36306189860692e-02;
+    body->color  = {250, 215, 160};
+    return body;
 }
 
 std::unique_ptr<PhysicsPerl__Astro__Body> uranus() {
-    std::unique_ptr<PhysicsPerl__Astro__Body> p(new PhysicsPerl__Astro__Body);
-    p->x =    +1.28943695621391310e+01;
-    p->y =    -1.51111514016986312e+01;
-    p->z =    -2.23307578892655734e-01;
-    p->vx =   +2.96460137564761618e-03 * DAYS_PER_YEAR;
-    p->vy =   +2.37847173959480950e-03 * DAYS_PER_YEAR;
-    p->vz =   -2.96589568540237556e-05 * DAYS_PER_YEAR;
-    p->mass = +4.36624404335156298e-05 * SOLAR_MASS;
-    return p;
+    std::unique_ptr<PhysicsPerl__Astro__Body> body(new PhysicsPerl__Astro__Body);
+    body->name = "Uranus";
+    body->x =      +1.28943695621391310e+01;
+    body->y =      -1.51111514016986312e+01;
+    body->z =      -2.23307578892655734e-01;
+    body->vx =     +2.96460137564761618e-03 * DAYS_PER_YEAR;
+    body->vy =     +2.37847173959480950e-03 * DAYS_PER_YEAR;
+    body->vz =     -2.96589568540237556e-05 * DAYS_PER_YEAR;
+    body->mass =   +4.36624404335156298e-05 * SOLAR_MASS;
+    body->radius = +3.64225190291541e-02;
+    body->color  = {0, 240, 255};
+    return body;
 }
 
 std::unique_ptr<PhysicsPerl__Astro__Body> neptune() {
-    std::unique_ptr<PhysicsPerl__Astro__Body> p(new PhysicsPerl__Astro__Body);
-    p->x =    +1.53796971148509165e+01;
-    p->y =    -2.59193146099879641e+01;
-    p->z =    +1.79258772950371181e-01;
-    p->vx =   +2.68067772490389322e-03 * DAYS_PER_YEAR;
-    p->vy =   +1.62824170038242295e-03 * DAYS_PER_YEAR;
-    p->vz =   -9.51592254519715870e-05 * DAYS_PER_YEAR;
-    p->mass = +5.15138902046611451e-05 * SOLAR_MASS;
-    return p;
+    std::unique_ptr<PhysicsPerl__Astro__Body> body(new PhysicsPerl__Astro__Body);
+    body->name = "Neptune";
+    body->x =      +1.53796971148509165e+01;
+    body->y =      -2.59193146099879641e+01;
+    body->z =      +1.79258772950371181e-01;
+    body->vx =     +2.68067772490389322e-03 * DAYS_PER_YEAR;
+    body->vy =     +1.62824170038242295e-03 * DAYS_PER_YEAR;
+    body->vz =     -9.51592254519715870e-05 * DAYS_PER_YEAR;
+    body->mass =   +5.15138902046611451e-05 * SOLAR_MASS;
+    body->radius = +3.53597587246876e-02;
+    body->color  = {55, 85, 230};
+    return body;
 }
 
 # else

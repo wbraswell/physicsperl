@@ -24,7 +24,7 @@ const number SOLAR_MASS = 39.4784176043574;
 const number DAYS_PER_YEAR = 365.24;
 
 // [[[ OO INHERITANCE ]]]
-class PhysicsPerl__Astro__Body : public RPerl__CompileUnit__Module__Class {
+class PhysicsPerl__Astro__Body : public RPerl__CompileUnit__Module__Class__CPP {
 public:
 
 // [[[ OO METHODS ]]]

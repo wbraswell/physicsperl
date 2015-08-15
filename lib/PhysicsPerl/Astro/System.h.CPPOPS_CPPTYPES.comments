@@ -23,7 +23,7 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 // [[[<<< BEGIN CPP TYPES >>>]]]
 
 // [[[ OO INHERITANCE ]]]
-class PhysicsPerl__Astro__System : public RPerl__CompileUnit__Module__Class {
+class PhysicsPerl__Astro__System : public RPerl__CompileUnit__Module__Class__CPP {
 public:
 // [[[ OO METHODS ]]]
     void init();

@@ -1,7 +1,7 @@
 using std::cout;  using std::cerr;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp
-#define __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp 0.004_000
+#define __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp 0.005_000
 
 #include "/home/wbraswell/school/physicsperl/physicsperl-latest/lib/PhysicsPerl/Astro/System.h"
 

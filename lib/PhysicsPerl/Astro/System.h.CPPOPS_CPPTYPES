@@ -1,7 +1,7 @@
 using std::cout;  using std::cerr;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__System_h
-#define __CPP__INCLUDED__PhysicsPerl__Astro__System_h 0.004_000
+#define __CPP__INCLUDED__PhysicsPerl__Astro__System_h 0.005_000
 
 #include <RPerl.cpp>  // -> RPerl.h -> (rperltypes_mode.h; rperltypes.h; HelperFunctions.cpp)
 #include <RPerl/CompileUnit/Module/Class.cpp>
@@ -13,7 +13,7 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 
 # elif defined __CPP__TYPES
 
-class PhysicsPerl__Astro__System : public RPerl__CompileUnit__Module__Class {
+class PhysicsPerl__Astro__System : public RPerl__CompileUnit__Module__Class__CPP {
 public:
     void init();
     number energy();
@@ -23,6 +23,22 @@ public:
     ~PhysicsPerl__Astro__System() {}
 
     std::vector<std::unique_ptr<PhysicsPerl__Astro__Body>> bodies;
+    
+    // NEED FIX: how to use assignment = or copy constructor or pointer copying to avoid member-by-member copying???
+//    void get_i_body(PhysicsPerl__Astro__Body* pre_body, integer i) { pre_body = this->bodies[i].get(); }
+    void get_i_body(PhysicsPerl__Astro__Body* pre_body, integer i) { 
+        PhysicsPerl__Astro__Body* i_body = this->bodies[i].get();
+        pre_body->name = i_body->name;
+        pre_body->x = i_body->x;
+        pre_body->y = i_body->y;
+        pre_body->z = i_body->z;
+        pre_body->vx = i_body->vx;
+        pre_body->vy = i_body->vy;
+        pre_body->vz = i_body->vz;
+        pre_body->mass = i_body->mass;
+        pre_body->radius = i_body->radius;
+        pre_body->color = i_body->color;
+    }
 };
 
 integer PhysicsPerl__Astro__System__MODE_ID() { return 2; }  // CPPOPS_CPPTYPES is 2

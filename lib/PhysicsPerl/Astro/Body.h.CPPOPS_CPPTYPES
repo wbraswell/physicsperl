@@ -1,7 +1,7 @@
 using std::cout;  using std::cerr;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__Body_h
-#define __CPP__INCLUDED__PhysicsPerl__Astro__Body_h 0.004_000
+#define __CPP__INCLUDED__PhysicsPerl__Astro__Body_h 0.005_000
 
 #include <RPerl.cpp>  // -> RPerl.h -> (rperltypes_mode.h; rperltypes.h; HelperFunctions.cpp)
 #include <RPerl/CompileUnit/Module/Class.cpp>
@@ -14,12 +14,14 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 
 const number PI = 3.141592653589793;
 const number SOLAR_MASS = 39.4784176043574;
+const number SOLAR_RADIUS = 696300;
 const number DAYS_PER_YEAR = 365.24;
 
-class PhysicsPerl__Astro__Body : public RPerl__CompileUnit__Module__Class {
+class PhysicsPerl__Astro__Body : public RPerl__CompileUnit__Module__Class__CPP {
 public:
-    PhysicsPerl__Astro__Body();
-    ~PhysicsPerl__Astro__Body();
+    PhysicsPerl__Astro__Body() {}
+    ~PhysicsPerl__Astro__Body() {}
+    string name;
     number x;
     number y;
     number z;
@@ -27,6 +29,19 @@ public:
     number vy;
     number vz;
     number mass;
+    number radius;
+    integer_arrayref color;
+
+    string get_name() { return this->name; }
+    number get_x() { return this->x; }
+    number get_y() { return this->y; }
+    number get_z() { return this->z; }
+    number get_vx() { return this->vx; }
+    number get_vy() { return this->vy; }
+    number get_vz() { return this->vz; }
+    number get_mass() { return this->mass; }
+    number get_radius() { return this->radius; }
+    integer_arrayref get_color() { return this->color; }
 };
 
 std::unique_ptr<PhysicsPerl__Astro__Body> sun();

@@ -22,6 +22,11 @@ our hashref $properties = { bodies => my PhysicsPerl::Astro::Body_arrayref $TYPE
 
 # [[[ OO METHODS & SUBROUTINES ]]]
 
+our void::method $get_i_body = sub { 
+    (my PhysicsPerl::Astro::System $self, my PhysicsPerl::Astro::Body $pre_body, my integer $i) = @_;
+    return $self->{bodies}->[$i];
+};
+
 our void::method $init = sub {
     ( my PhysicsPerl::Astro::System $self ) = @_;
     $self->{bodies} = [
@@ -99,6 +104,10 @@ our number::method $energy = sub {
     }
     return $e;
 };
+
+# START HERE: inline advance() into advance_loop(), rename Render2DSystem & Body, write System.pm.SSE
+# START HERE: inline advance() into advance_loop(), rename Render2DSystem & Body, write System.pm.SSE
+# START HERE: inline advance() into advance_loop(), rename Render2DSystem & Body, write System.pm.SSE
 
 our void::method $advance_loop = sub {
     ( my PhysicsPerl::Astro::System $self, my number $dt, my integer $n ) = @_;
