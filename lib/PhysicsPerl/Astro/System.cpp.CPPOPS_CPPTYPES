@@ -1,15 +1,29 @@
 using std::cout;  using std::cerr;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp
-#define __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp 0.005_000
+#define __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp 0.006_000
 
-#include "/home/wbraswell/school/physicsperl/physicsperl-latest/lib/PhysicsPerl/Astro/System.h"
+#include "PhysicsPerl/Astro/System.h"
 
 # ifdef __PERL__TYPES
 
 Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.__We_need_to_define_only___CPP__TYPES_in_this_file!
 
 # elif defined __CPP__TYPES
+
+void PhysicsPerl__Astro__System::get_bodies_element(integer i, PhysicsPerl__Astro__Body* body_tmp) { 
+    PhysicsPerl__Astro__Body* body_i = this->bodies[i].get();
+    body_tmp->name = body_i->name;
+    body_tmp->x = body_i->x;
+    body_tmp->y = body_i->y;
+    body_tmp->z = body_i->z;
+    body_tmp->vx = body_i->vx;
+    body_tmp->vy = body_i->vy;
+    body_tmp->vz = body_i->vz;
+    body_tmp->mass = body_i->mass;
+    body_tmp->radius = body_i->radius;
+    body_tmp->color = body_i->color;
+}
 
 void PhysicsPerl__Astro__System::init() {
     this->bodies.resize(5);
@@ -40,57 +54,59 @@ number PhysicsPerl__Astro__System::energy() {
     number distance;
     number e = 0.0;
     for ( integer i = 0; i <= ((this->bodies.size()) - 1); i++ ) {
-        PhysicsPerl__Astro__Body* i_body = this->bodies[i].get();
-        e += 0.5 * i_body->mass * ((i_body->vx * i_body->vx) + (i_body->vy * i_body->vy) + (i_body->vz * i_body->vz));
+        PhysicsPerl__Astro__Body* body_i = this->bodies[i].get();
+        e += 0.5 * body_i->mass * ((body_i->vx * body_i->vx) + (body_i->vy * body_i->vy) + (body_i->vz * body_i->vz));
         for ( integer j = (i + 1); j <= ((this->bodies.size()) - 1); j++ ) {
-            PhysicsPerl__Astro__Body* j_body = this->bodies[j].get();
-            dx = i_body->x - j_body->x;
-            dy = i_body->y - j_body->y;
-            dz = i_body->z - j_body->z;
+            PhysicsPerl__Astro__Body* body_j = this->bodies[j].get();
+            dx = body_i->x - body_j->x;
+            dy = body_i->y - body_j->y;
+            dz = body_i->z - body_j->z;
             distance = pow(((dx * dx) + (dy * dy) + (dz * dz)), 0.5);
-            e -= (i_body->mass * j_body->mass) / distance;
+            e -= (body_i->mass * body_j->mass) / distance;
         }
     }
     return e;
 }
 
-void PhysicsPerl__Astro__System::advance_loop(number dt, integer n) {
-    integer bodies_size = this->bodies.size();
+void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const integer time_step_max) {
+    integer time_step;
     integer i;
     integer j;
+
+    const integer bodies_size = this->bodies.size();
     number dx;
     number dy;
     number dz;
     number distance_squared;
     number distance;
     number magnitude;
-    PhysicsPerl__Astro__Body* i_body;
-    PhysicsPerl__Astro__Body* j_body;
+    PhysicsPerl__Astro__Body* body_i;
+    PhysicsPerl__Astro__Body* body_j;
 
-    for ( integer time_step = 1; time_step <= n; time_step++ ) { 
+    for ( time_step = 1; time_step <= time_step_max; time_step++ ) { 
         for ( i = 0; i < bodies_size; i++ ) {
-            i_body = this->bodies[i].get();
+            body_i = this->bodies[i].get();
             for ( j = (i + 1); j < bodies_size; j++ ) {
-                j_body = this->bodies[j].get();
-                dx = i_body->x - j_body->x;
-                dy = i_body->y - j_body->y;
-                dz = i_body->z - j_body->z;
+                body_j = this->bodies[j].get();
+                dx = body_i->x - body_j->x;
+                dy = body_i->y - body_j->y;
+                dz = body_i->z - body_j->z;
                 distance_squared = (dx * dx) + (dy * dy) + (dz * dz);
                 distance = pow(distance_squared, 0.5);
-                magnitude = dt / (distance_squared * distance);
-                i_body->vx -= dx * j_body->mass * magnitude;
-                i_body->vy -= dy * j_body->mass * magnitude;
-                i_body->vz -= dz * j_body->mass * magnitude;
-                j_body->vx += dx * i_body->mass * magnitude;
-                j_body->vy += dy * i_body->mass * magnitude;
-                j_body->vz += dz * i_body->mass * magnitude;
+                magnitude = delta_time / (distance_squared * distance);
+                body_i->vx -= dx * body_j->mass * magnitude;
+                body_i->vy -= dy * body_j->mass * magnitude;
+                body_i->vz -= dz * body_j->mass * magnitude;
+                body_j->vx += dx * body_i->mass * magnitude;
+                body_j->vy += dy * body_i->mass * magnitude;
+                body_j->vz += dz * body_i->mass * magnitude;
             }
         }
         for ( i = 0; i < bodies_size; i++ ) {
-            i_body = this->bodies[i].get();
-            i_body->x += dt * i_body->vx;
-            i_body->y += dt * i_body->vy;
-            i_body->z += dt * i_body->vz;
+            body_i = this->bodies[i].get();
+            body_i->x += delta_time * body_i->vx;
+            body_i->y += delta_time * body_i->vy;
+            body_i->z += delta_time * body_i->vz;
         }
     }
 }

@@ -1,15 +1,43 @@
 using std::cout;  using std::cerr;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp
-#define __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp 0.005_000
+#define __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp 0.006_000
 
-#include "/home/wbraswell/school/physicsperl/physicsperl-latest/lib/PhysicsPerl/Astro/System.h"
+#include "PhysicsPerl/Astro/System.h"
 
 # ifdef __PERL__TYPES
 
 Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.__We_need_to_define_only___CPP__TYPES_in_this_file!
 
 # elif defined __CPP__TYPES
+
+typedef __m128d sse_number_pair;
+typedef const __m128d sse_constant_number_pair;
+#define sse_number_pair_new_from_single(X) _mm_set1_pd(X)
+#define sse_number_pair_new_from_pair(X, Y) _mm_setr_pd(X, Y)  // NEED TEST
+#define sse_constant_number_pair_new_from_single(X) _mm_set1_pd(X)
+#define sse_constant_number_pair_new_from_pair(X, Y) _mm_setr_pd(X, Y)  // NEED TEST
+#define sse_add +
+#define sse_sub -
+#define sse_mul *
+#define sse_div /
+#define sse_number_pair_to_quad _mm_cvtpd_ps
+#define sse_number_quad_to_pair _mm_cvtps_pd
+#define sse_recip_sqrt_quad _mm_rsqrt_ps
+
+void PhysicsPerl__Astro__System::get_bodies_element(integer i, PhysicsPerl__Astro__Body* body_tmp) { 
+    PhysicsPerl__Astro__Body* body_i = this->bodies[i].get();
+    body_tmp->name = body_i->name;
+    body_tmp->x = body_i->x;
+    body_tmp->y = body_i->y;
+    body_tmp->z = body_i->z;
+    body_tmp->vx = body_i->vx;
+    body_tmp->vy = body_i->vy;
+    body_tmp->vz = body_i->vz;
+    body_tmp->mass = body_i->mass;
+    body_tmp->radius = body_i->radius;
+    body_tmp->color = body_i->color;
+}
 
 void PhysicsPerl__Astro__System::init() {
     this->bodies.resize(5);
@@ -40,118 +68,120 @@ number PhysicsPerl__Astro__System::energy() {
     number distance;
     number e = 0.0;
     for ( integer i = 0; i <= ((this->bodies.size()) - 1); i++ ) {
-        PhysicsPerl__Astro__Body* i_body = this->bodies[i].get();
-        e += 0.5 * i_body->mass * ((i_body->vx * i_body->vx) + (i_body->vy * i_body->vy) + (i_body->vz * i_body->vz));
+        PhysicsPerl__Astro__Body* body_i = this->bodies[i].get();
+        e += 0.5 * body_i->mass * ((body_i->vx * body_i->vx) + (body_i->vy * body_i->vy) + (body_i->vz * body_i->vz));
         for ( integer j = (i + 1); j <= ((this->bodies.size()) - 1); j++ ) {
-            PhysicsPerl__Astro__Body* j_body = this->bodies[j].get();
-            dx = i_body->x - j_body->x;
-            dy = i_body->y - j_body->y;
-            dz = i_body->z - j_body->z;
+            PhysicsPerl__Astro__Body* body_j = this->bodies[j].get();
+            dx = body_i->x - body_j->x;
+            dy = body_i->y - body_j->y;
+            dz = body_i->z - body_j->z;
             distance = pow(((dx * dx) + (dy * dy) + (dz * dz)), 0.5);
-            e -= (i_body->mass * j_body->mass) / distance;
+            e -= (body_i->mass * body_j->mass) / distance;
         }
     }
     return e;
 }
 
-void PhysicsPerl__Astro__System::advance_loop(const number dt, const integer time_steps) {
-    integer bodies_size = this->bodies.size();
+void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const integer time_step_max) {
+    integer time_step;
+    integer i;
+    integer j;
+ 
+    const integer bodies_size = this->bodies.size();
     const unsigned int N = 10;
 
     number_arrayref dx_array;
-    number_arrayref dy_array;
-    number_arrayref dz_array;
-    number_arrayref magnitude_array;
     dx_array.resize(N);
+    number_arrayref dy_array;
     dy_array.resize(N);
+    number_arrayref dz_array;
     dz_array.resize(N);
+    number_arrayref magnitude_array;
     magnitude_array.resize(N);
 
-    const __m128d dt_sse = _mm_set1_pd(dt);
-    __m128d dx;
-    __m128d dy;
-    __m128d dz;
-    __m128d distance_squared;
-    __m128d distance;
-    __m128d magnitude;
-    const __m128d zero_point_five = _mm_set1_pd(0.5);
-    const __m128d one_point_five = _mm_set1_pd(1.5);
+    sse_constant_number_pair delta_time_sse = sse_number_pair_new_from_single(delta_time);
+    sse_number_pair dx;
+    sse_number_pair dy;
+    sse_number_pair dz;
+    sse_number_pair distance_squared;
+    sse_number_pair distance;
+    sse_number_pair magnitude;
+    sse_constant_number_pair zero_point_five = sse_number_pair_new_from_single(0.5);
+    sse_constant_number_pair one_point_five = sse_number_pair_new_from_single(1.5);
  
     number dx_array_k;
     number dy_array_k;
     number dz_array_k;
     number magnitude_k;
-    number i_body_mass_times_magnitude_k;
-    number j_body_mass_times_magnitude_k;
+    number body_i_mass_times_magnitude_k;
+    number body_j_mass_times_magnitude_k;
 
-    integer i;
     integer i_plus_1;
-    integer j;
     integer k;
 
-    PhysicsPerl__Astro__Body* i_body;
-    PhysicsPerl__Astro__Body* j_body;
+    PhysicsPerl__Astro__Body* body_i;
+    PhysicsPerl__Astro__Body* body_j;
 
-    for ( integer time_step = 0; time_step < time_steps; time_step++ ) { 
+    for ( time_step = 0; time_step < time_step_max; time_step++ ) {
 
         k = 0;
         for ( i = 0; i < bodies_size; i++ ) {
-            i_body = this->bodies[i].get();
+            body_i = this->bodies[i].get();
             for ( j = i + 1; j < bodies_size; j++ ) {
-                j_body = this->bodies[j].get();
-                dx_array[k] = i_body->x - j_body->x;
-                dy_array[k] = i_body->y - j_body->y;
-                dz_array[k] = i_body->z - j_body->z;
+                body_j = this->bodies[j].get();
+                dx_array[k] = body_i->x - body_j->x;
+                dy_array[k] = body_i->y - body_j->y;
+                dz_array[k] = body_i->z - body_j->z;
                 k++;
             }
         }
 
         for ( i = 0; i < N; i += 2) {
             i_plus_1 = i + 1;
-            dx = _mm_loadl_pd(dx, &dx_array[i]);
-            dx = _mm_loadh_pd(dx, &dx_array[i_plus_1]);
-            dy = _mm_loadl_pd(dy, &dy_array[i]);
-            dy = _mm_loadh_pd(dy, &dy_array[i_plus_1]);
-            dz = _mm_loadl_pd(dz, &dz_array[i]);
-            dz = _mm_loadh_pd(dz, &dz_array[i_plus_1]);
-            distance_squared = (dx * dx) + (dy * dy) + (dz * dz);
-            distance = _mm_cvtps_pd(_mm_rsqrt_ps(_mm_cvtpd_ps(distance_squared)));
-            distance = distance * one_point_five - ((zero_point_five * distance_squared) * distance) * (distance * distance);
-            distance = distance * one_point_five - ((zero_point_five * distance_squared) * distance) * (distance * distance);
-            magnitude = (dt_sse / distance_squared) * distance;
+            dx[0] = dx_array[i];
+            dx[1] = dx_array[i_plus_1];
+            dy[0] = dy_array[i];
+            dy[1] = dy_array[i_plus_1];
+            dz[0] = dz_array[i];
+            dz[1] = dz_array[i_plus_1];
+            distance_squared = (dx sse_mul dx) sse_add (dy sse_mul dy) sse_add (dz sse_mul dz);
+            distance = sse_number_quad_to_pair(sse_recip_sqrt_quad(sse_number_pair_to_quad(distance_squared)));
+            distance = distance sse_mul one_point_five sse_sub ((zero_point_five sse_mul distance_squared) sse_mul distance) sse_mul (distance sse_mul distance);
+            distance = distance sse_mul one_point_five sse_sub ((zero_point_five sse_mul distance_squared) sse_mul distance) sse_mul (distance sse_mul distance);
+            magnitude = (delta_time_sse sse_div distance_squared) sse_mul distance;
             magnitude_array[i] = magnitude[0];
             magnitude_array[i_plus_1] = magnitude[1];
         }
 
         k = 0;
         for ( i = 0; i < bodies_size; i++ ) {
-            i_body = this->bodies[i].get();
+            body_i = this->bodies[i].get();
             for ( j = i + 1; j < bodies_size; j++ ) {
-                j_body = this->bodies[j].get();
+                body_j = this->bodies[j].get();
                 dx_array_k = dx_array[k];
                 dy_array_k = dy_array[k];
                 dz_array_k = dz_array[k];
                 magnitude_k = magnitude_array[k];
 
-                i_body_mass_times_magnitude_k = i_body->mass * magnitude_k;
-                j_body_mass_times_magnitude_k = j_body->mass * magnitude_k;
+                body_i_mass_times_magnitude_k = body_i->mass * magnitude_k;
+                body_j_mass_times_magnitude_k = body_j->mass * magnitude_k;
                 
-                i_body->vx -= dx_array_k * j_body_mass_times_magnitude_k;
-                j_body->vx += dx_array_k * i_body_mass_times_magnitude_k;
-                i_body->vy -= dy_array_k * j_body_mass_times_magnitude_k;
-                j_body->vy += dy_array_k * i_body_mass_times_magnitude_k;
-                i_body->vz -= dz_array_k * j_body_mass_times_magnitude_k;
-                j_body->vz += dz_array_k * i_body_mass_times_magnitude_k;
+                body_i->vx -= dx_array_k * body_j_mass_times_magnitude_k;
+                body_j->vx += dx_array_k * body_i_mass_times_magnitude_k;
+                body_i->vy -= dy_array_k * body_j_mass_times_magnitude_k;
+                body_j->vy += dy_array_k * body_i_mass_times_magnitude_k;
+                body_i->vz -= dz_array_k * body_j_mass_times_magnitude_k;
+                body_j->vz += dz_array_k * body_i_mass_times_magnitude_k;
 
                 k++;
             }
         }
 
         for ( i = 0; i < bodies_size; i++ ) {
-            i_body = this->bodies[i].get();
-            i_body->x += dt * i_body->vx;
-            i_body->y += dt * i_body->vy;
-            i_body->z += dt * i_body->vz;
+            body_i = this->bodies[i].get();
+            body_i->x += delta_time * body_i->vx;
+            body_i->y += delta_time * body_i->vy;
+            body_i->z += delta_time * body_i->vz;
         }
     }
 }

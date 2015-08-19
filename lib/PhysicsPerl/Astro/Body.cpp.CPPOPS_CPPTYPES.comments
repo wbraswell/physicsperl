@@ -7,8 +7,7 @@ using std::cout;  using std::cerr;
 // [[[ INCLUDES ]]]
 
 // NEED FIX
-//#include <PhysicsPerl/Astro/Body.h>
-#include "/home/wbraswell/school/physicsperl/physicsperl-latest/lib/PhysicsPerl/Astro/Body.h"
+#include "PhysicsPerl/Astro/Body.h"
 
 # ifdef __PERL__TYPES
 
@@ -22,7 +21,7 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 
 // [[[ OO METHODS & SUBROUTINES ]]]
 
-// DEV NOTE, CORRELATION #21: do not inline constructors and destructors (even empty ones) in *.h, could cause slowdown of vector creation
+// DEV NOTE, CORRELATION #pp04: do not inline constructors and destructors (even empty ones) in *.h, could cause slowdown of vector creation
 PhysicsPerl__Astro__Body::PhysicsPerl__Astro__Body() {}
 PhysicsPerl__Astro__Body::~PhysicsPerl__Astro__Body() {}
 PhysicsPerl__Astro__Body::PhysicsPerl__Astro__Body(const PhysicsPerl__Astro__Body&) {};  // non-default copy constructor

@@ -1,5 +1,5 @@
 # [[[ HEADER ]]]
-package PhysicsPerl::Astro::Renderer2DBody;
+package PhysicsPerl::Astro::BodyRenderer2D;
 use strict;
 use warnings;
 use RPerl::AfterSubclass;
@@ -28,7 +28,7 @@ our hashref $properties = {
 # [[[ OO METHODS & SUBROUTINES ]]]
 
 our void::method $draw = sub {
-    ( my PhysicsPerl::Astro::Renderer2DBody $self, my SDLx::App $app ) = @_;
+    ( my PhysicsPerl::Astro::BodyRenderer2D $self, my SDLx::App $app ) = @_;
 
     # NEED FIX: remove hard-coded radius scaling factor
     $app->draw_circle_filled(

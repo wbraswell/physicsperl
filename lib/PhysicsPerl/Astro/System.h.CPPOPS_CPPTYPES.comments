@@ -9,8 +9,7 @@ using std::cout;  using std::cerr;
 #include <RPerl/CompileUnit/Module/Class.cpp>
 
 // NEED FIX
-//#include <PhysicsPerl/Astro/Body.cpp>
-#include "/home/wbraswell/school/physicsperl/physicsperl-latest/lib/PhysicsPerl/Astro/Body.cpp"
+#include "PhysicsPerl/Astro/Body.cpp"
 
 # ifdef __PERL__TYPES
 

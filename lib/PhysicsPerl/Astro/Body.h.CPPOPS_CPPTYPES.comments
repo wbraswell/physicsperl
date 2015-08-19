@@ -50,7 +50,7 @@ public:
 */
 
     // <<< CONSTRUCTOR & DESTRUCTOR >>>
-// DEV NOTE, CORRELATION #21: do not inline constructors and destructors (even empty ones) in *.h, could cause slowdown of vector creation
+// DEV NOTE, CORRELATION #pp04: do not inline constructors and destructors (even empty ones) in *.h, could cause slowdown of vector creation
 //    PhysicsPerl__Astro__Body() {}
 //    ~PhysicsPerl__Astro__Body() {}
     PhysicsPerl__Astro__Body();

@@ -34,7 +34,7 @@ our $VERSION = 0.001_000;
 
 # [[[ INCLUDES ]]]
 use PhysicsPerl::Astro::System;
-use PhysicsPerl::Astro::Renderer2DSystem;
+use PhysicsPerl::Astro::SystemRenderer2D;
 use Time::HiRes qw(time);
 
 # [[[ OPERATIONS ]]]
@@ -50,12 +50,12 @@ $system->init();
 print 'start energy: ' . number_to_string($system->energy()) . "\n";
 
 # NO GRAPHICS
-#$system->advance_loop($delta_time, $time_step_max);  # 85 seconds; SSE 13 seconds
+$system->advance_loop($delta_time, $time_step_max);  # 85 seconds; SSE 13 seconds
 
 # YES GRAPHICS
-my PhysicsPerl::Astro::Renderer2DSystem $renderer = PhysicsPerl::Astro::Renderer2DSystem->new();
-$renderer->init($system, $delta_time, $time_step_max, 1000, $time_start);  # NEED UPDATE: remove hard-coded $time_steps_per_frame
-$renderer->render2d_video();
+#my PhysicsPerl::Astro::SystemRenderer2D $renderer = PhysicsPerl::Astro::SystemRenderer2D->new();
+#$renderer->init($system, $delta_time, $time_step_max, 100, $time_start);  # NEED UPDATE: remove hard-coded $time_steps_per_frame
+#$renderer->render2d_video();
 
 print 'end energy:   ' . number_to_string($system->energy()) . "\n";
 my $time_total = time() - $time_start;

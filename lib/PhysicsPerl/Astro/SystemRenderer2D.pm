@@ -1,9 +1,9 @@
 # [[[ HEADER ]]]
-package PhysicsPerl::Astro::Renderer2DSystem;
+package PhysicsPerl::Astro::SystemRenderer2D;
 use strict;
 use warnings;
 use RPerl::AfterSubclass;
-our $VERSION = 0.002_000;
+our $VERSION = 0.003_000;
 
 # [[[ OO INHERITANCE ]]]
 use parent qw(RPerl::CompileUnit::Module::Class);    # no non-system inheritance, only inherit from base class
@@ -16,7 +16,7 @@ use RPerl::CompileUnit::Module::Class;
 # [[[ INCLUDES ]]]
 use PhysicsPerl::Astro::System;
 use PhysicsPerl::Astro::Body;
-use PhysicsPerl::Astro::Renderer2DBody;
+use PhysicsPerl::Astro::BodyRenderer2D;
 use Time::HiRes qw(time);
 use SDL;
 use SDL::Event;
@@ -37,14 +37,14 @@ our hashref $properties = {
     window_width => my integer $TYPED_window_width = undef,
     window_height => my integer $TYPED_window_height = undef,
     zoom => my number $TYPED_zoom = undef,
-    body_renderer2d => my PhysicsPerl::Astro::Renderer2DBody $TYPED_body_renderer2d = undef,
+    body_renderer2d => my PhysicsPerl::Astro::BodyRenderer2D $TYPED_body_renderer2d = undef,
     app => my SDLx::App $TYPED_app = undef
 };
 
 # [[[ OO METHODS & SUBROUTINES ]]]
 
 our void::method $init = sub {
-    ( my PhysicsPerl::Astro::Renderer2DSystem $self, my PhysicsPerl::Astro::System $system, my number $delta_time, my integer $time_step_max, my integer $time_steps_per_frame, my number $time_start ) = @_;
+    ( my PhysicsPerl::Astro::SystemRenderer2D $self, my PhysicsPerl::Astro::System $system, my number $delta_time, my integer $time_step_max, my integer $time_steps_per_frame, my number $time_start ) = @_;
 
     $self->{my_system} = $system;
     $self->{delta_time} = $delta_time;
@@ -60,7 +60,7 @@ our void::method $init = sub {
 #    $self->{window_width} = 1440;
 #    $self->{window_height} = 900;
     $self->{zoom} = 6;
-    $self->{body_renderer2d} = PhysicsPerl::Astro::Renderer2DBody->new();  # one body renderer used for all bodies in system
+    $self->{body_renderer2d} = PhysicsPerl::Astro::BodyRenderer2D->new();  # one body renderer used for all bodies in system
     $self->{body_renderer2d}->{x_offset} = $self->{window_width} / 2;  # offset coordinates so (0,0) maps to center of window, not upper-left corner
     $self->{body_renderer2d}->{y_offset} = $self->{window_height} / 2;
     $self->{body_renderer2d}->{zoom} = $self->{zoom};
@@ -76,23 +76,20 @@ our void::method $init = sub {
 };
 
 our void::method $events = sub {
-    ( my PhysicsPerl::Astro::Renderer2DSystem $self, my SDL::Event $event, my SDLx::App $app ) = @_;
+    ( my PhysicsPerl::Astro::SystemRenderer2D $self, my SDL::Event $event, my SDLx::App $app ) = @_;
     if ($event->type() == SDL_QUIT) { $app->stop(); }
 };
 
 our void::method $show = sub {
-    ( my PhysicsPerl::Astro::Renderer2DSystem $self, my number $dt, my SDLx::App $app ) = @_;
+    ( my PhysicsPerl::Astro::SystemRenderer2D $self, my number $dt, my SDLx::App $app ) = @_;
     SDL::Video::fill_rect( $app, SDL::Rect->new(0, 0, $app->w(), $app->h()), 0 );
 
+    # NEED FIX, CORRELATION #pp05: C++ & Perl get_bodies_element() both return void, need both to return objects instead
+    my PhysicsPerl::Astro::Body $body_i = PhysicsPerl::Astro::Body->new();
     # NEED FIX: remove hard-coded $bodies size
-#    foreach my PhysicsPerl::Astro::Body $body (@{$self->{my_system}->{bodies}}) {
     for my integer $i (0 .. 4) {
-        # DEV NOTE: C++ get_i_body() returns void, Perl get_i_body() returns object
-        my PhysicsPerl::Astro::Body $pre_body = PhysicsPerl::Astro::Body->new();
-        my PhysicsPerl::Astro::Body $tmp_body = undef;
-        $tmp_body = $self->{my_system}->get_i_body($pre_body, $i);
-        if (defined $tmp_body) { $pre_body = $tmp_body; }
-        $self->{body_renderer2d}->{body} = $pre_body;
+        $self->{my_system}->get_bodies_element($i, $body_i);
+        $self->{body_renderer2d}->{body} = $body_i;
         $self->{body_renderer2d}->draw($app);
     }
     
@@ -121,7 +118,7 @@ our void::method $show = sub {
 
     # NEED FIX: remove hard-coded font path
     SDLx::Text->new(
-        font    => '/home/wbraswell/school/physicsperl/physicsperl-latest/fonts/VeraMono.ttf',
+        font    => 'fonts/VeraMono.ttf',
         size    => 15,
         color   => [255, 255, 255],
         text    => $status,
@@ -133,7 +130,7 @@ our void::method $show = sub {
 };
 
 our void::method $move = sub {
-    ( my PhysicsPerl::Astro::Renderer2DSystem $self, my number $dt, my SDLx::App $app, my number $t ) = @_;
+    ( my PhysicsPerl::Astro::SystemRenderer2D $self, my number $dt, my SDLx::App $app, my number $t ) = @_;
     # don't overshoot your time_step_max
     if (($self->{time_step_current} + $self->{time_steps_per_frame}) > $self->{time_step_max}) {
         $self->{time_steps_per_frame} = $self->{time_step_max} - $self->{time_step_current};
@@ -144,7 +141,7 @@ our void::method $move = sub {
 };
 
 our void::method $render2d_video = sub {
-    ( my PhysicsPerl::Astro::Renderer2DSystem $self ) = @_;
+    ( my PhysicsPerl::Astro::SystemRenderer2D $self ) = @_;
 
     $self->{app}->add_event_handler( sub { $self->events(@_) } );
     $self->{app}->add_show_handler( sub { $self->show(@_) } );

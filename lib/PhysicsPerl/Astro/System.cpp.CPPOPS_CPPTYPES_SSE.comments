@@ -7,8 +7,7 @@ using std::cout;  using std::cerr;
 // [[[ INCLUDES ]]]
 
 // NEED FIX
-//#include <PhysicsPerl/Astro/System.h>
-#include "/home/wbraswell/school/physicsperl/physicsperl-latest/lib/PhysicsPerl/Astro/System.h"
+#include "PhysicsPerl/Astro/System.h"
 
 # ifdef __PERL__TYPES
 
@@ -68,17 +67,17 @@ number PhysicsPerl__Astro__System::energy() {
     number distance;
     number e = 0.0;
     for ( integer i = 0; i <= ((this->bodies.size()) - 1); i++ ) {
-        PhysicsPerl__Astro__Body* i_body = this->bodies[i].get();
-//        PhysicsPerl__Astro__Body* i_body = this->bodies[i];
-        e += 0.5 * i_body->mass * ((i_body->vx * i_body->vx) + (i_body->vy * i_body->vy) + (i_body->vz * i_body->vz));
+        PhysicsPerl__Astro__Body* body_i = this->bodies[i].get();
+//        PhysicsPerl__Astro__Body* body_i = this->bodies[i];
+        e += 0.5 * body_i->mass * ((body_i->vx * body_i->vx) + (body_i->vy * body_i->vy) + (body_i->vz * body_i->vz));
         for ( integer j = (i + 1); j <= ((this->bodies.size()) - 1); j++ ) {
-            PhysicsPerl__Astro__Body* j_body = this->bodies[j].get();
-//            PhysicsPerl__Astro__Body* j_body = this->bodies[j];
-            dx = i_body->x - j_body->x;
-            dy = i_body->y - j_body->y;
-            dz = i_body->z - j_body->z;
+            PhysicsPerl__Astro__Body* body_j = this->bodies[j].get();
+//            PhysicsPerl__Astro__Body* body_j = this->bodies[j];
+            dx = body_i->x - body_j->x;
+            dy = body_i->y - body_j->y;
+            dz = body_i->z - body_j->z;
             distance = pow(((dx * dx) + (dy * dy) + (dz * dz)), 0.5);
-            e -= (i_body->mass * j_body->mass) / distance;
+            e -= (body_i->mass * body_j->mass) / distance;
         }
     }
     return e;
@@ -114,32 +113,32 @@ void PhysicsPerl__Astro__System::advance_loop(const number dt, const integer tim
     __m128d magnitude;
     const __m128d zero_point_five = _mm_set1_pd(0.5);
     const __m128d one_point_five = _mm_set1_pd(1.5);
-//    __m128d i_body_mass__j_body_mass;
+//    __m128d body_i_mass__body_j_mass;
 //    __m128d magnitude_k__magnitude_k;
-//    __m128d i_body_mass__j_body_mass__times__magnitude_k__magnitude_k;
+//    __m128d body_i_mass__body_j_mass__times__magnitude_k__magnitude_k;
 //    __m128d dx_array_k__dx_array_k;
 //    __m128d dy_array_k__dy_array_k;
 //    __m128d dz_array_k__dz_array_k;
-//    __m128d dx_array_k__dx_array_k__times__i_body_mass__j_body_mass__times__magnitude_k__magnitude_k;
-//    __m128d dy_array_k__dy_array_k__times__i_body_mass__j_body_mass__times__magnitude_k__magnitude_k;
-//    __m128d dz_array_k__dz_array_k__times__i_body_mass__j_body_mass__times__magnitude_k__magnitude_k;
+//    __m128d dx_array_k__dx_array_k__times__body_i_mass__body_j_mass__times__magnitude_k__magnitude_k;
+//    __m128d dy_array_k__dy_array_k__times__body_i_mass__body_j_mass__times__magnitude_k__magnitude_k;
+//    __m128d dz_array_k__dz_array_k__times__body_i_mass__body_j_mass__times__magnitude_k__magnitude_k;
 
-//    double i_body_mass__j_body_mass__arrayref[2];
+//    double body_i_mass__body_j_mass__arrayref[2];
  
     number dx_array_k;
     number dy_array_k;
     number dz_array_k;
     number magnitude_k;
-    number i_body_mass_times_magnitude_k;
-    number j_body_mass_times_magnitude_k;
+    number body_i_mass_times_magnitude_k;
+    number body_j_mass_times_magnitude_k;
 
     integer i;
     integer i_plus_1;
     integer j;
     integer k;
 
-    PhysicsPerl__Astro__Body* i_body;
-    PhysicsPerl__Astro__Body* j_body;
+    PhysicsPerl__Astro__Body* body_i;
+    PhysicsPerl__Astro__Body* body_j;
 
     //cerr << "in advance_loop(), have this->bodies.size() = " << this->bodies.size() << "\n";
     for ( integer time_step = 0; time_step < time_steps; time_step++ ) { 
@@ -149,14 +148,14 @@ void PhysicsPerl__Astro__System::advance_loop(const number dt, const integer tim
 
         k = 0;
         for ( i = 0; i < bodies_size; i++ ) {
-            i_body = this->bodies[i].get();
-//            i_body = this->bodies[i];
+            body_i = this->bodies[i].get();
+//            body_i = this->bodies[i];
             for ( j = i + 1; j < bodies_size; j++ ) {
-                j_body = this->bodies[j].get();
-//                j_body = this->bodies[j];
-                dx_array[k] = i_body->x - j_body->x;
-                dy_array[k] = i_body->y - j_body->y;
-                dz_array[k] = i_body->z - j_body->z;
+                body_j = this->bodies[j].get();
+//                body_j = this->bodies[j];
+                dx_array[k] = body_i->x - body_j->x;
+                dy_array[k] = body_i->y - body_j->y;
+                dz_array[k] = body_i->z - body_j->z;
                 k++;
             }
         }
@@ -221,55 +220,55 @@ void PhysicsPerl__Astro__System::advance_loop(const number dt, const integer tim
         k = 0;
         for ( i = 0; i < bodies_size; i++ ) {
             //cerr << "in advance(), have velloop i =             " << i << "\n";
-            i_body = this->bodies[i].get();
-//            i_body = this->bodies[i];
+            body_i = this->bodies[i].get();
+//            body_i = this->bodies[i];
             for ( j = i + 1; j < bodies_size; j++ ) {
     //            //cerr << "in advance(), have velloop j =             " << j << "\n";
-                j_body = this->bodies[j].get();
-//                j_body = this->bodies[j];
+                body_j = this->bodies[j].get();
+//                body_j = this->bodies[j];
                 dx_array_k = dx_array[k];
                 dy_array_k = dy_array[k];
                 dz_array_k = dz_array[k];
                 magnitude_k = magnitude_array[k];
 
-                i_body_mass_times_magnitude_k = i_body->mass * magnitude_k;
-                j_body_mass_times_magnitude_k = j_body->mass * magnitude_k;
-//                i_body_mass__j_body_mass = _mm_loadl_pd(i_body_mass__j_body_mass, &i_body->mass);
-//                i_body_mass__j_body_mass = _mm_loadh_pd(i_body_mass__j_body_mass, &j_body->mass);
-//                i_body_mass__j_body_mass__arrayref[0] = i_body->mass;
-//                i_body_mass__j_body_mass__arrayref[1] = j_body->mass;
-//                i_body_mass__j_body_mass = _mm_loadu_pd((double*)i_body_mass__j_body_mass__arrayref);
+                body_i_mass_times_magnitude_k = body_i->mass * magnitude_k;
+                body_j_mass_times_magnitude_k = body_j->mass * magnitude_k;
+//                body_i_mass__body_j_mass = _mm_loadl_pd(body_i_mass__body_j_mass, &body_i->mass);
+//                body_i_mass__body_j_mass = _mm_loadh_pd(body_i_mass__body_j_mass, &body_j->mass);
+//                body_i_mass__body_j_mass__arrayref[0] = body_i->mass;
+//                body_i_mass__body_j_mass__arrayref[1] = body_j->mass;
+//                body_i_mass__body_j_mass = _mm_loadu_pd((double*)body_i_mass__body_j_mass__arrayref);
 
 //                magnitude_k__magnitude_k = _mm_loadl_pd(magnitude_k__magnitude_k, &magnitude_k);
 //                magnitude_k__magnitude_k = _mm_loadh_pd(magnitude_k__magnitude_k, &magnitude_k);
 //                magnitude_k__magnitude_k = _mm_load1_pd(&magnitude_array[k]);
 
-//                i_body_mass__j_body_mass__times__magnitude_k__magnitude_k = i_body_mass__j_body_mass * magnitude_k__magnitude_k;
-//                i_body_mass__j_body_mass__times__magnitude_k__magnitude_k = i_body_mass__j_body_mass * _mm_load1_pd(&magnitude_array[k]);
-//                i_body_mass__j_body_mass__times__magnitude_k__magnitude_k = i_body_mass__j_body_mass * _mm_set1_pd(magnitude_array[k]);
-//                i_body_mass_times_magnitude_k = i_body_mass__j_body_mass__times__magnitude_k__magnitude_k[0];
-//                j_body_mass_times_magnitude_k = i_body_mass__j_body_mass__times__magnitude_k__magnitude_k[1];
+//                body_i_mass__body_j_mass__times__magnitude_k__magnitude_k = body_i_mass__body_j_mass * magnitude_k__magnitude_k;
+//                body_i_mass__body_j_mass__times__magnitude_k__magnitude_k = body_i_mass__body_j_mass * _mm_load1_pd(&magnitude_array[k]);
+//                body_i_mass__body_j_mass__times__magnitude_k__magnitude_k = body_i_mass__body_j_mass * _mm_set1_pd(magnitude_array[k]);
+//                body_i_mass_times_magnitude_k = body_i_mass__body_j_mass__times__magnitude_k__magnitude_k[0];
+//                body_j_mass_times_magnitude_k = body_i_mass__body_j_mass__times__magnitude_k__magnitude_k[1];
 
 /*
                 dx_array_k__dx_array_k = _mm_load1_pd(&dx_array[k]);
-                dx_array_k__dx_array_k__times__i_body_mass__j_body_mass__times__magnitude_k__magnitude_k = 
-                    dx_array_k__dx_array_k * i_body_mass__j_body_mass__times__magnitude_k__magnitude_k;
+                dx_array_k__dx_array_k__times__body_i_mass__body_j_mass__times__magnitude_k__magnitude_k = 
+                    dx_array_k__dx_array_k * body_i_mass__body_j_mass__times__magnitude_k__magnitude_k;
                 dy_array_k__dy_array_k = _mm_load1_pd(&dy_array[k]);
-                dy_array_k__dy_array_k__times__i_body_mass__j_body_mass__times__magnitude_k__magnitude_k = 
-                    dy_array_k__dy_array_k * i_body_mass__j_body_mass__times__magnitude_k__magnitude_k;
+                dy_array_k__dy_array_k__times__body_i_mass__body_j_mass__times__magnitude_k__magnitude_k = 
+                    dy_array_k__dy_array_k * body_i_mass__body_j_mass__times__magnitude_k__magnitude_k;
                 dz_array_k__dz_array_k = _mm_load1_pd(&dz_array[k]);
-                dz_array_k__dz_array_k__times__i_body_mass__j_body_mass__times__magnitude_k__magnitude_k = 
-                    dz_array_k__dz_array_k * i_body_mass__j_body_mass__times__magnitude_k__magnitude_k;
+                dz_array_k__dz_array_k__times__body_i_mass__body_j_mass__times__magnitude_k__magnitude_k = 
+                    dz_array_k__dz_array_k * body_i_mass__body_j_mass__times__magnitude_k__magnitude_k;
 */
                 
-                //cerr << "in advance(), have i_body->vx 0 =          " << i_body->vx << "\n";
-                //cerr << "in advance(), have j_body->vx 0 =          " << j_body->vx << "\n";
-                //cerr << "in advance(), have i_body->vy 0 =          " << i_body->vy << "\n";
-                //cerr << "in advance(), have j_body->vy 0 =          " << j_body->vy << "\n";
-                //cerr << "in advance(), have i_body->vz 0 =          " << i_body->vz << "\n";
-                //cerr << "in advance(), have j_body->vz 0 =          " << j_body->vz << "\n";
-                //cerr << "in advance(), have i_body->mass =          " << i_body->mass << "\n";
-                //cerr << "in advance(), have j_body->mass =          " << j_body->mass << "\n";
+                //cerr << "in advance(), have body_i->vx 0 =          " << body_i->vx << "\n";
+                //cerr << "in advance(), have body_j->vx 0 =          " << body_j->vx << "\n";
+                //cerr << "in advance(), have body_i->vy 0 =          " << body_i->vy << "\n";
+                //cerr << "in advance(), have body_j->vy 0 =          " << body_j->vy << "\n";
+                //cerr << "in advance(), have body_i->vz 0 =          " << body_i->vz << "\n";
+                //cerr << "in advance(), have body_j->vz 0 =          " << body_j->vz << "\n";
+                //cerr << "in advance(), have body_i->mass =          " << body_i->mass << "\n";
+                //cerr << "in advance(), have body_j->mass =          " << body_j->mass << "\n";
                 //cerr << "in advance(), have dx_array[" << k << "] =           " << dx_array[k] << "\n";
                 //cerr << "in advance(), have dy_array[" << k << "] =           " << dy_array[k] << "\n";
                 //cerr << "in advance(), have dz_array[" << k << "] =           " << dz_array[k] << "\n";
@@ -277,48 +276,48 @@ void PhysicsPerl__Astro__System::advance_loop(const number dt, const integer tim
                 
 /*
                 // non-SSE, slower
-                i_body->vx -= dx_array[k] * j_body->mass * magnitude_array[k];
-                j_body->vx += dx_array[k] * i_body->mass * magnitude_array[k];
-                i_body->vy -= dy_array[k] * j_body->mass * magnitude_array[k];
-                j_body->vy += dy_array[k] * i_body->mass * magnitude_array[k];
-                i_body->vz -= dz_array[k] * j_body->mass * magnitude_array[k];
-                j_body->vz += dz_array[k] * i_body->mass * magnitude_array[k];
+                body_i->vx -= dx_array[k] * body_j->mass * magnitude_array[k];
+                body_j->vx += dx_array[k] * body_i->mass * magnitude_array[k];
+                body_i->vy -= dy_array[k] * body_j->mass * magnitude_array[k];
+                body_j->vy += dy_array[k] * body_i->mass * magnitude_array[k];
+                body_i->vz -= dz_array[k] * body_j->mass * magnitude_array[k];
+                body_j->vz += dz_array[k] * body_i->mass * magnitude_array[k];
 */
                 
                 // non-SSE, faster
-                i_body->vx -= dx_array_k * j_body_mass_times_magnitude_k;
-                j_body->vx += dx_array_k * i_body_mass_times_magnitude_k;
-                i_body->vy -= dy_array_k * j_body_mass_times_magnitude_k;
-                j_body->vy += dy_array_k * i_body_mass_times_magnitude_k;
-                i_body->vz -= dz_array_k * j_body_mass_times_magnitude_k;
-                j_body->vz += dz_array_k * i_body_mass_times_magnitude_k;
+                body_i->vx -= dx_array_k * body_j_mass_times_magnitude_k;
+                body_j->vx += dx_array_k * body_i_mass_times_magnitude_k;
+                body_i->vy -= dy_array_k * body_j_mass_times_magnitude_k;
+                body_j->vy += dy_array_k * body_i_mass_times_magnitude_k;
+                body_i->vz -= dz_array_k * body_j_mass_times_magnitude_k;
+                body_j->vz += dz_array_k * body_i_mass_times_magnitude_k;
 
 /*
                 // SSE, slower
-                i_body->vx -= dx_array_k__dx_array_k__times__i_body_mass__j_body_mass__times__magnitude_k__magnitude_k[1];
-                j_body->vx += dx_array_k__dx_array_k__times__i_body_mass__j_body_mass__times__magnitude_k__magnitude_k[0];
-                i_body->vy -= dy_array_k__dy_array_k__times__i_body_mass__j_body_mass__times__magnitude_k__magnitude_k[1];
-                j_body->vy += dy_array_k__dy_array_k__times__i_body_mass__j_body_mass__times__magnitude_k__magnitude_k[0];
-                i_body->vz -= dz_array_k__dz_array_k__times__i_body_mass__j_body_mass__times__magnitude_k__magnitude_k[1];
-                j_body->vz += dz_array_k__dz_array_k__times__i_body_mass__j_body_mass__times__magnitude_k__magnitude_k[0];
+                body_i->vx -= dx_array_k__dx_array_k__times__body_i_mass__body_j_mass__times__magnitude_k__magnitude_k[1];
+                body_j->vx += dx_array_k__dx_array_k__times__body_i_mass__body_j_mass__times__magnitude_k__magnitude_k[0];
+                body_i->vy -= dy_array_k__dy_array_k__times__body_i_mass__body_j_mass__times__magnitude_k__magnitude_k[1];
+                body_j->vy += dy_array_k__dy_array_k__times__body_i_mass__body_j_mass__times__magnitude_k__magnitude_k[0];
+                body_i->vz -= dz_array_k__dz_array_k__times__body_i_mass__body_j_mass__times__magnitude_k__magnitude_k[1];
+                body_j->vz += dz_array_k__dz_array_k__times__body_i_mass__body_j_mass__times__magnitude_k__magnitude_k[0];
 */
  
-                //cerr << "in advance(), have i_body->vx 1 =          " << i_body->vx << "\n";
-                //cerr << "in advance(), have j_body->vx 1 =          " << j_body->vx << "\n";
-                //cerr << "in advance(), have i_body->vy 1 =          " << i_body->vy << "\n";
-                //cerr << "in advance(), have j_body->vy 1 =          " << j_body->vy << "\n";
-                //cerr << "in advance(), have i_body->vz 1 =          " << i_body->vz << "\n";
-                //cerr << "in advance(), have j_body->vz 1 =          " << j_body->vz << "\n";
+                //cerr << "in advance(), have body_i->vx 1 =          " << body_i->vx << "\n";
+                //cerr << "in advance(), have body_j->vx 1 =          " << body_j->vx << "\n";
+                //cerr << "in advance(), have body_i->vy 1 =          " << body_i->vy << "\n";
+                //cerr << "in advance(), have body_j->vy 1 =          " << body_j->vy << "\n";
+                //cerr << "in advance(), have body_i->vz 1 =          " << body_i->vz << "\n";
+                //cerr << "in advance(), have body_j->vz 1 =          " << body_j->vz << "\n";
                 k++;
             }
         }
 
         for ( i = 0; i < bodies_size; i++ ) {
-            i_body = this->bodies[i].get();
-//            i_body = this->bodies[i];
-            i_body->x += dt * i_body->vx;
-            i_body->y += dt * i_body->vy;
-            i_body->z += dt * i_body->vz;
+            body_i = this->bodies[i].get();
+//            body_i = this->bodies[i];
+            body_i->x += dt * body_i->vx;
+            body_i->y += dt * body_i->vy;
+            body_i->z += dt * body_i->vz;
         }
     }
 }
