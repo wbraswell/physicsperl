@@ -1,6 +1,5 @@
 # [[[ HEADER ]]]
 use RPerl;
-
 package PhysicsPerl::Astro::System;
 use strict;
 use warnings;
@@ -19,7 +18,7 @@ use RPerl::CompileUnit::Module::Class;
 use PhysicsPerl::Astro::Body;
 
 # [[[ OO PROPERTIES ]]]
-our hashref $properties = { bodies => my PhysicsPerl::Astro::Bo$dy_arrayref $TYPED_bodies = undef };
+our hashref $properties = { bodies => my PhysicsPerl::Astro::Body_arrayref $TYPED_bodies = undef };
 
 # [[[ OO METHODS & SUBROUTINES ]]]
 
@@ -87,7 +86,8 @@ our number::method $energy = sub {
     return $e;
 };
 
-our void::method $advance_loop = sub {
+our void::method $advance_loop_plain = sub {
+#our void::method $advance_loop = sub {
     ( my PhysicsPerl::Astro::System $self, my number $delta_time, my integer $time_step_max ) = @_;
     my integer $bodies_size = scalar @{ $self->{bodies} };
     my number $dx;
@@ -127,29 +127,27 @@ our void::method $advance_loop = sub {
     }
 };
 
-# START HERE: make sse types and ops work in Perl; compile!
-# START HERE: make sse types and ops work in Perl; compile!
-# START HERE: make sse types and ops work in Perl; compile!
-
-our void::method $advance_loop_SSE = sub {
+#our void::method $advance_loop_SSE = sub {
+our void::method $advance_loop = sub {
     ( my PhysicsPerl::Astro::System $self, my constant_number $delta_time, my constant_integer $time_step_max ) = @_;
     my constant_integer $bodies_size = scalar @{ $self->{bodies} };
     my constant_unsigned_integer $N = 10;
 
-    my number_arrayref $dx_array[$N];
-    my number_arrayref $dy_array[$N];
-    my number_arrayref $dz_array[$N];
-    my number_arrayref $magnitude_array[$N];
+    # NEED FIX: what syntax for array sizes???
+    my number_arrayref $dx_array->[$N];
+    my number_arrayref $dy_array->[$N];
+    my number_arrayref $dz_array->[$N];
+    my number_arrayref $magnitude_array->[$N];
 
-    my sse_constant_number_pair $delta_time_sse = sse_constant_number_pair->new_from_single($delta_time);
+    my sse_constant_number_pair $delta_time_sse = sse_constant_number_pair->new_from_singleton_duplicate($delta_time);
     my sse_number_pair $dx = sse_number_pair->new();
     my sse_number_pair $dy = sse_number_pair->new();
     my sse_number_pair $dz = sse_number_pair->new();
     my sse_number_pair $distance_squared = sse_number_pair->new();
     my sse_number_pair $distance = sse_number_pair->new();
     my sse_number_pair $magnitude = sse_number_pair->new();
-    my sse_constant_number_pair $zero_point_five = sse_constant_number_pair->new_from_single(0.5);
-    my sse_constant_number_pair $one_point_five = sse_constant_number_pair->new_from_single(1.5);
+    my sse_constant_number_pair $zero_point_five = sse_constant_number_pair->new_from_singleton_duplicate(0.5);
+    my sse_constant_number_pair $one_point_five = sse_constant_number_pair->new_from_singleton_duplicate(1.5);
  
     my number $dx_array_k;
     my number $dy_array_k;
@@ -168,7 +166,7 @@ our void::method $advance_loop_SSE = sub {
 
         $k = 0;
         for ( my integer $i = 0; $i < $bodies_size; $i++ ) {
-            $body_i = $self->$bodies->[$i];
+            $body_i = $self->{bodies}->[$i];
             for ( my integer $j = $i + 1; $j < $bodies_size; $j++ ) {
                 $body_j = $self->{bodies}->[$j];
                 $dx_array->[$k] = $body_i->{x} - $body_j->{x};
@@ -187,7 +185,12 @@ our void::method $advance_loop_SSE = sub {
             $dz->[0] = $dz_array->[$i];
             $dz->[1] = $dz_array->[$i_plus_1];
             $distance_squared = ($dx sse_mul $dx) sse_add ($dy sse_mul $dy) sse_add ($dz sse_mul $dz);
-            $distance = sse_number_quad_to_pair(sse_recip_sqrt_quad(sse_number_pair_to_quad($distance_squared)));
+            # limited precision, 32-bit number quads instead of 64-bit number pairs
+ 
+            # NEED FIX: REMOVE 'main::' NAMESPACE
+            $distance = main::sse_recip_sqrt_32bit($distance_squared);
+ 
+            # increase precision via Newton-Rhapson method
             $distance = $distance sse_mul $one_point_five sse_sub (($zero_point_five sse_mul $distance_squared) sse_mul $distance) sse_mul ($distance sse_mul $distance);
             $distance = $distance sse_mul $one_point_five sse_sub (($zero_point_five sse_mul $distance_squared) sse_mul $distance) sse_mul ($distance sse_mul $distance);
             $magnitude = ($delta_time_sse sse_div $distance_squared) sse_mul $distance;
@@ -196,9 +199,9 @@ our void::method $advance_loop_SSE = sub {
         }
 
         $k = 0;
-        for ( my integer $i = 0; $i < bodies_size; $i++ ) {
+        for ( my integer $i = 0; $i < $bodies_size; $i++ ) {
             $body_i = $self->{bodies}->[$i];
-            for ( my integer $j = $i + 1; $j < bodies_size; $j++ ) {
+            for ( my integer $j = $i + 1; $j < $bodies_size; $j++ ) {
                 $body_j = $self->{bodies}->[$j];
                 $dx_array_k = $dx_array->[$k];
                 $dy_array_k = $dy_array->[$k];
@@ -219,13 +222,14 @@ our void::method $advance_loop_SSE = sub {
             }
         }
 
-        for ( my integer $i = 0; $i < bodies_size; $i++ ) {
+        for ( my integer $i = 0; $i < $bodies_size; $i++ ) {
             $body_i = $self->{bodies}->[$i];
             $body_i->{x} += $delta_time * $body_i->{vx};
             $body_i->{y} += $delta_time * $body_i->{vy};
             $body_i->{z} += $delta_time * $body_i->{vz};
         }
     }
-}
+};
+#=cut
 
 1;    # end of class

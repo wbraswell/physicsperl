@@ -42,8 +42,8 @@ use Time::HiRes qw(time);
 my $time_start = time();
 my $delta_time = 0.01;
 #my integer $time_step_max = string_to_integer($ARGV[0]);
-#my integer $time_step_max = 50_000;
-my integer $time_step_max = 50_000_000;
+my integer $time_step_max = 50_000;
+#my integer $time_step_max = 50_000_000;
 
 my PhysicsPerl::Astro::System $system = PhysicsPerl::Astro::System->new();
 $system->init();

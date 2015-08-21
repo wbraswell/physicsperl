@@ -13,14 +13,15 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 
 typedef __m128d sse_number_pair;
 typedef const __m128d sse_constant_number_pair;
-#define sse_number_pair_new_from_single(X) _mm_set1_pd(X)
+#define sse_number_pair_new_from_singleton_duplicate(X) _mm_set1_pd(X)
 #define sse_number_pair_new_from_pair(X, Y) _mm_setr_pd(X, Y)  // NEED TEST
-#define sse_constant_number_pair_new_from_single(X) _mm_set1_pd(X)
+#define sse_constant_number_pair_new_from_singleton(X) _mm_set1_pd(X)
 #define sse_constant_number_pair_new_from_pair(X, Y) _mm_setr_pd(X, Y)  // NEED TEST
 #define sse_add +
 #define sse_sub -
 #define sse_mul *
 #define sse_div /
+#define sse_recip_sqrt_32bit(X) sse_number_quad_to_pair(sse_recip_sqrt_quad(sse_number_pair_to_quad(X)))
 #define sse_number_pair_to_quad _mm_cvtpd_ps
 #define sse_number_quad_to_pair _mm_cvtps_pd
 #define sse_recip_sqrt_quad _mm_rsqrt_ps
@@ -99,15 +100,15 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
     number_arrayref magnitude_array;
     magnitude_array.resize(N);
 
-    sse_constant_number_pair delta_time_sse = sse_number_pair_new_from_single(delta_time);
+    sse_constant_number_pair delta_time_sse = sse_number_pair_new_from_singleton_duplicate(delta_time);
     sse_number_pair dx;
     sse_number_pair dy;
     sse_number_pair dz;
     sse_number_pair distance_squared;
     sse_number_pair distance;
     sse_number_pair magnitude;
-    sse_constant_number_pair zero_point_five = sse_number_pair_new_from_single(0.5);
-    sse_constant_number_pair one_point_five = sse_number_pair_new_from_single(1.5);
+    sse_constant_number_pair zero_point_five = sse_number_pair_new_from_singleton_duplicate(0.5);
+    sse_constant_number_pair one_point_five = sse_number_pair_new_from_singleton_duplicate(1.5);
  
     number dx_array_k;
     number dy_array_k;
@@ -145,7 +146,7 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
             dz[0] = dz_array[i];
             dz[1] = dz_array[i_plus_1];
             distance_squared = (dx sse_mul dx) sse_add (dy sse_mul dy) sse_add (dz sse_mul dz);
-            distance = sse_number_quad_to_pair(sse_recip_sqrt_quad(sse_number_pair_to_quad(distance_squared)));
+            distance = sse_recip_sqrt_32bit(distance_squared);
             distance = distance sse_mul one_point_five sse_sub ((zero_point_five sse_mul distance_squared) sse_mul distance) sse_mul (distance sse_mul distance);
             distance = distance sse_mul one_point_five sse_sub ((zero_point_five sse_mul distance_squared) sse_mul distance) sse_mul (distance sse_mul distance);
             magnitude = (delta_time_sse sse_div distance_squared) sse_mul distance;
