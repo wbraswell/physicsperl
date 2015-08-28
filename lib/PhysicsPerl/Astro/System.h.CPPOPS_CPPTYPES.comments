@@ -1,3 +1,8 @@
+// NOTE! THIS FILE IS OUT OF DATE, KEPT FOR REFERENCE ONLY
+// NOTE! THIS FILE IS OUT OF DATE, KEPT FOR REFERENCE ONLY
+// NOTE! THIS FILE IS OUT OF DATE, KEPT FOR REFERENCE ONLY
+
+
 // [[[ HEADER ]]]
 using std::cout;  using std::cerr;
 
@@ -33,6 +38,7 @@ public:
     // <<< OO PROPERTIES, ACCESSORS & MUTATORS >>>
 //    std::vector<std::unique_ptr<PhysicsPerl__Astro__Body>> get_bodies() { return this->bodies; }
 //    void set_bodies(std::vector<std::unique_ptr<PhysicsPerl__Astro__Body>> bodies_new) { this->bodies = bodies_new; }
+    void PhysicsPerl__Astro__System::get_bodies_element(integer i, PhysicsPerl__Astro__Body_rawptr body_tmp);  // COPY CONSTRUCTOR VERSION
 
     // <<< CONSTRUCTOR & DESTRUCTOR >>>
     PhysicsPerl__Astro__System() {}

@@ -1,8 +1,10 @@
+// [[[ HEADER ]]]
 using std::cout;  using std::cerr;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__Body_h
-#define __CPP__INCLUDED__PhysicsPerl__Astro__Body_h 0.005_000
+#define __CPP__INCLUDED__PhysicsPerl__Astro__Body_h 0.006_000
 
+// [[[ INCLUDES & OO INHERITANCE INCLUDES ]]]
 #include <RPerl.cpp>  // -> RPerl.h -> (rperltypes_mode.h; rperltypes.h; HelperFunctions.cpp)
 #include <RPerl/CompileUnit/Module/Class.cpp>
 
@@ -12,15 +14,18 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 
 # elif defined __CPP__TYPES
 
-const number PI = 3.141592653589793;
-const number SOLAR_MASS = 39.4784176043574;
-const number SOLAR_RADIUS = 696300;
-const number DAYS_PER_YEAR = 365.24;
+// [[[<<< BEGIN CPP TYPES >>>]]]
+// [[[<<< BEGIN CPP TYPES >>>]]]
+// [[[<<< BEGIN CPP TYPES >>>]]]
 
+// [[[ CONSTANTS ]]]
+const number PhysicsPerl__Astro__Body__SOLAR_MASS = 39.4784176043574;
+const number PhysicsPerl__Astro__Body__DAYS_PER_YEAR = 365.24;
+
+// [[[ OO INHERITANCE ]]]
 class PhysicsPerl__Astro__Body : public RPerl__CompileUnit__Module__Class__CPP {
 public:
-    PhysicsPerl__Astro__Body() {}
-    ~PhysicsPerl__Astro__Body() {}
+    // [[[ OO PROPERTIES ]]]
     string name;
     number x;
     number y;
@@ -32,25 +37,58 @@ public:
     number radius;
     integer_arrayref color;
 
+    // [[[ OO METHODS ]]]
+
+    // <<< OO PROPERTIES, ACCESSORS & MUTATORS >>>
     string get_name() { return this->name; }
+    void set_name(string name_new) { this->name = name_new; }
     number get_x() { return this->x; }
+    void set_x(number x_new) { this->x = x_new; }
     number get_y() { return this->y; }
+    void set_y(number y_new) { this->y = y_new; }
     number get_z() { return this->z; }
+    void set_z(number z_new) { this->z = z_new; }
     number get_vx() { return this->vx; }
+    void set_vx(number vx_new) { this->vx = vx_new; }
     number get_vy() { return this->vy; }
+    void set_vy(number vy_new) { this->vy = vy_new; }
     number get_vz() { return this->vz; }
+    void set_vz(number vz_new) { this->vz = vz_new; }
     number get_mass() { return this->mass; }
+    void set_mass(number mass_new) { this->mass = mass_new; }
     number get_radius() { return this->radius; }
+    void set_radius(number radius_new) { this->radius = radius_new; }
     integer_arrayref get_color() { return this->color; }
-};
+    void set_color(integer_arrayref color_new) { this->color = color_new; }
 
-std::unique_ptr<PhysicsPerl__Astro__Body> sun();
-std::unique_ptr<PhysicsPerl__Astro__Body> jupiter();
-std::unique_ptr<PhysicsPerl__Astro__Body> saturn();
-std::unique_ptr<PhysicsPerl__Astro__Body> uranus();
-std::unique_ptr<PhysicsPerl__Astro__Body> neptune();
+    // <<< CONSTRUCTOR & DESTRUCTOR >>>
+    PhysicsPerl__Astro__Body() {}
+    ~PhysicsPerl__Astro__Body() {}
 
+    // <<< CLASS NAME REPORTER >>>
+    virtual string myclassname() { return (const string) "PhysicsPerl::Astro::Body"; }
+};  // end of class
+
+// [[[ OO SUBCLASSES ]]]
+#define PhysicsPerl__Astro__Body_rawptr PhysicsPerl__Astro__Body*
+typedef std::unique_ptr<PhysicsPerl__Astro__Body> PhysicsPerl__Astro__Body_ptr;
+typedef std::vector<PhysicsPerl__Astro__Body_ptr> PhysicsPerl__Astro__Body_arrayref;
+typedef std::unordered_map<string, PhysicsPerl__Astro__Body_ptr> PhysicsPerl__Astro__Body_hashref;
+typedef std::unordered_map<string, PhysicsPerl__Astro__Body_ptr>::iterator PhysicsPerl__Astro__Body_hashref_iterator;
+
+// [[[ SUBROUTINES ]]]
+PhysicsPerl__Astro__Body_ptr sun();
+PhysicsPerl__Astro__Body_ptr jupiter();
+PhysicsPerl__Astro__Body_ptr saturn();
+PhysicsPerl__Astro__Body_ptr uranus();
+PhysicsPerl__Astro__Body_ptr neptune();
+
+// <<< OPERATIONS & DATA TYPES REPORTER >>>
 integer PhysicsPerl__Astro__Body__MODE_ID() { return 2; }  // CPPOPS_CPPTYPES is 2
+
+// [[[<<< END CPP TYPES >>>]]]
+// [[[<<< END CPP TYPES >>>]]]
+// [[[<<< END CPP TYPES >>>]]]
 
 # else
 

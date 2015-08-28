@@ -12,6 +12,8 @@ our $VERSION = 0.001_000;
 use RPerl::Inline;
 
 # [[[ SUBROUTINES ]]]
+
+# <<< C++ LOADER >>>
 #our void::method $cpp_load = sub {
 sub cpp_load {
     my $need_load_cpp = 0;
@@ -36,10 +38,9 @@ sub cpp_load {
         my $eval_string = <<"EOF";
 package main;
 use RPerl::Inline;
-BEGIN { RPerl::diag("[[[ BEGIN 'use Inline' STAGE for 'PhysicsPerl/Astro/Body.cpp' ]]]\n" x 1); }
-#use Inline (CPP => '$RPerl::INCLUDE_PATH/PhysicsPerl/Astro/Body.cpp', \%RPerl::Inline::ARGS);
+BEGIN { RPerl::diag("[[[ BEGIN 'use Inline' STAGE for 'lib/PhysicsPerl/Astro/Body.cpp' ]]]\n" x 1); }
 use Inline (CPP => 'lib/PhysicsPerl/Astro/Body.cpp', \%RPerl::Inline::ARGS);
-RPerl::diag("[[[ END 'use Inline' STAGE for 'PhysicsPerl/Astro/Body.cpp' ]]]\n" x 1);
+RPerl::diag("[[[ END 'use Inline' STAGE for 'lib/PhysicsPerl/Astro/Body.cpp' ]]]\n" x 1);
 1;
 EOF
 
@@ -55,7 +56,7 @@ EOF
     #else { RPerl::diag('in PhysicsPerl::Astro::Body::cpp_load(), CPP already loaded, DOING NOTHING' . "\n"); }
 }
 
-# DEV NOTE, CORRELATION #pp03: suppress 'Too late to run INIT block' at run-time loading via require or eval
+# DEV NOTE, CORRELATION #rp15: suppress 'Too late to run INIT block' at run-time loading via require or eval
 no warnings;
 INIT {
     # actually compile and load C++ code when 'use PhysicsPerl::Astro::Body' is called

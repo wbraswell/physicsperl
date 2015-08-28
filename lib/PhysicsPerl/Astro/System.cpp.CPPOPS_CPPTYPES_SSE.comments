@@ -1,3 +1,8 @@
+// NOTE! THIS FILE IS OUT OF DATE, KEPT FOR REFERENCE ONLY
+// NOTE! THIS FILE IS OUT OF DATE, KEPT FOR REFERENCE ONLY
+// NOTE! THIS FILE IS OUT OF DATE, KEPT FOR REFERENCE ONLY
+
+
 // [[[ HEADER ]]]
 using std::cout;  using std::cerr;
 
@@ -20,6 +25,23 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 // [[[<<< BEGIN CPP TYPES >>>]]]
 
 // [[[ OO METHODS & SUBROUTINES ]]]
+
+// <<< OO PROPERTIES, ACCESSORS & MUTATORS >>>
+
+// COPY CONSTRUCTOR VERSION
+void PhysicsPerl__Astro__System::get_bodies_element(integer i, PhysicsPerl__Astro__Body_rawptr body_tmp) { 
+    PhysicsPerl__Astro__Body_rawptr body_i = this->bodies[i].get();
+    body_tmp->name = body_i->name;
+    body_tmp->x = body_i->x;
+    body_tmp->y = body_i->y;
+    body_tmp->z = body_i->z;
+    body_tmp->vx = body_i->vx;
+    body_tmp->vy = body_i->vy;
+    body_tmp->vz = body_i->vz;
+    body_tmp->mass = body_i->mass;
+    body_tmp->radius = body_i->radius;
+    body_tmp->color = body_i->color;
+}
 
 void PhysicsPerl__Astro__System::init() {
 //    bodies.resize(5);
