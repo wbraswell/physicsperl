@@ -25,20 +25,20 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 // [[[ OO METHODS & SUBROUTINES ]]]
 
 void PhysicsPerl__Astro__System::get_bodies_element(integer i, PhysicsPerl__Astro__Body_ptr& body_tmp_ptr) {
-    *(body_tmp_ptr.get()) = *(this->bodies[i].get());
+    *(body_tmp_ptr.get_raw()) = *(this->bodies[i].get_raw());
 }
 
 // NEED FIX, CORRELATION #pp04: ‘CLASS’ was not declared in this scope
 void PhysicsPerl__Astro__System::get_bodies_element(integer i, PhysicsPerl__Astro__Body_rawptr body_tmp_rawptr) {
 //PhysicsPerl__Astro__Body_rawptr PhysicsPerl__Astro__System::get_bodies_element(integer i, PhysicsPerl__Astro__Body_rawptr body_tmp_rawptr) {
 //PhysicsPerl__Astro__Body_rawptr PhysicsPerl__Astro__System::get_bodies_element(integer i) {
-//    return this->bodies[i].get();
+//    return this->bodies[i].get_raw();
 
-    *body_tmp_rawptr = *(this->bodies[i].get());
+    *body_tmp_rawptr = *(this->bodies[i].get_raw());
 
 //    PhysicsPerl__Astro__Body_rawptr body_tmp_rawptr;
 /*
-    PhysicsPerl__Astro__Body_rawptr body_i = this->bodies[i].get();
+    PhysicsPerl__Astro__Body_rawptr body_i = this->bodies[i].get_raw();
     body_tmp_rawptr->name = body_i->name;
     body_tmp_rawptr->x = body_i->x;
     body_tmp_rawptr->y = body_i->y;
@@ -56,7 +56,7 @@ void PhysicsPerl__Astro__System::get_bodies_element(integer i, PhysicsPerl__Astr
 /* 
 // ORIGINAL GOOD, makes copy
 void PhysicsPerl__Astro__System::get_bodies_element(integer i, PhysicsPerl__Astro__Body_rawptr body_tmp) { 
-    PhysicsPerl__Astro__Body_rawptr body_i = this->bodies[i].get();
+    PhysicsPerl__Astro__Body_rawptr body_i = this->bodies[i].get_raw();
     body_tmp->name = body_i->name;
     body_tmp->x = body_i->x;
     body_tmp->y = body_i->y;
@@ -99,10 +99,10 @@ number PhysicsPerl__Astro__System::energy() {
     number distance;
     number e = 0.0;
     for ( integer i = 0; i <= ((this->bodies.size()) - 1); i++ ) {
-        PhysicsPerl__Astro__Body_rawptr body_i = this->bodies[i].get();
+        PhysicsPerl__Astro__Body_rawptr body_i = this->bodies[i].get_raw();
         e += 0.5 * body_i->mass * ((body_i->vx * body_i->vx) + (body_i->vy * body_i->vy) + (body_i->vz * body_i->vz));
         for ( integer j = (i + 1); j <= ((this->bodies.size()) - 1); j++ ) {
-            PhysicsPerl__Astro__Body_rawptr body_j = this->bodies[j].get();
+            PhysicsPerl__Astro__Body_rawptr body_j = this->bodies[j].get_raw();
             dx = body_i->x - body_j->x;
             dy = body_i->y - body_j->y;
             dz = body_i->z - body_j->z;
@@ -159,18 +159,18 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
     // F13.4
     PhysicsPerl__Astro__Body_rawptr body_rawptrs[bodies_size - 1];
     for (i = 0; i < bodies_size; i++) {
-        body_rawptrs[i] = this->bodies[i].get();
+        body_rawptrs[i] = this->bodies[i].get_raw();
     }
 */
 
     for ( time_step = 0; time_step < time_step_max; time_step++ ) {
 
-        // ORIGINAL MIN POSSIBLE get()s, YES body_i/j, FAST 13.2 seconds
+        // ORIGINAL MIN POSSIBLE get_raw()s, YES body_i/j, FAST 13.2 seconds
         k = 0;
         for ( i = 0; i < bodies_size; i++ ) {
-            body_i = this->bodies[i].get();
+            body_i = this->bodies[i].get_raw();
             for ( j = i + 1; j < bodies_size; j++ ) {
-                body_j = this->bodies[j].get();
+                body_j = this->bodies[j].get_raw();
                 dx_array[k] = body_i->x - body_j->x;
                 dy_array[k] = body_i->y - body_j->y;
                 dz_array[k] = body_i->z - body_j->z;
@@ -197,9 +197,9 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
         
         k = 0;
         for ( i = 0; i < bodies_size; i++ ) {
-            body_i = this->bodies[i].get();
+            body_i = this->bodies[i].get_raw();
             for ( j = i + 1; j < bodies_size; j++ ) {
-                body_j = this->bodies[j].get();
+                body_j = this->bodies[j].get_raw();
                 dx_array_k = dx_array[k];
                 dy_array_k = dy_array[k];
                 dz_array_k = dz_array[k];
@@ -220,7 +220,7 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
         }
 
         for ( i = 0; i < bodies_size; i++ ) {
-            body_i = this->bodies[i].get();
+            body_i = this->bodies[i].get_raw();
             body_i->x += delta_time * body_i->vx;
             body_i->y += delta_time * body_i->vy;
             body_i->z += delta_time * body_i->vz;
@@ -343,13 +343,13 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
 */
 
 /*
-        // *get(), NO body_i/j, LESS FAST 15 - 16 seconds
+        // *get_raw(), NO body_i/j, LESS FAST 15 - 16 seconds
         k = 0;
         for ( i = 0; i < bodies_size; i++ ) {
             for ( j = i + 1; j < bodies_size; j++ ) {
-                dx_array[k] = (*this->bodies[i].get()).x - (*this->bodies[j].get()).x;
-                dy_array[k] = (*this->bodies[i].get()).y - (*this->bodies[j].get()).y;
-                dz_array[k] = (*this->bodies[i].get()).z - (*this->bodies[j].get()).z;
+                dx_array[k] = (*this->bodies[i].get_raw()).x - (*this->bodies[j].get_raw()).x;
+                dy_array[k] = (*this->bodies[i].get_raw()).y - (*this->bodies[j].get_raw()).y;
+                dz_array[k] = (*this->bodies[i].get_raw()).z - (*this->bodies[j].get_raw()).z;
                 k++;
             }
         }
@@ -379,34 +379,34 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
                 dz_array_k = dz_array[k];
                 magnitude_k = magnitude_array[k];
 
-                body_i_mass_times_magnitude_k = (*this->bodies[i].get()).mass * magnitude_k;
-                body_j_mass_times_magnitude_k = (*this->bodies[j].get()).mass * magnitude_k;
+                body_i_mass_times_magnitude_k = (*this->bodies[i].get_raw()).mass * magnitude_k;
+                body_j_mass_times_magnitude_k = (*this->bodies[j].get_raw()).mass * magnitude_k;
                 
-                (*this->bodies[i].get()).vx -= dx_array_k * body_j_mass_times_magnitude_k;
-                (*this->bodies[j].get()).vx += dx_array_k * body_i_mass_times_magnitude_k;
-                (*this->bodies[i].get()).vy -= dy_array_k * body_j_mass_times_magnitude_k;
-                (*this->bodies[j].get()).vy += dy_array_k * body_i_mass_times_magnitude_k;
-                (*this->bodies[i].get()).vz -= dz_array_k * body_j_mass_times_magnitude_k;
-                (*this->bodies[j].get()).vz += dz_array_k * body_i_mass_times_magnitude_k;
+                (*this->bodies[i].get_raw()).vx -= dx_array_k * body_j_mass_times_magnitude_k;
+                (*this->bodies[j].get_raw()).vx += dx_array_k * body_i_mass_times_magnitude_k;
+                (*this->bodies[i].get_raw()).vy -= dy_array_k * body_j_mass_times_magnitude_k;
+                (*this->bodies[j].get_raw()).vy += dy_array_k * body_i_mass_times_magnitude_k;
+                (*this->bodies[i].get_raw()).vz -= dz_array_k * body_j_mass_times_magnitude_k;
+                (*this->bodies[j].get_raw()).vz += dz_array_k * body_i_mass_times_magnitude_k;
 
                 k++;
             }
         }
 
         for ( i = 0; i < bodies_size; i++ ) {
-            (*this->bodies[i].get()).x += delta_time * (*this->bodies[i].get()).vx;
-            (*this->bodies[i].get()).y += delta_time * (*this->bodies[i].get()).vy;
-            (*this->bodies[i].get()).z += delta_time * (*this->bodies[i].get()).vz;
+            (*this->bodies[i].get_raw()).x += delta_time * (*this->bodies[i].get_raw()).vx;
+            (*this->bodies[i].get_raw()).y += delta_time * (*this->bodies[i].get_raw()).vy;
+            (*this->bodies[i].get_raw()).z += delta_time * (*this->bodies[i].get_raw()).vz;
         }
 */
 
 /*
-        // MIXED const& *get(), YES MIXED body_i/j, FAST 13.2 seconds
+        // MIXED const& *get_raw(), YES MIXED body_i/j, FAST 13.2 seconds
         k = 0;
         for ( i = 0; i < bodies_size; i++ ) {
-            const PhysicsPerl__Astro__Body& body_i = *this->bodies[i].get();
+            const PhysicsPerl__Astro__Body& body_i = *this->bodies[i].get_raw();
             for ( j = i + 1; j < bodies_size; j++ ) {
-                const PhysicsPerl__Astro__Body& body_j = *this->bodies[j].get();
+                const PhysicsPerl__Astro__Body& body_j = *this->bodies[j].get_raw();
                 dx_array[k] = body_i.x - body_j.x;
                 dy_array[k] = body_i.y - body_j.y;
                 dz_array[k] = body_i.z - body_j.z;
@@ -433,9 +433,9 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
         
         k = 0;
         for ( i = 0; i < bodies_size; i++ ) {
-            PhysicsPerl__Astro__Body_rawptr body_i = this->bodies[i].get();
+            PhysicsPerl__Astro__Body_rawptr body_i = this->bodies[i].get_raw();
             for ( j = i + 1; j < bodies_size; j++ ) {
-                PhysicsPerl__Astro__Body_rawptr body_j = this->bodies[j].get();
+                PhysicsPerl__Astro__Body_rawptr body_j = this->bodies[j].get_raw();
                 dx_array_k = dx_array[k];
                 dy_array_k = dy_array[k];
                 dz_array_k = dz_array[k];
@@ -456,7 +456,7 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
         }
 
         for ( i = 0; i < bodies_size; i++ ) {
-            PhysicsPerl__Astro__Body_rawptr body_i = this->bodies[i].get();
+            PhysicsPerl__Astro__Body_rawptr body_i = this->bodies[i].get_raw();
             body_i->x += delta_time * body_i->vx;
             body_i->y += delta_time * body_i->vy;
             body_i->z += delta_time * body_i->vz;
@@ -464,12 +464,12 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
 */
 
 /*
-        // *get(), YES body_i/j, VERY SLOW 160 seconds
+        // *get_raw(), YES body_i/j, VERY SLOW 160 seconds
         k = 0;
         for ( i = 0; i < bodies_size; i++ ) {
-            body_i = *this->bodies[i].get();
+            body_i = *this->bodies[i].get_raw();
             for ( j = i + 1; j < bodies_size; j++ ) {
-                body_j = *this->bodies[j].get();
+                body_j = *this->bodies[j].get_raw();
                 dx_array[k] = body_i.x - body_j.x;
                 dy_array[k] = body_i.y - body_j.y;
                 dz_array[k] = body_i.z - body_j.z;
@@ -496,9 +496,9 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
         
         k = 0;
         for ( i = 0; i < bodies_size; i++ ) {
-            body_i = *this->bodies[i].get();
+            body_i = *this->bodies[i].get_raw();
             for ( j = i + 1; j < bodies_size; j++ ) {
-                body_j = *this->bodies[j].get();
+                body_j = *this->bodies[j].get_raw();
                 dx_array_k = dx_array[k];
                 dy_array_k = dy_array[k];
                 dz_array_k = dz_array[k];
@@ -516,27 +516,27 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
 
                 k++;
                 
-                *this->bodies[j].get() = body_j;
+                *this->bodies[j].get_raw() = body_j;
             }
-            *this->bodies[i].get() = body_i;
+            *this->bodies[i].get_raw() = body_i;
         }
 
         for ( i = 0; i < bodies_size; i++ ) {
-            body_i = *this->bodies[i].get();
+            body_i = *this->bodies[i].get_raw();
             body_i.x += delta_time * body_i.vx;
             body_i.y += delta_time * body_i.vy;
             body_i.z += delta_time * body_i.vz;
-            *this->bodies[i].get() = body_i;
+            *this->bodies[i].get_raw() = body_i;
         }
 */
 
 /*
-        // MIN POSSIBLE get()s, YES LOCAL body_i/j, FAST 13.3 seconds
+        // MIN POSSIBLE get_raw()s, YES LOCAL body_i/j, FAST 13.3 seconds
         k = 0;
         for ( i = 0; i < bodies_size; i++ ) {
-            PhysicsPerl__Astro__Body_rawptr body_i = this->bodies[i].get();
+            PhysicsPerl__Astro__Body_rawptr body_i = this->bodies[i].get_raw();
             for ( j = i + 1; j < bodies_size; j++ ) {
-                PhysicsPerl__Astro__Body_rawptr body_j = this->bodies[j].get();
+                PhysicsPerl__Astro__Body_rawptr body_j = this->bodies[j].get_raw();
                 dx_array[k] = body_i->x - body_j->x;
                 dy_array[k] = body_i->y - body_j->y;
                 dz_array[k] = body_i->z - body_j->z;
@@ -563,9 +563,9 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
         
         k = 0;
         for ( i = 0; i < bodies_size; i++ ) {
-            PhysicsPerl__Astro__Body_rawptr body_i = this->bodies[i].get();
+            PhysicsPerl__Astro__Body_rawptr body_i = this->bodies[i].get_raw();
             for ( j = i + 1; j < bodies_size; j++ ) {
-                PhysicsPerl__Astro__Body_rawptr body_j = this->bodies[j].get();
+                PhysicsPerl__Astro__Body_rawptr body_j = this->bodies[j].get_raw();
                 dx_array_k = dx_array[k];
                 dy_array_k = dy_array[k];
                 dz_array_k = dz_array[k];
@@ -586,7 +586,7 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
         }
 
         for ( i = 0; i < bodies_size; i++ ) {
-            PhysicsPerl__Astro__Body_rawptr body_i = this->bodies[i].get();
+            PhysicsPerl__Astro__Body_rawptr body_i = this->bodies[i].get_raw();
             body_i->x += delta_time * body_i->vx;
             body_i->y += delta_time * body_i->vy;
             body_i->z += delta_time * body_i->vz;
@@ -594,7 +594,7 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
 */
 
 /*
-// NO get()s, NO body_i/j, LESS FAST 15 - 16 seconds
+// NO get_raw()s, NO body_i/j, LESS FAST 15 - 16 seconds
         k = 0;
         for ( i = 0; i < bodies_size; i++ ) {
             for ( j = i + 1; j < bodies_size; j++ ) {
@@ -652,13 +652,13 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
 */
 
 /* 
-// ALL POSSIBLE REDUNDANT get()s and ->, NO body_i/j, LESS FAST 15 - 20 seconds
+// ALL POSSIBLE REDUNDANT get_raw()s and ->, NO body_i/j, LESS FAST 15 - 20 seconds
         k = 0;
         for ( i = 0; i < bodies_size; i++ ) {
             for ( j = i + 1; j < bodies_size; j++ ) {
-                dx_array[k] = this->bodies[i].get()->x - this->bodies[j].get()->x;
-                dy_array[k] = this->bodies[i].get()->y - this->bodies[j].get()->y;
-                dz_array[k] = this->bodies[i].get()->z - this->bodies[j].get()->z;
+                dx_array[k] = this->bodies[i].get_raw()->x - this->bodies[j].get_raw()->x;
+                dy_array[k] = this->bodies[i].get_raw()->y - this->bodies[j].get_raw()->y;
+                dz_array[k] = this->bodies[i].get_raw()->z - this->bodies[j].get_raw()->z;
                 k++;
             }
         }
@@ -689,36 +689,36 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
                 dz_array_k = dz_array[k];
                 magnitude_k = magnitude_array[k];
 
-                body_i_mass_times_magnitude_k = this->bodies[i].get()->mass * magnitude_k;
-                body_j_mass_times_magnitude_k = this->bodies[j].get()->mass * magnitude_k;
-                this->bodies[i].get()->vx -= dx_array_k * body_j_mass_times_magnitude_k;
-                this->bodies[j].get()->vx += dx_array_k * body_i_mass_times_magnitude_k;
-                this->bodies[i].get()->vy -= dy_array_k * body_j_mass_times_magnitude_k;
-                this->bodies[j].get()->vy += dy_array_k * body_i_mass_times_magnitude_k;
-                this->bodies[i].get()->vz -= dz_array_k * body_j_mass_times_magnitude_k;
-                this->bodies[j].get()->vz += dz_array_k * body_i_mass_times_magnitude_k;
+                body_i_mass_times_magnitude_k = this->bodies[i].get_raw()->mass * magnitude_k;
+                body_j_mass_times_magnitude_k = this->bodies[j].get_raw()->mass * magnitude_k;
+                this->bodies[i].get_raw()->vx -= dx_array_k * body_j_mass_times_magnitude_k;
+                this->bodies[j].get_raw()->vx += dx_array_k * body_i_mass_times_magnitude_k;
+                this->bodies[i].get_raw()->vy -= dy_array_k * body_j_mass_times_magnitude_k;
+                this->bodies[j].get_raw()->vy += dy_array_k * body_i_mass_times_magnitude_k;
+                this->bodies[i].get_raw()->vz -= dz_array_k * body_j_mass_times_magnitude_k;
+                this->bodies[j].get_raw()->vz += dz_array_k * body_i_mass_times_magnitude_k;
 
                 k++;
             }
         }
 
         for ( i = 0; i < bodies_size; i++ ) {
-            this->bodies[i].get()->x += delta_time * this->bodies[i].get()->vx;
-            this->bodies[i].get()->y += delta_time * this->bodies[i].get()->vy;
-            this->bodies[i].get()->z += delta_time * this->bodies[i].get()->vz;
+            this->bodies[i].get_raw()->x += delta_time * this->bodies[i].get_raw()->vx;
+            this->bodies[i].get_raw()->y += delta_time * this->bodies[i].get_raw()->vy;
+            this->bodies[i].get_raw()->z += delta_time * this->bodies[i].get_raw()->vz;
         }
 */
  
 /*
-// ALL POSSIBLE REDUNDANT get()s and ->, YES body_i/j, LESS FAST 15 - 16 seconds
+// ALL POSSIBLE REDUNDANT get_raw()s and ->, YES body_i/j, LESS FAST 15 - 16 seconds
         k = 0;
         for ( i = 0; i < bodies_size; i++ ) {
             const std::unique_ptr<PhysicsPerl__Astro__Body>& body_i = this->bodies[i];
             for ( j = i + 1; j < bodies_size; j++ ) {
                 const std::unique_ptr<PhysicsPerl__Astro__Body>& body_j = this->bodies[j];
-                dx_array[k] = body_i.get()->x - body_j.get()->x;
-                dy_array[k] = body_i.get()->y - body_j.get()->y;
-                dz_array[k] = body_i.get()->z - body_j.get()->z;
+                dx_array[k] = body_i.get_raw()->x - body_j.get_raw()->x;
+                dy_array[k] = body_i.get_raw()->y - body_j.get_raw()->y;
+                dz_array[k] = body_i.get_raw()->z - body_j.get_raw()->z;
                 k++;
             }
         }
@@ -750,14 +750,14 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
                 dz_array_k = dz_array[k];
                 magnitude_k = magnitude_array[k];
 
-                body_i_mass_times_magnitude_k = body_i.get()->mass * magnitude_k;
-                body_j_mass_times_magnitude_k = body_j.get()->mass * magnitude_k;
-                body_i.get()->vx -= dx_array_k * body_j_mass_times_magnitude_k;
-                body_j.get()->vx += dx_array_k * body_i_mass_times_magnitude_k;
-                body_i.get()->vy -= dy_array_k * body_j_mass_times_magnitude_k;
-                body_j.get()->vy += dy_array_k * body_i_mass_times_magnitude_k;
-                body_i.get()->vz -= dz_array_k * body_j_mass_times_magnitude_k;
-                body_j.get()->vz += dz_array_k * body_i_mass_times_magnitude_k;
+                body_i_mass_times_magnitude_k = body_i.get_raw()->mass * magnitude_k;
+                body_j_mass_times_magnitude_k = body_j.get_raw()->mass * magnitude_k;
+                body_i.get_raw()->vx -= dx_array_k * body_j_mass_times_magnitude_k;
+                body_j.get_raw()->vx += dx_array_k * body_i_mass_times_magnitude_k;
+                body_i.get_raw()->vy -= dy_array_k * body_j_mass_times_magnitude_k;
+                body_j.get_raw()->vy += dy_array_k * body_i_mass_times_magnitude_k;
+                body_i.get_raw()->vz -= dz_array_k * body_j_mass_times_magnitude_k;
+                body_j.get_raw()->vz += dz_array_k * body_i_mass_times_magnitude_k;
 
                 k++;
             }
@@ -765,9 +765,9 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
  
         for ( i = 0; i < bodies_size; i++ ) {
             const std::unique_ptr<PhysicsPerl__Astro__Body>& body_i = this->bodies[i];
-            body_i.get()->x += delta_time * body_i.get()->vx;
-            body_i.get()->y += delta_time * body_i.get()->vy;
-            body_i.get()->z += delta_time * body_i.get()->vz;
+            body_i.get_raw()->x += delta_time * body_i.get_raw()->vx;
+            body_i.get_raw()->y += delta_time * body_i.get_raw()->vy;
+            body_i.get_raw()->z += delta_time * body_i.get_raw()->vz;
         }
 */
 

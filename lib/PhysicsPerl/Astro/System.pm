@@ -21,16 +21,17 @@ use PhysicsPerl::Astro::Body;
 use rperlsse;
 
 # [[[ OO PROPERTIES ]]]
-our hashref $properties = { bodies => my PhysicsPerl::Astro::Body_arrayref $TYPED_bodies = undef };
+our hashref $properties = { bodies => my PhysicsPerl::Astro::Body_arrayref $TYPED_bodies->[5 - 1] = undef };
 
 # [[[ OO METHODS & SUBROUTINES ]]]
 
 our void::method $init = sub {
     ( my PhysicsPerl::Astro::System $self ) = @_;
-    $self->{bodies} = [
-        PhysicsPerl::Astro::Body::sun(), PhysicsPerl::Astro::Body::jupiter(), PhysicsPerl::Astro::Body::saturn(), PhysicsPerl::Astro::Body::uranus(),
-        PhysicsPerl::Astro::Body::neptune()
-    ];
+    $self->{bodies}->[0] = PhysicsPerl::Astro::Body::sun();
+    $self->{bodies}->[1] = PhysicsPerl::Astro::Body::jupiter();
+    $self->{bodies}->[2] = PhysicsPerl::Astro::Body::saturn();
+    $self->{bodies}->[3] = PhysicsPerl::Astro::Body::uranus();
+    $self->{bodies}->[4] = PhysicsPerl::Astro::Body::neptune();
     my number $px = 0.0;
     my number $py = 0.0;
     my number $pz = 0.0;
@@ -55,11 +56,11 @@ our number::method $energy = sub {
     my number $e = 0.0;
 
     for my integer $i ( 0 .. ( ( scalar @{ $self->{bodies} } ) - 1 ) ) {
-        my PhysicsPerl::Astro::Body $body_i = $self->{bodies}->[$i];
+        my PhysicsPerl::Astro::Body_raw $body_i = $self->{bodies}->[$i]->get_raw();
         $e += 0.5 * $body_i->{mass} * ( ( $body_i->{vx} * $body_i->{vx} ) + ( $body_i->{vy} * $body_i->{vy} ) + ( $body_i->{vz} * $body_i->{vz} ) );
 
         for my integer $j ( ( $i + 1 ) .. ( ( scalar @{ $self->{bodies} } ) - 1 ) ) {
-            my PhysicsPerl::Astro::Body $body_j = $self->{bodies}->[$j];
+            my PhysicsPerl::Astro::Body_raw $body_j = $self->{bodies}->[$j]->get_raw();
             $dx       = $body_i->{x} - $body_j->{x};
             $dy       = $body_i->{y} - $body_j->{y};
             $dz       = $body_i->{z} - $body_j->{z};
@@ -148,9 +149,9 @@ our void::method $advance_loop = sub {
     for my integer $time_step ( 0 .. ( $time_step_max - 1 ) ) {
         $k = 0;
         for my integer $i ( 0 .. ( $bodies_size - 1 ) ) {
-            $body_i = $self->{bodies}->[$i];
+            $body_i = $self->{bodies}->[$i]->get_raw();
             for my integer $j ( ( $i + 1 ) .. ( $bodies_size - 1 ) ) {
-                $body_j         = $self->{bodies}->[$j];
+                $body_j         = $self->{bodies}->[$j]->get_raw();
                 $dx_array->[$k] = $body_i->{x} - $body_j->{x};
                 $dy_array->[$k] = $body_i->{y} - $body_j->{y};
                 $dz_array->[$k] = $body_i->{z} - $body_j->{z};
@@ -179,9 +180,9 @@ our void::method $advance_loop = sub {
 
         $k = 0;
         for my integer $i ( 0 .. ( $bodies_size - 1 ) ) {
-            $body_i = $self->{bodies}->[$i];
+            $body_i = $self->{bodies}->[$i]->get_raw();
             for my integer $j ( ( $i + 1 ) .. ( $bodies_size - 1 ) ) {
-                $body_j      = $self->{bodies}->[$j];
+                $body_j      = $self->{bodies}->[$j]->get_raw();
                 $dx_array_k  = $dx_array->[$k];
                 $dy_array_k  = $dy_array->[$k];
                 $dz_array_k  = $dz_array->[$k];
@@ -202,7 +203,7 @@ our void::method $advance_loop = sub {
         }
 
         for my integer $i ( 0 .. ( $bodies_size - 1 ) ) {
-            $body_i = $self->{bodies}->[$i];
+            $body_i = $self->{bodies}->[$i]->get_raw();
             $body_i->{x} += $delta_time * $body_i->{vx};
             $body_i->{y} += $delta_time * $body_i->{vy};
             $body_i->{z} += $delta_time * $body_i->{vz};

@@ -30,7 +30,7 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 
 // COPY CONSTRUCTOR VERSION
 void PhysicsPerl__Astro__System::get_bodies_element(integer i, PhysicsPerl__Astro__Body_rawptr body_tmp) { 
-    PhysicsPerl__Astro__Body_rawptr body_i = this->bodies[i].get();
+    PhysicsPerl__Astro__Body_rawptr body_i = this->bodies[i].get_raw();
     body_tmp->name = body_i->name;
     body_tmp->x = body_i->x;
     body_tmp->y = body_i->y;
@@ -89,11 +89,11 @@ number PhysicsPerl__Astro__System::energy() {
     number distance;
     number e = 0.0;
     for ( integer i = 0; i <= ((this->bodies.size()) - 1); i++ ) {
-        PhysicsPerl__Astro__Body* body_i = this->bodies[i].get();
+        PhysicsPerl__Astro__Body* body_i = this->bodies[i].get_raw();
 //        PhysicsPerl__Astro__Body* body_i = this->bodies[i];
         e += 0.5 * body_i->mass * ((body_i->vx * body_i->vx) + (body_i->vy * body_i->vy) + (body_i->vz * body_i->vz));
         for ( integer j = (i + 1); j <= ((this->bodies.size()) - 1); j++ ) {
-            PhysicsPerl__Astro__Body* body_j = this->bodies[j].get();
+            PhysicsPerl__Astro__Body* body_j = this->bodies[j].get_raw();
 //            PhysicsPerl__Astro__Body* body_j = this->bodies[j];
             dx = body_i->x - body_j->x;
             dy = body_i->y - body_j->y;
@@ -170,10 +170,10 @@ void PhysicsPerl__Astro__System::advance_loop(const number dt, const integer tim
 
         k = 0;
         for ( i = 0; i < bodies_size; i++ ) {
-            body_i = this->bodies[i].get();
+            body_i = this->bodies[i].get_raw();
 //            body_i = this->bodies[i];
             for ( j = i + 1; j < bodies_size; j++ ) {
-                body_j = this->bodies[j].get();
+                body_j = this->bodies[j].get_raw();
 //                body_j = this->bodies[j];
                 dx_array[k] = body_i->x - body_j->x;
                 dy_array[k] = body_i->y - body_j->y;
@@ -242,11 +242,11 @@ void PhysicsPerl__Astro__System::advance_loop(const number dt, const integer tim
         k = 0;
         for ( i = 0; i < bodies_size; i++ ) {
             //cerr << "in advance(), have velloop i =             " << i << "\n";
-            body_i = this->bodies[i].get();
+            body_i = this->bodies[i].get_raw();
 //            body_i = this->bodies[i];
             for ( j = i + 1; j < bodies_size; j++ ) {
     //            //cerr << "in advance(), have velloop j =             " << j << "\n";
-                body_j = this->bodies[j].get();
+                body_j = this->bodies[j].get_raw();
 //                body_j = this->bodies[j];
                 dx_array_k = dx_array[k];
                 dy_array_k = dy_array[k];
@@ -335,7 +335,7 @@ void PhysicsPerl__Astro__System::advance_loop(const number dt, const integer tim
         }
 
         for ( i = 0; i < bodies_size; i++ ) {
-            body_i = this->bodies[i].get();
+            body_i = this->bodies[i].get_raw();
 //            body_i = this->bodies[i];
             body_i->x += dt * body_i->vx;
             body_i->y += dt * body_i->vy;
