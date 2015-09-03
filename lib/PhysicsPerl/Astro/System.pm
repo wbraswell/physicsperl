@@ -73,22 +73,22 @@ our number::method $energy = sub {
 
 #our void::method $advance_loop_plain = sub {
 #our void::method $advance_loop = sub {
-#    ( my PhysicsPerl::Astro::System $self, my number $delta_time, my integer $time_step_max ) = @_;
-#    my integer $bodies_size = scalar @{ $self->{bodies} };
+#    ( my PhysicsPerl::Astro::System $self, my constant_number $delta_time, my constant_integer $time_step_max ) = @_;
+#    my constant_integer $bodies_size = scalar @{ $self->{bodies} };
 #    my number $dx;
 #    my number $dy;
 #    my number $dz;
 #    my number $distance_squared;
 #    my number $distance;
 #    my number $magnitude;
-#    my PhysicsPerl::Astro::Body $body_i;
-#    my PhysicsPerl::Astro::Body $body_j;
+#    my PhysicsPerl::Astro::Body_raw $body_i;
+#    my PhysicsPerl::Astro::Body_raw $body_j;
 #
 #    for my integer $time_step ( 1 .. $time_step_max ) {
 #        for my integer $i ( 0 .. ( $bodies_size - 1 ) ) {
-#            $body_i = $self->{bodies}->[$i];
+#            $body_i = $self->{bodies}->[$i]->get_raw();
 #            for my integer $j ( ( $i + 1 ) .. ( $bodies_size - 1 ) ) {
-#                $body_j           = $self->{bodies}->[$j];
+#                $body_j           = $self->{bodies}->[$j]->get_raw();
 #                $dx               = $body_i->{x} - $body_j->{x};
 #                $dy               = $body_i->{y} - $body_j->{y};
 #                $dz               = $body_i->{z} - $body_j->{z};
@@ -104,7 +104,7 @@ our number::method $energy = sub {
 #            }
 #        }
 #        for my integer $i ( 0 .. ( $bodies_size - 1 ) ) {
-#            $body_i = $self->{bodies}->[$i];
+#            $body_i = $self->{bodies}->[$i]->get_raw();
 #            $body_i->{x} += $delta_time * $body_i->{vx};
 #            $body_i->{y} += $delta_time * $body_i->{vy};
 #            $body_i->{z} += $delta_time * $body_i->{vz};
@@ -210,7 +210,5 @@ our void::method $advance_loop = sub {
         }
     }
 };
-
-#=cut
 
 1;    # end of class

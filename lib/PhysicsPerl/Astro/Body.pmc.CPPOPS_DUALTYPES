@@ -13,6 +13,13 @@ use RPerl::Inline;
 
 # [[[ SUBROUTINES ]]]
 
+# <<< OO PROPERTIES, SUBROUTINES, SHIMS >>>
+sub sun     { return main::PhysicsPerl__Astro__Body__sun(@_); }
+sub jupiter { return main::PhysicsPerl__Astro__Body__jupiter(@_); }
+sub saturn  { return main::PhysicsPerl__Astro__Body__saturn(@_); }
+sub uranus  { return main::PhysicsPerl__Astro__Body__uranus(@_); }
+sub neptune { return main::PhysicsPerl__Astro__Body__neptune(@_); }
+
 # <<< C++ LOADER >>>
 #our void::method $cpp_load = sub {
 sub cpp_load {
