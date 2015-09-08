@@ -27,7 +27,7 @@
 use RPerl;
 use strict;
 use warnings;
-our $VERSION = 0.001_100;
+our $VERSION = 0.001_101;
 
 # [[[ CRITICS ]]]
 ## no critic qw(ProhibitUselessNoCritic ProhibitMagicNumbers RequireCheckedSyscalls)  # USER DEFAULT 1: allow numeric values & print operator
@@ -39,10 +39,10 @@ use Time::HiRes qw(time);
 
 # [[[ OPERATIONS ]]]
 
-my bool $enable_grahics = 1;
+my bool $enable_graphics = 1;
 my number $delta_time = 0.01;
 #my integer $time_step_max = string_to_integer($ARGV[0]);
-#my integer $time_step_max = 50_000;
+#my integer $time_step_max = 5_000;
 my integer $time_step_max = 50_000_000;
 my integer $time_steps_per_frame = 100;
 
@@ -52,7 +52,7 @@ my PhysicsPerl::Astro::System $system = PhysicsPerl::Astro::System->new();
 $system->init();
 print 'start energy: ' . number_to_string($system->energy()) . "\n";
 
-if ($enable_grahics) {
+if ($enable_graphics) {
     my PhysicsPerl::Astro::SystemRenderer2D $renderer = PhysicsPerl::Astro::SystemRenderer2D->new();
     $renderer->init($system, $delta_time, $time_step_max, $time_steps_per_frame, $time_start);
     $renderer->render2d_video();
