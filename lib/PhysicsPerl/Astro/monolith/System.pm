@@ -1,8 +1,18 @@
 ## no critic qw(Capitalization ProhibitMultiplePackages ProhibitReusedNames RequireFilenameMatchesPackage)  # SYSTEM DEFAULT 3: allow multiple & lower case package names
 
+# $ sudo cpan RPerl
 # $ rperl -noW System.pm
 # $ perl -I. -e 'use System; my $s = PhysicsPerl::Astro::System->new(); $s->init(); print $s->energy() . qq{\n}; $s->advance_loop(0.01, $ARGV[0] + 0); print $s->energy() . qq{\n};' 50000000
+# -0.169075163828524
+# -0.169059906811125
 
+# n-Body Program Source Code, Perl Implementation #3
+# The Computer Language Benchmarks Game
+# http://benchmarksgame.alioth.debian.org/
+
+# contributed in Java by Mark C. Lewis
+# modified slightly in Java by Chad Whipkey
+# converted to Perl by Will Braswell
 
 # [[[ HEADER ]]]
 use RPerl;
@@ -139,7 +149,6 @@ use RPerl::CompileUnit::Module::Class;
 ## no critic qw(ProhibitPostfixControls)  # SYSTEM SPECIAL 6: PERL CRITIC FILED ISSUE #639, not postfix foreach or if
 
 # [[[ INCLUDES ]]]
-#se PhysicsPerl::Astro::Body;  # MONOLITH
 use rperlsse;
 
 # [[[ OO PROPERTIES ]]]

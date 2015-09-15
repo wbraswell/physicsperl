@@ -18,3 +18,5 @@ rm System.cpp 2> /dev/null
 rm System.pmc 2> /dev/null
 
 rm System.pm 2> /dev/null
+
+ln -s System.pm.PERLOPS_PERLTYPES_SSE System.pm
