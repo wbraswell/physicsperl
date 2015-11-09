@@ -1,0 +1,14 @@
+Revision history for PhysicsPerl suite.
+
+0.000002 2015-11-01 Unreleased
+
+    - Split N-Body SSE Code From Normal Code, Create Linking In Scripts
+    - Split N-Body Code From RPerl Into PhysicsPerl
+ 
+0.000001 2015-XX-YY Unreleased
+
+    - Misc Algorithms
+    
+0.000000 2015-01-13 Unreleased
+
+    - Created PhysicsPerl

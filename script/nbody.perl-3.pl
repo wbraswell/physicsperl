@@ -39,11 +39,12 @@ use Time::HiRes qw(time);
 
 # [[[ OPERATIONS ]]]
 
-my bool $enable_graphics = 0;
+my bool $enable_graphics = 1;
 my number $delta_time = 0.01;
 #my integer $time_step_max = string_to_integer($ARGV[0]);
-my integer $time_step_max = 10_000_000;
-my integer $time_steps_per_frame = 100;
+#my integer $time_step_max = 5_000;
+my integer $time_step_max = 50_000_000;
+my integer $time_steps_per_frame = 5000;
 
 my $time_start = time();
 
