@@ -6,6 +6,7 @@ using std::cout;  using std::cerr;
 
 // [[[ INCLUDES & OO INHERITANCE INCLUDES ]]]
 #include <RPerl.cpp>  // -> RPerl.h -> (rperltypes_mode.h; rperltypes.h; HelperFunctions.cpp)
+#include <rperlsse.h>
 #include <RPerl/CompileUnit/Module/Class.cpp>
 #include "PhysicsPerl/Astro/Body.cpp"
 
