@@ -45,7 +45,7 @@ my number $delta_time = 0.01;
 
 my boolean $enable_graphics = 1;  # default 
 if (defined $ARGV[1]) { $enable_graphics = string_to_boolean($ARGV[1]); }  # user input, command-line argument
-my integer $time_steps_per_frame = 500;
+my integer $time_steps_per_frame = 50;
 
 my number $time_start = time();
 
