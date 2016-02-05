@@ -27,7 +27,7 @@ our $SCRIPT_PATH  = undef;    # interpreted target system programs live here
 my $file_name_config    = 'PhysicsPerl/Config.pm';    # this file name
 my $package_name_config = 'PhysicsPerl::Config';      # this file's primary package name
 my $file_name_pm        = 'PhysicsPerl.pm';
-my $file_name_script    = 'PhysicsPerl';
+my $file_name_script    = 'physicsperl';
 ( $BASE_PATH, $INCLUDE_PATH, $SCRIPT_PATH ) = @{ RPerl::set_system_paths( $file_name_config, $package_name_config, $file_name_pm, $file_name_script ) };
 
 1;                                                 # end of package
