@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-our $VERSION = 0.001_100;
+our $VERSION = 0.001_200;
 use ExtUtils::MakeMaker;
 
 BEGIN { use English; }
@@ -10,16 +10,21 @@ push( @ExtUtils::MakeMaker::Overridable, qw(pm_to_blib) )
 
 WriteMakefile(
     NAME             => 'PhysicsPerl',
-    ABSTRACT         => 'Physics Perl, Optimized Physics Software Written In RPerl',
+    ABSTRACT         => 'Physics Perl, The Optimized Physics Library Suite',
     AUTHOR           => ['Will Braswell <wbraswell@cpan.org>'],
     VERSION_FROM     => 'lib/PhysicsPerl.pm',
     LICENSE          => 'perl_5',
-    EXE_FILES        => ['script/nbody.perl-3.pl'],
+    EXE_FILES        => [ 'script/physicsperl', 'script/demo/n_body.pl' ],
     MIN_PERL_VERSION => '5.10.0',                                                      # NEED ANSWER: is RPerl truly incompatible with Perl v5.8 and earlier?
     PREREQ_PM        => {
-        'RPerl'       => 1.000007,
+        'ExtUtils::MakeMaker' => 7.04,     # for compatibility with Inline::C >= v0.75
+        'CPAN::Meta'          => 2.150005, # RPerl system developers only, used for generating CPAN metadata from this file during dist build
+        'Test::Exception'     => 0.32,
+        'Test::CPAN::Changes' => 0.400002,
+        'Test::Number::Delta' => 1.06,     # for compatibility with Perls compiled using -Duselongdouble
+        'RPerl' => 1.5,
         'Time::HiRes' => 1.9726,
-        'SDL'         => 2.546,
+        'SDL'         => 2.546
     },
     META_MERGE => {
         'meta-spec' => {
@@ -37,9 +42,9 @@ WriteMakefile(
             repository => {
                 type => 'git',
                 url  => 'git://github.com/wbraswell/physicsperl.git',
-                web  => 'https://github.com/wbraswell/physicsperl',
-            },
-        },
+                web  => 'https://github.com/wbraswell/physicsperl'
+            }
+        }
     },
 
     # NEED UPDATE, CORRELATION #pp00: list of _Inline directories to delete/exclude in Makefile.PL, .gitignore, and MANIFEST.SKIP
@@ -48,7 +53,7 @@ WriteMakefile(
     clean => {
         FILES =>
             'Makefile.old MANIFEST.bak lib/PhysicsPerl/Astro/Body.pmc lib/PhysicsPerl/Astro/Body.h lib/PhysicsPerl/Astro/Body.cpp lib/PhysicsPerl/Astro/System.pmc lib/PhysicsPerl/Astro/System.h lib/PhysicsPerl/Astro/System.cpp _Inline lib/_Inline script/_Inline t/_Inline'
-    },
+    }
 );
 
 package MY;
