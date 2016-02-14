@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# START HERE: replace with `rperl -u` uncompile option, except for final line removing 'System.pm'
+# START HERE: replace with `rperl -u` uncompile option, except for final line removing 'System.pm'
+# START HERE: replace with `rperl -u` uncompile option, except for final line removing 'System.pm'
+# TRIGGER FIRST TRAVIS BUILD
+
 if [ -d "lib/PhysicsPerl/Astro" ]; then
     cd lib/PhysicsPerl/Astro
 elif [ -d "PhysicsPerl/Astro" ]; then
