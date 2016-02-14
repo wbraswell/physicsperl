@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-our $VERSION = 0.001_200;
+our $VERSION = 0.001_300;
 use ExtUtils::MakeMaker;
 
 BEGIN { use English; }
@@ -49,10 +49,9 @@ WriteMakefile(
 
     # NEED UPDATE, CORRELATION #pp00: list of _Inline directories to delete/exclude in Makefile.PL, .gitignore, and MANIFEST.SKIP
     # NEED UPDATE, CORRELATION #pp01: list of CPAN files & directories to delete/exclude in Makefile.PL, .gitignore, and MANIFEST.SKIP
-    # NEED UPDATE, CORRELATION #pp02: list of RPerl build files & directories to delete/exclude in Makefile.PL, .gitignore, and MANIFEST.SKIP
     clean => {
         FILES =>
-            'Makefile.old MANIFEST.bak lib/PhysicsPerl/Astro/Body.pmc lib/PhysicsPerl/Astro/Body.h lib/PhysicsPerl/Astro/Body.cpp lib/PhysicsPerl/Astro/System.pmc lib/PhysicsPerl/Astro/System.h lib/PhysicsPerl/Astro/System.cpp _Inline lib/_Inline script/_Inline t/_Inline'
+            'Makefile.old MANIFEST.bak _Inline lib/_Inline script/_Inline t/_Inline'
     }
 );
 
