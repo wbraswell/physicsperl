@@ -86,7 +86,7 @@ PhysicsPerl__Astro__Body_ptr neptune() {
     return body;
 }
 
-// CORRELATION #pp04: unfinished attempt to manually define pack/unpack for object return type
+// CORRELATION #pp10: unfinished attempt to manually define pack/unpack for object return type
 // [[[ TYPEMAP PACK/UNPACK FOR __CPP__TYPES ]]]
 
 /*

@@ -68,7 +68,7 @@ PhysicsPerl__Astro__Body_ptr neptune();
 
 integer PhysicsPerl__Astro__Body__MODE_ID() { return 2; }  // CPPOPS_CPPTYPES is 2
 
-// CORRELATION #pp04: unfinished attempt to manually define pack/unpack for object return type
+// CORRELATION #pp10: unfinished attempt to manually define pack/unpack for object return type
 // [[[ TYPEMAP PACK/UNPACK FOR __CPP__TYPES ]]]
 //PhysicsPerl__Astro__Body XS_unpack_PhysicsPerl__Astro__Body(SV* input_hv_ref);
 //void XS_pack_PhysicsPerl__Astro__Body(SV* output_hv_ref, PhysicsPerl__Astro__Body input_object);
