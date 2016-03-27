@@ -2,7 +2,7 @@
 
 use strict;
 use warnings;
-our $VERSION = 0.002_000;
+our $VERSION = 0.002_100;
 use ExtUtils::MakeMaker;
 
 BEGIN { use English; }
@@ -11,13 +11,13 @@ push( @ExtUtils::MakeMaker::Overridable, qw(pm_to_blib) )
     if ( $OSNAME eq 'MSWin32' );
 
 WriteMakefile(
-    NAME             => 'PhysicsPerl',
-    ABSTRACT         => 'Physics Perl, The Optimized Physics Library Suite',
-    AUTHOR           => 'Will Braswell <wbraswell@cpan.org>',
-    VERSION_FROM     => 'lib/PhysicsPerl.pm',
-    LICENSE          => 'perl_5',
-    EXE_FILES        => [ 'script/physicsperl', 'script/demo/n_body.pl' ],
-    MIN_PERL_VERSION => '5.10.0',  # NEED ANSWER, CORRELATION #rp00: is RPerl truly incompatible with Perl v5.8 and earlier?
+    NAME         => 'PhysicsPerl',
+    ABSTRACT     => 'Physics Perl, The Optimized Physics Library Suite',
+    AUTHOR       => 'Will Braswell <wbraswell@cpan.org>',
+    VERSION_FROM => 'lib/PhysicsPerl.pm',
+    LICENSE      => 'perl_5',
+    EXE_FILES    => [ 'script/physicsperl', 'script/demo/n_body.pl' ],
+    MIN_PERL_VERSION => '5.10.0',    # NEED ANSWER, CORRELATION #rp00: is RPerl truly incompatible with Perl v5.8 and earlier?
     PREREQ_PM        => {
         'ExtUtils::MakeMaker' => 7.04,        # for compatibility with Inline::C >= v0.75
         'CPAN::Meta'          => 2.150005,    # RPerl system developers only, used for generating CPAN metadata from this file during dist build
@@ -38,10 +38,9 @@ WriteMakefile(
         keywords    => [qw(physicsperl physics rperl perl5 optimizing compiler optimize compile)],
         description => 'PhysicsPerl is the high-performance physics suite for the Perl 5 programming language, optimized using the RPerl compiler.',
         resources   => {
-            license => ['http://dev.perl.org/licenses/'],
-
-            #            homepage   => 'http://www.physicsperl.org',
-            #            bugtracker => { web => 'http://rt.cpan.org/Public/Dist/Display.html?Name=PhysicsPerl' },
+            license    => ['http://dev.perl.org/licenses/'],
+            homepage   => 'http://www.rperl.org',
+            bugtracker => { web => 'http://rt.cpan.org/Public/Dist/Display.html?Name=PhysicsPerl' },
             repository => {
                 type => 'git',
                 url  => 'git://github.com/wbraswell/physicsperl.git',
@@ -50,13 +49,8 @@ WriteMakefile(
         }
     },
 
-    # NEED UPDATE, CORRELATION #pp00: list of _Inline directories to delete/exclude in Makefile.PL, .gitignore, and MANIFEST.SKIP
-    # NEED UPDATE, CORRELATION #pp01: list of CPAN files & directories to delete/exclude in Makefile.PL, .gitignore, and MANIFEST.SKIP
-    # NEED UPDATE, CORRELATION #pp02: list of MathPerl build files & directories to delete/exclude in Makefile.PL, .gitignore, and MANIFEST.SKIP
-    clean => {
-        FILES =>
-            'pod2htmd.tmp Makefile.old MANIFEST.bak _Inline lib/_Inline script/_Inline script/development/_Inline script/development/unused/_Inline t/_Inline lib/MathPerl/_Inline'
-    }
+    # NEED UPDATE, CORRELATION #pp00: list of CPAN files & directories to delete/exclude in Makefile.PL, .gitignore, and MANIFEST.SKIP
+    clean => { FILES => 'pod2htmd.tmp Makefile.old MANIFEST.bak' }
 );
 
 package MY;

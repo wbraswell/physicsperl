@@ -3,7 +3,7 @@ package PhysicsPerl;
 use strict;
 use warnings;
 use RPerl::AfterSubclass;
-our $VERSION = 0.000_003;
+our $VERSION = 0.100_000;
 
 # [[[ OO INHERITANCE ]]]
 use parent qw(RPerl::CompileUnit::Module::Class);  # no non-system inheritance, only inherit from base class
