@@ -75,12 +75,14 @@ find(
     $PhysicsPerl::INCLUDE_PATH . '/PhysicsPerl/Test'
 );
 
+=DISABLE_FOR_RPERL_V1_75_COMPATIBILITY
 # trim unnecessary (and possibly problematic) absolute paths from input file names
 # must be done outside find() to properly utilize getcwd()
 foreach my string $test_file_key (sort keys %{$test_files}) {
     $test_files->{RPerl::Compiler::post_processor__absolute_path_delete($test_file_key)} = $test_files->{$test_file_key};
     delete $test_files->{$test_file_key};
 }
+=cut
 
 #RPerl::diag( 'in 02_interpret_execute.t, have $test_files = ' . "\n" . Dumper($test_files) . "\n" );
 
