@@ -35,7 +35,7 @@ our hashref $properties = {
     color  => my integer_arrayref $TYPED_color = undef
 };
 
-# [[[ OO METHODS & SUBROUTINES ]]]
+# [[[ SUBROUTINES & OO METHODS ]]]
 
 our PhysicsPerl::Astro::Body $sun = sub {
     my PhysicsPerl::Astro::Body $body = PhysicsPerl::Astro::Body->new();

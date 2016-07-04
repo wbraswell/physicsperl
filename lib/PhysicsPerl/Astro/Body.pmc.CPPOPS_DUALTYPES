@@ -10,15 +10,21 @@ our $VERSION = 0.001_000;
 
 # [[[ INCLUDES ]]]
 use RPerl::Inline;
+use PhysicsPerl::Config;
 
 # [[[ SUBROUTINES ]]]
 
 # <<< OO PROPERTIES, SUBROUTINES, SHIMS >>>
-sub sun     { return main::PhysicsPerl__Astro__Body__sun(@_); }
-sub jupiter { return main::PhysicsPerl__Astro__Body__jupiter(@_); }
-sub saturn  { return main::PhysicsPerl__Astro__Body__saturn(@_); }
-sub uranus  { return main::PhysicsPerl__Astro__Body__uranus(@_); }
-sub neptune { return main::PhysicsPerl__Astro__Body__neptune(@_); }
+undef &PhysicsPerl::Astro::Body::sun;
+*PhysicsPerl::Astro::Body::sun = sub { return main::PhysicsPerl__Astro__Body__sun(@_); };
+undef &PhysicsPerl::Astro::Body::jupiter;
+*PhysicsPerl::Astro::Body::jupiter = sub { return main::PhysicsPerl__Astro__Body__jupiter(@_); };
+undef &PhysicsPerl::Astro::Body::saturn;
+*PhysicsPerl::Astro::Body::saturn = sub { return main::PhysicsPerl__Astro__Body__saturn(@_); };
+undef &PhysicsPerl::Astro::Body::uranus;
+*PhysicsPerl::Astro::Body::uranus = sub { return main::PhysicsPerl__Astro__Body__uranus(@_); };
+undef &PhysicsPerl::Astro::Body::neptune;
+*PhysicsPerl::Astro::Body::neptune = sub { return main::PhysicsPerl__Astro__Body__neptune(@_); };
 
 # <<< C++ LOADER >>>
 #our void::method $cpp_load = sub {
@@ -45,9 +51,9 @@ sub cpp_load {
         my $eval_string = <<"EOF";
 package main;
 use RPerl::Inline;
-BEGIN { RPerl::diag("[[[ BEGIN 'use Inline' STAGE for 'lib/PhysicsPerl/Astro/Body.cpp' ]]]\n" x 1); }
-use Inline (CPP => 'lib/PhysicsPerl/Astro/Body.cpp', \%RPerl::Inline::ARGS);
-RPerl::diag("[[[ END 'use Inline' STAGE for 'lib/PhysicsPerl/Astro/Body.cpp' ]]]\n" x 1);
+BEGIN { RPerl::diag("[[[ BEGIN 'use Inline' STAGE for 'PhysicsPerl/Astro/Body.cpp' ]]]\n" x 1); }
+use Inline (CPP => '$main::INCLUDE_PATH' . '/PhysicsPerl/Astro/Body.cpp', \%RPerl::Inline::ARGS);
+RPerl::diag("[[[ END 'use Inline' STAGE for 'PhysicsPerl/Astro/Body.cpp' ]]]\n" x 1);
 1;
 EOF
 

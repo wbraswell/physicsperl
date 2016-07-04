@@ -41,7 +41,7 @@ our hashref $properties = {
     app => my SDLx::App $TYPED_app = undef
 };
 
-# [[[ OO METHODS & SUBROUTINES ]]]
+# [[[ SUBROUTINES & OO METHODS ]]]
 
 our void::method $init = sub {
     ( my PhysicsPerl::Astro::SystemRenderer2D $self, my PhysicsPerl::Astro::System $system, my number $delta_time, my integer $time_step_max, my integer $time_steps_per_frame, my number $time_start ) = @_;
@@ -55,8 +55,10 @@ our void::method $init = sub {
 
     # NEED FIX: remove hard-coded window size
     $self->{window_title} = 'N-Body Solar System Simulator';
-    $self->{window_width} = 640;
-    $self->{window_height} = 480;
+#    $self->{window_width} = 640;
+#    $self->{window_height} = 480;
+    $self->{window_width} = 800;
+    $self->{window_height} = 600;
     $self->{zoom} = 6;
 #    $self->{window_width} = 1440;
 #    $self->{window_height} = 900;

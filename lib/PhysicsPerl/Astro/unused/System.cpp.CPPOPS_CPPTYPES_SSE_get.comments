@@ -22,7 +22,7 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 // [[[<<< BEGIN CPP TYPES >>>]]]
 // [[[<<< BEGIN CPP TYPES >>>]]]
 
-// [[[ OO METHODS & SUBROUTINES ]]]
+// [[[ SUBROUTINES & OO METHODS ]]]
 
 void PhysicsPerl__Astro__System::get_bodies_element(integer i, PhysicsPerl__Astro__Body_ptr& body_tmp_ptr) {
     *(body_tmp_ptr.get_raw()) = *(this->bodies[i].get_raw());

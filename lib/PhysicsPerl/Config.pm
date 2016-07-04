@@ -31,3 +31,18 @@ my $file_name_script    = 'physicsperl';
 ( $BASE_PATH, $INCLUDE_PATH, $SCRIPT_PATH ) = @{ RPerl::set_system_paths( $file_name_config, $package_name_config, $file_name_pm, $file_name_script ) };
 
 1;                                                 # end of package
+
+
+# export system paths to main:: namespace for use by PMC files
+package main;
+
+# [[[ OO CLASS PROPERTIES SPECIAL ]]]
+# DEV NOTE: duplicate lines to avoid 'used only once' warnings
+our $BASE_PATH = $PhysicsPerl::BASE_PATH;
+$BASE_PATH = $PhysicsPerl::BASE_PATH;
+our $INCLUDE_PATH = $PhysicsPerl::INCLUDE_PATH;
+$INCLUDE_PATH = $PhysicsPerl::INCLUDE_PATH;
+our $SCRIPT_PATH  = $PhysicsPerl::SCRIPT_PATH;
+$SCRIPT_PATH  = $PhysicsPerl::SCRIPT_PATH;
+
+1;                                                 # end of package

@@ -25,7 +25,7 @@ our hashref $properties = {
     zoom     => my number $TYPED_zoom                   = undef
 };
 
-# [[[ OO METHODS & SUBROUTINES ]]]
+# [[[ SUBROUTINES & OO METHODS ]]]
 
 our void::method $draw = sub {
     ( my PhysicsPerl::Astro::BodyRenderer2D $self, my SDLx::App $app ) = @_;

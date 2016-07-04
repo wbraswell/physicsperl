@@ -10,17 +10,19 @@ our $VERSION = 0.001_000;
 
 # [[[ INCLUDES ]]]
 use RPerl::Inline;
-require PhysicsPerl::Astro::Body;
+use PhysicsPerl::Config;
+use PhysicsPerl::Astro::Body;
 
 # [[[ SUBROUTINES ]]]
 
 # <<< OO PROPERTIES, ACCESSORS & MUTATORS, SHIMS >>>
-sub get_bodies_element {
+undef &PhysicsPerl::Astro::System::get_bodies_element;
+*PhysicsPerl::Astro::System::get_bodies_element = sub {
     ( my PhysicsPerl::Astro::System $self, my integer $i ) = @_;
     my PhysicsPerl::Astro::Body $bodies_element = PhysicsPerl::Astro::Body->new();
     $self->get_bodies_element_indirect( $i, $bodies_element );
     return $bodies_element;
-}
+};
 
 # <<< C++ LOADER >>>
 #our void::method $cpp_load = sub {
@@ -47,9 +49,9 @@ sub cpp_load {
         my $eval_string = <<"EOF";
 package main;
 use RPerl::Inline;
-BEGIN { RPerl::diag("[[[ BEGIN 'use Inline' STAGE for 'lib/PhysicsPerl/Astro/System.cpp' ]]]\n" x 1); }
-use Inline (CPP => 'lib/PhysicsPerl/Astro/System.cpp', \%RPerl::Inline::ARGS);
-RPerl::diag("[[[ END 'use Inline' STAGE for 'lib/PhysicsPerl/Astro/System.cpp' ]]]\n" x 1);
+BEGIN { RPerl::diag("[[[ BEGIN 'use Inline' STAGE for 'PhysicsPerl/Astro/System.cpp' ]]]\n" x 1); }
+use Inline (CPP => '$main::INCLUDE_PATH' . '/PhysicsPerl/Astro/System.cpp', \%RPerl::Inline::ARGS);
+RPerl::diag("[[[ END 'use Inline' STAGE for 'PhysicsPerl/Astro/System.cpp' ]]]\n" x 1);
 1;
 EOF
 

@@ -39,13 +39,15 @@ use Time::HiRes qw(time);
 
 # [[[ OPERATIONS ]]]
 
-my integer $time_step_max = 50_000_000;  # default
+#my integer $time_step_max = 50_000_000;
+#my integer $time_step_max = 50_000_000;  # default
+my integer $time_step_max = 50_000_000_000;
 if (defined $ARGV[0]) { $time_step_max = string_to_integer($ARGV[0]); }  # user input, command-line argument
 my number $delta_time = 0.01;
 
 my boolean $enable_graphics = 1;  # default 
 if (defined $ARGV[1]) { $enable_graphics = string_to_boolean($ARGV[1]); }  # user input, command-line argument
-my integer $time_steps_per_frame = 50;
+my integer $time_steps_per_frame = 1500;
 
 my number $time_start = time();
 

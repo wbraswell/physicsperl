@@ -1,5 +1,5 @@
 // [[[ HEADER ]]]
-using std::cout;  using std::cerr;
+using std::cout;  using std::cerr;  using std::endl;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp
 #define __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp 0.006_000
@@ -17,7 +17,7 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 // [[[<<< BEGIN CPP TYPES >>>]]]
 // [[[<<< BEGIN CPP TYPES >>>]]]
 
-// [[[ OO METHODS & SUBROUTINES ]]]
+// [[[ SUBROUTINES & OO METHODS ]]]
 
 void PhysicsPerl__Astro__System::init() {
     integer i;
@@ -170,3 +170,5 @@ Purposefully_die_from_a_compile-time_error,_due_to_neither___PERL__TYPES_nor___C
 # endif
 
 #endif
+
+// end of class
