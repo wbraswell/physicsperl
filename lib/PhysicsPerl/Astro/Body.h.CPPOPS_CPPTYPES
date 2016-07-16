@@ -67,6 +67,10 @@ public:
 
     // <<< CLASS NAME REPORTER >>>
     virtual string myclassname() { return (const string) "PhysicsPerl::Astro::Body"; }
+
+    // <<< CONSTANTS, SHIMS >>>
+    const number SOLAR_MASS() { return PhysicsPerl__Astro__Body__SOLAR_MASS; }
+    const number DAYS_PER_YEAR() { return PhysicsPerl__Astro__Body__DAYS_PER_YEAR; }
 };  // end of class
 
 // [[[ OO SUBCLASSES ]]]
@@ -83,6 +87,13 @@ PhysicsPerl__Astro__Body_ptr PhysicsPerl__Astro__Body__saturn();
 PhysicsPerl__Astro__Body_ptr PhysicsPerl__Astro__Body__uranus();
 PhysicsPerl__Astro__Body_ptr PhysicsPerl__Astro__Body__neptune();
 
+// <<< SHIM MACROS >>>
+#define sun() PhysicsPerl__Astro__Body__sun()
+#define jupiter() PhysicsPerl__Astro__Body__jupiter()
+#define saturn() PhysicsPerl__Astro__Body__saturn()
+#define uranus() PhysicsPerl__Astro__Body__uranus()
+#define neptune() PhysicsPerl__Astro__Body__neptune()
+
 // <<< OPERATIONS & DATA TYPES REPORTER >>>
 integer PhysicsPerl__Astro__Body__MODE_ID() { return 2; }  // CPPOPS_CPPTYPES is 2
 
@@ -97,3 +108,5 @@ Purposefully_die_from_a_compile-time_error,_due_to_neither___PERL__TYPES_nor___C
 # endif
 
 #endif
+
+// end of class

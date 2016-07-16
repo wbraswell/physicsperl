@@ -6,12 +6,12 @@ use RPerl::AfterSubclass;
 our $VERSION = 0.001_000;
 
 # [[[ CRITICS ]]]
-## no critic qw(ProhibitStringyEval) # SYSTEM DEFAULT 1: allow eval()
+## no critic qw(ProhibitStringyEval)  # SYSTEM DEFAULT 1: allow eval()
 
 # [[[ INCLUDES ]]]
 use RPerl::Inline;
 use PhysicsPerl::Config;
-use PhysicsPerl::Astro::Body;
+require PhysicsPerl::Astro::Body;
 
 # [[[ SUBROUTINES ]]]
 
@@ -55,10 +55,9 @@ RPerl::diag("[[[ END 'use Inline' STAGE for 'PhysicsPerl/Astro/System.cpp' ]]]\n
 1;
 EOF
 
-        $RPerl::Inline::ARGS{ccflagsex} = $RPerl::Inline::CCFLAGSEX . $RPerl::TYPES_CCFLAG;
-        $RPerl::Inline::ARGS{cppflags}  = $RPerl::TYPES_CCFLAG;
-        $RPerl::Inline::ARGS{optimize}  .= ' -mfpmath=sse -msse3';  # enable SSE support
-        $RPerl::Inline::ARGS{auto_include} = ['#include <immintrin.h>', '#include <rperlsse.h>', @{$RPerl::Inline::ARGS{auto_include}}];  # enable SSE support
+        $RPerl::Inline::ARGS{ccflagsex}
+            = $RPerl::Inline::CCFLAGSEX . $RPerl::TYPES_CCFLAG . rperltypes::type_integer_native_ccflag() . rperltypes::type_number_native_ccflag();
+        $RPerl::Inline::ARGS{cppflags} = $RPerl::TYPES_CCFLAG . rperltypes::type_integer_native_ccflag() . rperltypes::type_number_native_ccflag();
 
 #RPerl::diag('in PhysicsPerl::Astro::System::cpp_load(), CPP not yet loaded, about to call eval() on $eval_string =' . "\n" . '<<< BEGIN EVAL STRING>>>' . "\n" . $eval_string . '<<< END EVAL STRING >>>' . "\n");
 

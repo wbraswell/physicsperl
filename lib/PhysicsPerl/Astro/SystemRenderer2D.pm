@@ -26,7 +26,7 @@ use SDLx::App;
 use SDLx::Text;
 
 # [[[ OO PROPERTIES ]]]
-our hashref $properties = { 
+our hashref $properties = {
     system => my PhysicsPerl::Astro::System $TYPED_system = undef,
     delta_time => my number $TYPED_delta_time = undef,
     time_step_max => my integer $TYPED_time_step_max = undef,
@@ -88,10 +88,10 @@ our void::method $show = sub {
     SDL::Video::fill_rect( $app, SDL::Rect->new(0, 0, $app->w(), $app->h()), 0 );
 
     my PhysicsPerl::Astro::Body $body_i;
- 
+
     for my integer $i (0 .. ($self->{system}->get_bodies_size() - 1)) {
         $body_i = $self->{system}->get_bodies_element($i);
-        
+
         # NEED FIX: create set_x() Perl shim to pass-by-reference to set_x_rawptr() C++ code
         # DEV NOTE: set_bodies_element() required for pass-by-value set_x() but not pass-by-reference set_color()
         # TMP DEBUG
@@ -102,7 +102,7 @@ our void::method $show = sub {
         $self->{body_renderer2d}->{body} = $body_i;
         $self->{body_renderer2d}->draw($app);
     }
-    
+
     my string $status = q{};
     my string $status_tmp;
     $status .= 'Time, Step: ' . ::number_to_string($self->{time_step_current}) . ' of ' . ::number_to_string($self->{time_step_max}) . "\n";
@@ -118,7 +118,7 @@ our void::method $show = sub {
     $status .= ' of ' . $status_tmp . "\n";
     $status_tmp =  ($self->{time_step_current} / $self->{time_step_max}) * 100;
     $status_tmp =~ s/[.].*//xms;  # sim time, 0 characters after decimal
-    $status .= 'Completion: ' . $status_tmp . '%';
+    $status .= 'Completion: ' . $status_tmp . q{%};
     $status_tmp = ::number_to_string($self->{time_step_current} / $time_elapsed);
     $status_tmp =~ s/[.].*//xms;  # steps per real time, 0 characters after decimal
     $status .= ' at ' . $status_tmp . ' Steps / Second' . "\n";

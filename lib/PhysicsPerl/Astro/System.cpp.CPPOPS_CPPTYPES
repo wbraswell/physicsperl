@@ -2,7 +2,7 @@
 using std::cout;  using std::cerr;  using std::endl;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp
-#define __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp 0.006_000
+#define __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp 0.006_100
 
 // [[[ INCLUDES ]]]
 #include "PhysicsPerl/Astro/System.h"
@@ -114,3 +114,5 @@ Purposefully_die_from_a_compile-time_error,_due_to_neither___PERL__TYPES_nor___C
 # endif
 
 #endif
+
+// end of class
