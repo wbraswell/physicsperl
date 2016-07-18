@@ -63,7 +63,7 @@ while (1) {
 #    if (($line_number % $flush_threshold) == 0) { $flush_flag = 1; print 'MOD' . "\n"; }
 #    if (((defined $bdiff_line) and ($bdiff_line =~ m/^[0-9]/)) or ($line_number == $bdiff_line_count)) {  # MEMORY LEAK, needs to know line count of bdiff file
     if (((defined $bdiff_line) and ($bdiff_line =~ m/^[0-9]/)) or (not defined $bdiff_line)) {
-#        print 'found line starting with number (start of new record) or end of file, processing previous record =' . "\n" . '[[[ BEGIN RECORD ]]]' . "\n" . $bdiff_record . "\n" . '[[[ END RECORD ]]]' . "\n";
+#        print 'found line starting with number (start of new record) or end of file, processing previous record =' . "\n" . '[[[ BEGIN RECORD ]]]' . "\n" . $bdiff_record . "\n" . '[[[ END   RECORD ]]]' . "\n";
         # start of a new record, process current record before iteration
         foreach $bdiff_record_line (split "\n", $bdiff_record) {
 #            print 'top of foreach() loop, have $bdiff_record_line = ' . $bdiff_record_line . "\n";
