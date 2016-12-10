@@ -28,7 +28,7 @@ use POSIX qw(floor);
 
 # [[[ SUBROUTINES ]]]
 sub stringify_pythagorean_triple {
-    ( my integer_arrayref $pythagorean_triple) = @_;
+    ( my integer_arrayref $pythagorean_triple) = @ARG;
     return
           '['
         . $pythagorean_triple->[0] . ', '
@@ -37,7 +37,7 @@ sub stringify_pythagorean_triple {
 }
 
 sub stringify_pythagorean_triples {
-    ( my arrayref_arrayref $pythagorean_triples) = @_;
+    ( my arrayref_arrayref $pythagorean_triples) = @ARG;
     my string $retval    = q{};
     my integer $is_first = 1;
 

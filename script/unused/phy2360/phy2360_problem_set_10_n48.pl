@@ -164,7 +164,7 @@ print '[[ DNA TRANSLATION ]]' . "\n\n";
 print '[ QUESTION 1 ]' . "\n";
 
 sub extract_amino_acids {
-   (my string $coding_sequence_flat_in) = @_; 
+   (my string $coding_sequence_flat_in) = @ARG; 
     my string $coding_subsequence = substr $coding_sequence_flat_in, $protein_encoding_start;
     my integer $protein_encoding_end = 999_999;
     foreach my string $stop_codon (qw(TAA TAG TGA)) {

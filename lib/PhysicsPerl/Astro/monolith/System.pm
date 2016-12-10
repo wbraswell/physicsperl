@@ -157,7 +157,7 @@ our hashref $properties = { bodies => my PhysicsPerl::Astro::Body_arrayref $TYPE
 # [[[ SUBROUTINES & OO METHODS ]]]
 
 our void::method $init = sub {
-    ( my PhysicsPerl::Astro::System $self ) = @_;
+    ( my PhysicsPerl::Astro::System $self ) = @ARG;
     $self->{bodies}->[0] = PhysicsPerl::Astro::Body::sun();
     $self->{bodies}->[1] = PhysicsPerl::Astro::Body::jupiter();
     $self->{bodies}->[2] = PhysicsPerl::Astro::Body::saturn();
@@ -179,7 +179,7 @@ our void::method $init = sub {
 };
 
 our number::method $energy = sub {
-    ( my PhysicsPerl::Astro::System $self ) = @_;
+    ( my PhysicsPerl::Astro::System $self ) = @ARG;
     my number $dx;
     my number $dy;
     my number $dz;
@@ -204,7 +204,7 @@ our number::method $energy = sub {
 
 
 our void::method $advance_loop = sub {
-    ( my PhysicsPerl::Astro::System $self, my constant_number $delta_time, my constant_integer $time_step_max ) = @_;
+    ( my PhysicsPerl::Astro::System $self, my constant_number $delta_time, my constant_integer $time_step_max ) = @ARG;
     my constant_integer $bodies_size = scalar @{ $self->{bodies} };
     my constant_unsigned_integer $bodies_size_triangle  = 10;
 

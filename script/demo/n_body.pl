@@ -39,9 +39,10 @@ use Time::HiRes qw(time);
 
 # [[[ OPERATIONS ]]]
 
-#my integer $time_step_max = 50_000_000;
-#my integer $time_step_max = 50_000_000;  # default
-my integer $time_step_max = 50_000_000_000;
+#my integer $time_step_max = 50_000;  # run quick'ish
+my integer $time_step_max = 50_000_000;  # default
+#my integer $time_step_max = 50_000_000_000;  # run forever'ish
+
 if (defined $ARGV[0]) { $time_step_max = string_to_integer($ARGV[0]); }  # user input, command-line argument
 my number $delta_time = 0.01;
 

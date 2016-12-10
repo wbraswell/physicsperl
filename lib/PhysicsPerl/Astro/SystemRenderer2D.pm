@@ -44,7 +44,7 @@ our hashref $properties = {
 # [[[ SUBROUTINES & OO METHODS ]]]
 
 our void::method $init = sub {
-    ( my PhysicsPerl::Astro::SystemRenderer2D $self, my PhysicsPerl::Astro::System $system, my number $delta_time, my integer $time_step_max, my integer $time_steps_per_frame, my number $time_start ) = @_;
+    ( my PhysicsPerl::Astro::SystemRenderer2D $self, my PhysicsPerl::Astro::System $system, my number $delta_time, my integer $time_step_max, my integer $time_steps_per_frame, my number $time_start ) = @ARG;
 
     $self->{system} = $system;
     $self->{delta_time} = $delta_time;
@@ -79,12 +79,12 @@ our void::method $init = sub {
 };
 
 our void::method $events = sub {
-    ( my PhysicsPerl::Astro::SystemRenderer2D $self, my SDL::Event $event, my SDLx::App $app ) = @_;
+    ( my PhysicsPerl::Astro::SystemRenderer2D $self, my SDL::Event $event, my SDLx::App $app ) = @ARG;
     if ($event->type() == SDL_QUIT) { $app->stop(); }
 };
 
 our void::method $show = sub {
-    ( my PhysicsPerl::Astro::SystemRenderer2D $self, my number $dt, my SDLx::App $app ) = @_;
+    ( my PhysicsPerl::Astro::SystemRenderer2D $self, my number $dt, my SDLx::App $app ) = @ARG;
     SDL::Video::fill_rect( $app, SDL::Rect->new(0, 0, $app->w(), $app->h()), 0 );
 
     my PhysicsPerl::Astro::Body $body_i;
@@ -140,7 +140,7 @@ our void::method $show = sub {
 };
 
 our void::method $move = sub {
-    ( my PhysicsPerl::Astro::SystemRenderer2D $self, my number $dt, my SDLx::App $app, my number $t ) = @_;
+    ( my PhysicsPerl::Astro::SystemRenderer2D $self, my number $dt, my SDLx::App $app, my number $t ) = @ARG;
     # don't overshoot your time_step_max
     if (($self->{time_step_current} + $self->{time_steps_per_frame}) > $self->{time_step_max}) {
         $self->{time_steps_per_frame} = $self->{time_step_max} - $self->{time_step_current};
@@ -151,11 +151,11 @@ our void::method $move = sub {
 };
 
 our void::method $render2d_video = sub {
-    ( my PhysicsPerl::Astro::SystemRenderer2D $self ) = @_;
+    ( my PhysicsPerl::Astro::SystemRenderer2D $self ) = @ARG;
 
-    $self->{app}->add_event_handler( sub { $self->events(@_) } );
-    $self->{app}->add_show_handler( sub { $self->show(@_) } );
-    $self->{app}->add_move_handler( sub { $self->move(@_) } );
+    $self->{app}->add_event_handler( sub { $self->events(@ARG) } );
+    $self->{app}->add_show_handler( sub { $self->show(@ARG) } );
+    $self->{app}->add_move_handler( sub { $self->move(@ARG) } );
 
 #    $self->{app}->fullscreen();
     $self->{app}->run();

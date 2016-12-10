@@ -18,7 +18,7 @@ require PhysicsPerl::Astro::Body;
 # <<< OO PROPERTIES, ACCESSORS & MUTATORS, SHIMS >>>
 undef &PhysicsPerl::Astro::System::get_bodies_element;
 *PhysicsPerl::Astro::System::get_bodies_element = sub {
-    ( my PhysicsPerl::Astro::System $self, my integer $i ) = @_;
+    ( my PhysicsPerl::Astro::System $self, my integer $i ) = @ARG;
     my PhysicsPerl::Astro::Body $bodies_element = PhysicsPerl::Astro::Body->new();
     $self->get_bodies_element_indirect( $i, $bodies_element );
     return $bodies_element;

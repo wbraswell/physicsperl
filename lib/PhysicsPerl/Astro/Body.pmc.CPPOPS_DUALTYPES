@@ -16,15 +16,15 @@ use PhysicsPerl::Config;
 
 # <<< OO PROPERTIES, SUBROUTINES, SHIMS >>>
 undef &PhysicsPerl::Astro::Body::sun;
-*PhysicsPerl::Astro::Body::sun = sub { return main::PhysicsPerl__Astro__Body__sun(@_); };
+*PhysicsPerl::Astro::Body::sun = sub { return main::PhysicsPerl__Astro__Body__sun(@ARG); };
 undef &PhysicsPerl::Astro::Body::jupiter;
-*PhysicsPerl::Astro::Body::jupiter = sub { return main::PhysicsPerl__Astro__Body__jupiter(@_); };
+*PhysicsPerl::Astro::Body::jupiter = sub { return main::PhysicsPerl__Astro__Body__jupiter(@ARG); };
 undef &PhysicsPerl::Astro::Body::saturn;
-*PhysicsPerl::Astro::Body::saturn = sub { return main::PhysicsPerl__Astro__Body__saturn(@_); };
+*PhysicsPerl::Astro::Body::saturn = sub { return main::PhysicsPerl__Astro__Body__saturn(@ARG); };
 undef &PhysicsPerl::Astro::Body::uranus;
-*PhysicsPerl::Astro::Body::uranus = sub { return main::PhysicsPerl__Astro__Body__uranus(@_); };
+*PhysicsPerl::Astro::Body::uranus = sub { return main::PhysicsPerl__Astro__Body__uranus(@ARG); };
 undef &PhysicsPerl::Astro::Body::neptune;
-*PhysicsPerl::Astro::Body::neptune = sub { return main::PhysicsPerl__Astro__Body__neptune(@_); };
+*PhysicsPerl::Astro::Body::neptune = sub { return main::PhysicsPerl__Astro__Body__neptune(@ARG); };
 
 # <<< C++ LOADER >>>
 #our void::method $cpp_load = sub {

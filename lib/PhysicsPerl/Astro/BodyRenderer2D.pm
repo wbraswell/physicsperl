@@ -28,7 +28,7 @@ our hashref $properties = {
 # [[[ SUBROUTINES & OO METHODS ]]]
 
 our void::method $draw = sub {
-    ( my PhysicsPerl::Astro::BodyRenderer2D $self, my SDLx::App $app ) = @_;
+    ( my PhysicsPerl::Astro::BodyRenderer2D $self, my SDLx::App $app ) = @ARG;
 
     # NEED FIX: remove hard-coded radius scaling factor
     $app->draw_circle_filled(
