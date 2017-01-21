@@ -26,3 +26,4 @@ $system->init();
 print 'start energy: ' . number_to_string($system->energy()) . "\n";
 $system->advance_loop($delta_time, $time_step_max);
 print 'end energy:   ' . number_to_string($system->energy()) . "\n";
+
