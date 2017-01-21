@@ -2,7 +2,7 @@
 using std::cout;  using std::cerr;  using std::endl;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__Body_cpp
-#define __CPP__INCLUDED__PhysicsPerl__Astro__Body_cpp 0.006_000
+#define __CPP__INCLUDED__PhysicsPerl__Astro__Body_cpp 0.006_100
 
 // [[[ INCLUDES ]]]
 #include "PhysicsPerl/Astro/Body.h"

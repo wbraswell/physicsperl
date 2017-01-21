@@ -20,7 +20,7 @@ use RPerl;
 package PhysicsPerl::Astro::Body;
 use strict;
 use warnings;
-our $VERSION = 0.006_000;
+our $VERSION = 0.006_100;
 
 # [[[ OO INHERITANCE ]]]
 use parent qw(RPerl::CompileUnit::Module::Class);
@@ -149,7 +149,7 @@ use RPerl;
 package PhysicsPerl::Astro::System;
 use strict;
 use warnings;
-our $VERSION = 0.006_000;
+our $VERSION = 0.006_100;
 
 # [[[ OO INHERITANCE ]]]
 use parent qw(RPerl::CompileUnit::Module::Class);
