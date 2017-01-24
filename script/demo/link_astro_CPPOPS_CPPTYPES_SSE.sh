@@ -14,6 +14,6 @@ ln -s Body.h.CPPOPS_CPPTYPES Body.h
 ln -s Body.cpp.CPPOPS_CPPTYPES Body.cpp
 ln -s Body.pmc.CPPOPS_DUALTYPES Body.pmc
 
-ln -s System.h.CPPOPS_CPPTYPES System.h
-ln -s System.cpp.CPPOPS_CPPTYPES_SSE System.cpp
-ln -s System.pmc.CPPOPS_DUALTYPES System.pmc
+ln -s SystemSSE.h.CPPOPS_CPPTYPES SystemSSE.h
+ln -s SystemSSE.cpp.CPPOPS_CPPTYPES SystemSSE.cpp
+ln -s SystemSSE.pmc.CPPOPS_DUALTYPES SystemSSE.pmc

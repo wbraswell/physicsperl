@@ -24,7 +24,8 @@
 # <<< EXECUTE_SUCCESS: '-0.169_059_90' >>>
 
 # [[[ HEADER ]]]
-use RPerl;
+use RPerl::AfterSubclass;
+use rperltypesconv;
 use strict;
 use warnings;
 our $VERSION = 0.001_200;
@@ -33,8 +34,6 @@ our $VERSION = 0.001_200;
 ## no critic qw(ProhibitUselessNoCritic ProhibitMagicNumbers RequireCheckedSyscalls)  # USER DEFAULT 1: allow numeric values & print operator
 
 # [[[ INCLUDES ]]]
-use PhysicsPerl::Astro::System;
-use PhysicsPerl::Astro::SystemRenderer2D;
 use Time::HiRes qw(time);
 
 # [[[ OPERATIONS ]]]
@@ -42,22 +41,38 @@ use Time::HiRes qw(time);
 #my integer $time_step_max = 50_000;  # run quick'ish
 my integer $time_step_max = 50_000_000;  # default
 #my integer $time_step_max = 50_000_000_000;  # run forever'ish
-
 if (defined $ARGV[0]) { $time_step_max = string_to_integer($ARGV[0]); }  # user input, command-line argument
-my number $delta_time = 0.01;
 
 my boolean $enable_graphics = 1;  # default 
 if (defined $ARGV[1]) { $enable_graphics = string_to_boolean($ARGV[1]); }  # user input, command-line argument
+
+my boolean $enable_sse = 0;  # default 
+if (defined $ARGV[2]) { $enable_sse = string_to_boolean($ARGV[2]); }  # user input, command-line argument
+
+my number $delta_time = 0.01;
 my integer $time_steps_per_frame = 1500;
 
 my number $time_start = time();
 
-my PhysicsPerl::Astro::System $system = PhysicsPerl::Astro::System->new();
+# DEV NOTE: can't have compile-time class check w/ runtime eval_use(), using placeholder 'unknown' data type for now;
+my unknown $system;  # PhysicsPerl::Astro::System, because PhysicsPerl::Astro::SystemSSE ISA PhysicsPerl::Astro::System
+my unknown $eval_retval;
+if ($enable_sse) {
+    RPerl::eval_use('PhysicsPerl::Astro::SystemSSE');
+    $system = PhysicsPerl::Astro::SystemSSE->new();
+}
+else {
+    RPerl::eval_use('PhysicsPerl::Astro::System');
+    $system = PhysicsPerl::Astro::System->new();
+}
+
 $system->init();
 print 'start energy: ' . number_to_string($system->energy()) . "\n";
 
 if ($enable_graphics) {
-    my PhysicsPerl::Astro::SystemRenderer2D $renderer = PhysicsPerl::Astro::SystemRenderer2D->new();
+    RPerl::eval_use('PhysicsPerl::Astro::SystemRenderer2D');
+    # DEV NOTE: can't have compile-time class check w/ runtime eval_use(), using placeholder 'unknown' data type for now
+    my unknown $renderer = PhysicsPerl::Astro::SystemRenderer2D->new();
     $renderer->init($system, $delta_time, $time_step_max, $time_steps_per_frame, $time_start);
     $renderer->render2d_video();
 }

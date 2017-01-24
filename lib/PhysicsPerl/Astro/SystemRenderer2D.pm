@@ -14,7 +14,8 @@ use RPerl::CompileUnit::Module::Class;
 ## no critic qw(RequireInterpolationOfMetachars)  # USER DEFAULT 2: allow single-quoted control characters & sigils
 
 # [[[ INCLUDES ]]]
-use PhysicsPerl::Astro::System;
+# NEED FIX, CORRELATION #pp01: make SystemRenderer2D aware of SSE or non-SSE mode
+#use PhysicsPerl::Astro::System;
 use PhysicsPerl::Astro::Body;
 use PhysicsPerl::Astro::BodyRenderer2D;
 use Time::HiRes qw(time);
@@ -27,7 +28,9 @@ use SDLx::Text;
 
 # [[[ OO PROPERTIES ]]]
 our hashref $properties = {
-    system => my PhysicsPerl::Astro::System $TYPED_system = undef,
+    # NEED FIX, CORRELATION #pp01: make SystemRenderer2D aware of SSE or non-SSE mode
+#    system => my PhysicsPerl::Astro::System $TYPED_system = undef,
+    system => my unknown $TYPED_system = undef,
     delta_time => my number $TYPED_delta_time = undef,
     time_step_max => my integer $TYPED_time_step_max = undef,
     time_step_current => my integer $TYPED_time_step_current = undef,
@@ -44,7 +47,9 @@ our hashref $properties = {
 # [[[ SUBROUTINES & OO METHODS ]]]
 
 our void::method $init = sub {
-    ( my PhysicsPerl::Astro::SystemRenderer2D $self, my PhysicsPerl::Astro::System $system, my number $delta_time, my integer $time_step_max, my integer $time_steps_per_frame, my number $time_start ) = @ARG;
+    # NEED FIX, CORRELATION #pp01: make SystemRenderer2D aware of SSE or non-SSE mode
+#    ( my PhysicsPerl::Astro::SystemRenderer2D $self, my PhysicsPerl::Astro::System $system, my number $delta_time, my integer $time_step_max, my integer $time_steps_per_frame, my number $time_start ) = @ARG;
+    ( my PhysicsPerl::Astro::SystemRenderer2D $self, my $system, my number $delta_time, my integer $time_step_max, my integer $time_steps_per_frame, my number $time_start ) = @ARG;
 
     $self->{system} = $system;
     $self->{delta_time} = $delta_time;

@@ -1,11 +1,11 @@
 // [[[ HEADER ]]]
 using std::cout;  using std::cerr;  using std::endl;
 
-#ifndef __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp
-#define __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp 0.006_100
+#ifndef __CPP__INCLUDED__PhysicsPerl__Astro__SystemSSE_cpp
+#define __CPP__INCLUDED__PhysicsPerl__Astro__SystemSSE_cpp 0.006_100
 
 // [[[ INCLUDES ]]]
-#include "PhysicsPerl/Astro/System.h"
+#include "PhysicsPerl/Astro/SystemSSE.h"
 
 # ifdef __PERL__TYPES
 
@@ -19,7 +19,7 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 
 // [[[ SUBROUTINES & OO METHODS ]]]
 
-void PhysicsPerl__Astro__System::init() {
+void PhysicsPerl__Astro__SystemSSE::init() {
     integer i;
     this->bodies[0] = PhysicsPerl__Astro__Body__sun();
     this->bodies[1] = PhysicsPerl__Astro__Body__jupiter();
@@ -41,7 +41,7 @@ void PhysicsPerl__Astro__System::init() {
     this->bodies[0]->vz = -1 * (pz / PhysicsPerl__Astro__Body__SOLAR_MASS);
 }
 
-number PhysicsPerl__Astro__System::energy() {
+number PhysicsPerl__Astro__SystemSSE::energy() {
     integer i;
     integer j;
     number dx;
@@ -65,7 +65,7 @@ number PhysicsPerl__Astro__System::energy() {
     return e;
 }
 
-void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const integer time_step_max) {
+void PhysicsPerl__Astro__SystemSSE::advance_loop(const number delta_time, const integer time_step_max) {
     integer i;
     integer j;
     integer time_step;

@@ -22,4 +22,7 @@ rm System.h 2> /dev/null
 rm System.cpp 2> /dev/null
 rm System.pmc 2> /dev/null
 
-rm System.pm 2> /dev/null
+rm SystemSSE.h 2> /dev/null
+rm SystemSSE.cpp 2> /dev/null
+rm SystemSSE.pmc 2> /dev/null
+
