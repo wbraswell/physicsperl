@@ -7,7 +7,7 @@ using std::cout;  using std::cerr;  using std::endl;
 // [[[ INCLUDES & OO INHERITANCE INCLUDES ]]]
 #include <RPerl.cpp>  // -> RPerl.h -> (rperltypes_mode.h; rperloperations.h; rperltypes.h; HelperFunctions.cpp)
 #include <rperlsse.h>
-#include <RPerl/CompileUnit/Module/Class.cpp>
+#include "PhysicsPerl/Astro/System.cpp"
 #include "PhysicsPerl/Astro/Body.cpp"
 
 # ifdef __PERL__TYPES
@@ -21,11 +21,8 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 // [[[<<< BEGIN CPP TYPES >>>]]]
 
 // [[[ OO INHERITANCE ]]]
-class PhysicsPerl__Astro__SystemSSE : public RPerl__CompileUnit__Module__Class__CPP {
+class PhysicsPerl__Astro__SystemSSE : public PhysicsPerl__Astro__System {
 public:
-    // [[[ OO PROPERTIES ]]]
-    PhysicsPerl__Astro__Body_arrayref bodies;
-
     // [[[ OO METHODS ]]]
 
     // <<< OO PROPERTIES, ACCESSORS & MUTATORS >>>
@@ -36,17 +33,13 @@ public:
     void set_bodies_element(integer i, PhysicsPerl__Astro__Body_rawptr bodies_element_rawptr) { *(this->bodies[i].get_raw()) = *bodies_element_rawptr; }  // call from Perl
 
     // <<< CONSTRUCTOR & DESTRUCTOR >>>
-    PhysicsPerl__Astro__SystemSSE() {
-        this->bodies.resize(5);
-    }
+    PhysicsPerl__Astro__SystemSSE() {}
     ~PhysicsPerl__Astro__SystemSSE() {}
 
     // <<< CLASS NAME REPORTER >>>
     virtual string myclassname() { return (const string) "PhysicsPerl::Astro::SystemSSE"; }
 
     // <<< USER-DEFINED METHODS >>>
-    void init();
-    number energy();
     void advance_loop(const number delta_time, const integer time_step_max);
 };  // end of class
 
