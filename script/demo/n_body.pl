@@ -28,7 +28,7 @@ use RPerl::AfterSubclass;
 use rperltypesconv;
 use strict;
 use warnings;
-our $VERSION = 0.001_200;
+our $VERSION = 0.002_000;
 
 # [[[ CRITICS ]]]
 ## no critic qw(ProhibitUselessNoCritic ProhibitMagicNumbers RequireCheckedSyscalls)  # USER DEFAULT 1: allow numeric values & print operator
@@ -52,25 +52,25 @@ if (defined $ARGV[2]) { $enable_sse = string_to_boolean($ARGV[2]); }  # user inp
 my number $delta_time = 0.01;
 my integer $time_steps_per_frame = 1500;
 
-my number $time_start = time();
-
 # DEV NOTE: can't have compile-time class check w/ runtime eval_use(), using placeholder 'unknown' data type for now;
 my unknown $system;  # PhysicsPerl::Astro::System, because PhysicsPerl::Astro::SystemSSE ISA PhysicsPerl::Astro::System
 my unknown $eval_retval;
 if ($enable_sse) {
-    RPerl::eval_use('PhysicsPerl::Astro::SystemSSE');
+    RPerl::eval_use('PhysicsPerl::Astro::SystemSSE', 1);
     $system = PhysicsPerl::Astro::SystemSSE->new();
 }
 else {
-    RPerl::eval_use('PhysicsPerl::Astro::System');
+    RPerl::eval_use('PhysicsPerl::Astro::System', 1);
     $system = PhysicsPerl::Astro::System->new();
 }
+
+my number $time_start = time();
 
 $system->init();
 print 'start energy: ' . number_to_string($system->energy()) . "\n";
 
 if ($enable_graphics) {
-    RPerl::eval_use('PhysicsPerl::Astro::SystemRenderer2D');
+    RPerl::eval_use('PhysicsPerl::Astro::SystemRenderer2D', 1);
     # DEV NOTE: can't have compile-time class check w/ runtime eval_use(), using placeholder 'unknown' data type for now
     my unknown $renderer = PhysicsPerl::Astro::SystemRenderer2D->new();
     $renderer->init($system, $delta_time, $time_step_max, $time_steps_per_frame, $time_start);

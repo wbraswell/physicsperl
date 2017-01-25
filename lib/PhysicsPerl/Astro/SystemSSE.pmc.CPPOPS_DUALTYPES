@@ -58,6 +58,8 @@ EOF
         $RPerl::Inline::ARGS{ccflagsex}
             = $RPerl::Inline::CCFLAGSEX . $RPerl::TYPES_CCFLAG . rperltypessizes::type_integer_native_ccflag() . rperltypessizes::type_number_native_ccflag();
         $RPerl::Inline::ARGS{cppflags} = $RPerl::TYPES_CCFLAG . rperltypessizes::type_integer_native_ccflag() . rperltypessizes::type_number_native_ccflag();
+        $RPerl::Inline::ARGS{optimize} .= ' -mfpmath=sse -msse3';    # enable SSE support
+        $RPerl::Inline::ARGS{auto_include} = [ '#include <immintrin.h>', @{ $RPerl::Inline::ARGS{auto_include} } ];    # enable SSE support
 
 #RPerl::diag('in PhysicsPerl::Astro::SystemSSE::cpp_load(), CPP not yet loaded, about to call eval() on $eval_string =' . "\n" . '<<< BEGIN EVAL STRING>>>' . "\n" . $eval_string . '<<< END EVAL STRING >>>' . "\n");
 
@@ -68,7 +70,7 @@ EOF
     #else { RPerl::diag('in PhysicsPerl::Astro::SystemSSE::cpp_load(), CPP already loaded, DOING NOTHING' . "\n"); }
 }
 
-# DEV NOTE, CORRELATION #rp15: suppress 'Too late to run INIT block' at run-time loading via require or eval
+# DEV NOTE, CORRELATION #rp015: suppress 'Too late to run INIT block' at run-time loading via require or eval
 no warnings;
 INIT {
     # actually compile and load C++ code when 'use PhysicsPerl::Astro::SystemSSE' is called

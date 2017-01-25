@@ -2,7 +2,7 @@
 using std::cout;  using std::cerr;  using std::endl;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__SystemSSE_cpp
-#define __CPP__INCLUDED__PhysicsPerl__Astro__SystemSSE_cpp 0.006_100
+#define __CPP__INCLUDED__PhysicsPerl__Astro__SystemSSE_cpp 0.007_000
 
 // [[[ INCLUDES ]]]
 #include "PhysicsPerl/Astro/SystemSSE.h"
@@ -29,13 +29,11 @@ void PhysicsPerl__Astro__SystemSSE::init() {
     number px = 0.0;
     number py = 0.0;
     number pz = 0.0;
-
     for ( i = 0; i < (this->bodies.size()); i++ ) {
         px += this->bodies[i]->vx * this->bodies[i]->mass;
         py += this->bodies[i]->vy * this->bodies[i]->mass;
         pz += this->bodies[i]->vz * this->bodies[i]->mass;
     }
-
     this->bodies[0]->vx = -1 * (px / PhysicsPerl__Astro__Body__SOLAR_MASS);
     this->bodies[0]->vy = -1 * (py / PhysicsPerl__Astro__Body__SOLAR_MASS);
     this->bodies[0]->vz = -1 * (pz / PhysicsPerl__Astro__Body__SOLAR_MASS);
@@ -52,7 +50,6 @@ number PhysicsPerl__Astro__SystemSSE::energy() {
     for ( i = 0; i < (this->bodies.size()); i++ ) {
         PhysicsPerl__Astro__Body_rawptr body_i = this->bodies[i].get_raw();
         e += 0.5 * body_i->mass * ((body_i->vx * body_i->vx) + (body_i->vy * body_i->vy) + (body_i->vz * body_i->vz));
-
         for ( j = (i + 1); j < (this->bodies.size()); j++ ) {
             PhysicsPerl__Astro__Body_rawptr body_j = this->bodies[j].get_raw();
             dx = body_i->x - body_j->x;
@@ -110,7 +107,6 @@ void PhysicsPerl__Astro__SystemSSE::advance_loop(const number delta_time, const 
                 k++;
             }
         }
-
         for ( i = 0; i < bodies_size_triangle; i += 2 ) {
             i_plus_1 = i + 1;
             dx[0] = dx_array[i];
@@ -127,9 +123,6 @@ void PhysicsPerl__Astro__SystemSSE::advance_loop(const number delta_time, const 
             magnitude_array[i] = magnitude[0];
             magnitude_array[i_plus_1] = magnitude[1];
         }
-
-
- 
         k = 0;
         for ( i = 0; i < bodies_size; i++ ) {
             body_i = this->bodies[i].get_raw();
