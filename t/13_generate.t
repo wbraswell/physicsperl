@@ -195,7 +195,7 @@ for my $mode_id ( 2 , 0 ) {    # CPPOPS_CPPTYPES, PERLOPS_PERLTYPES; DEV NOTE: r
 #        RPerl::diag( 'in 13_generate.t, top of secondary runloop, have $number_of_test_files = ' . $number_of_test_files . "\n" );
 
         $modes = {
-#            dependencies => 'OFF',  # unnecessary, handled by explicitly calling find_dependencies() below, only used for RPerl system deps
+#            dependencies => 'OFF',  # unnecessary, handled by explicitly calling find_dependencies() below, only used for RPerl system deps; also find_parents()
             ops     => $ops,
             types   => $types,
 #            check        => 'TRACE',  # unnecessary
@@ -207,6 +207,39 @@ for my $mode_id ( 2 , 0 ) {    # CPPOPS_CPPTYPES, PERLOPS_PERLTYPES; DEV NOTE: r
             execute => 'OFF',
             label   => 'OFF'          # don't label source code, will strip comments before diff check
         };
+
+        # DEV NOTE: must recursively find & parse ((great)*grand)?parents to receive any inherited class $properties
+        my string_arrayref $parent_files = find_parents( $test_file, 1, $modes );  # second argument set to 1 for true value of $find_grandparents_recurse
+
+        # generate starting with furthest ancestor & ending with parent,
+        # to avoid errors due to one parent not properly receiving their own inheritance from an older grandparent, etc.
+        $parent_files = [reverse @{$parent_files}];
+
+#        RPerl::diag( 'in 13_generate.t, have $parent_files = ' . Dumper($parent_files) );
+
+        foreach my string $parent_file (@{$parent_files}) {
+            # trim unnecessary (and possibly problematic) absolute paths from parent file names
+            $parent_file = RPerl::Compiler::post_processor__absolute_path_delete( $parent_file );
+    
+            # [[[ PARSE PARENTS ]]]
+            $eval_return_value = eval { RPerl::Parser::rperl_to_ast__parse($parent_file); };
+            if ( not( ( defined $eval_return_value ) and $eval_return_value ) ) {
+                ok( 0, q{Program or module's parent parses with errors, code generation not reached, test aborted:} . (q{ } x 2) . $parent_file );
+                diag('Error output captured:' . "\n" . $EVAL_ERROR);
+                next;
+            }
+            my object $rperl_ast_parent = $eval_return_value;
+
+            $modes->{_input_file_name} = $parent_file;
+     
+            # [[[ GENERATE PARENTS ]]]
+            if ( $ops eq 'PERL' ) {
+                $eval_return_value = eval { RPerl::Generator::ast_to_rperl__generate( $rperl_ast_parent, $modes ); };
+            }
+            else {    # $ops eq 'CPP'
+                $eval_return_value = eval { RPerl::Generator::ast_to_cpp__generate( $rperl_ast_parent, $modes ); };
+            }
+        }
 
         # DEV NOTE: do not actually follow or compile dependencies;
         # find RPerl system deps such as 'use rperlsse;', 'use rperlgmp;', etc.;
@@ -294,6 +327,7 @@ for my $mode_id ( 2 , 0 ) {    # CPPOPS_CPPTYPES, PERLOPS_PERLTYPES; DEV NOTE: r
         $eval_return_value = eval { RPerl::Parser::rperl_to_ast__parse($test_file); };
         if ( not( ( defined $eval_return_value ) and $eval_return_value ) ) {
             ok( 0, 'Program or module parses with errors, code generation not reached, test aborted:' . (q{ } x 2) . $test_file );
+            diag('Error output captured:' . "\n" . $EVAL_ERROR);
 #            $number_of_tests_run++;
             next;
         }
@@ -449,20 +483,19 @@ for my $mode_id ( 2 , 0 ) {    # CPPOPS_CPPTYPES, PERLOPS_PERLTYPES; DEV NOTE: r
                         }
                     }
                 }
-                ok( ( ( scalar @{$missing_errors} ) == 0 ), 'Program or module generates with expected error(s):' . (q{ } x 10) . $test_file );
+                ok( ( ( scalar @{$missing_errors} ) == 0 ), 'Program or module generates with expected error(s):' . (q{ } x 10) . $test_file . "\n" . (join "\n", @{$missing_errors}) . "\n" );
 #                $number_of_tests_run++;
             }
             else {
 #                RPerl::diag( 'in 13_generate.t, have $test_file NOT named *Bad* or *bad*' . "\n" );
                 if ( $EVAL_ERROR =~ /Can't\slocate\sobject\smethod\s"ast_to_\w*__generate"\svia\spackage/xms ) {
-                    RPerl::warning( 'WARNING WTE13GE00, TEST GROUP 13, CODE GENERATOR: Missing code generation method, received error message...' . "\n"
-                            . $EVAL_ERROR
-                            . "\n" );
                     ok( 0, 'Program or module generates without errors, missing code generator:' . (q{ } x 1) . $test_file );
+                    diag('Error output captured:' . "\n" . $EVAL_ERROR);
 #                    $number_of_tests_run++;
                 }
                 else {
                     ok( 0, 'Program or module generates without errors:' . (q{ } x 18) . $test_file );
+                    diag('Error output captured:' . "\n" . $EVAL_ERROR);
 #                    $number_of_tests_run++;
                 }
             }

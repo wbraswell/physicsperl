@@ -128,4 +128,4 @@ our void::method $advance_loop = sub {
     }
 };
 
-1;    # end of class
+1;  # end of class
