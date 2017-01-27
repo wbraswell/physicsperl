@@ -10,7 +10,7 @@ BEGIN { $ENV{RPERL_WARNINGS} = 0; }
 use strict;
 use warnings;
 use RPerl::AfterSubclass;
-our $VERSION = 0.013_000;
+our $VERSION = 0.020_000;
 
 # [[[ CRITICS ]]]
 ## no critic qw(ProhibitUselessNoCritic ProhibitMagicNumbers RequireCheckedSyscalls)  # USER DEFAULT 1: allow numeric values & print operator
@@ -95,47 +95,48 @@ find(
             return;
         }
     },
-    PATH_TESTS()
+    (defined $ARGV[0]) ? $ARGV[0] : PATH_TESTS()  # accept optional command-line argument
 );
 
-# locate all *.*OPS_*TYPES pre-compiled files in PATH_PRECOMPILED directory
-find(
-    sub {
-        my $file = $File::Find::name;
-
-#        RPerl::diag('in 13_generate.t, have $file = ' . $file . "\n");
-
-#        if ( $file !~ m/[.]pm$/xms ) { # TEMP DEBUGGING, ONLY FIND *.pm, NOT *.pl
-#        if ( $file !~ m/.*Module\/.*$/xms ) { # TEMP DEBUGGING, ONLY FIND FILES IN A CERTAIN DIRECTORY
-#        if ( $file =~ m/^(.*foo_bar_arith.*)[.].*OPS.*$/xms ) { # TEMP DEBUGGING, ONLY FIND CERTAIN FILES
-        if ( $file =~ m/^(.+)[.]\w+OPS_\w+TYPES$/gxms ) {    # find all pre-compiled files
-            my string $file_base = $1;
-#            RPerl::diag('in 13_generate.t, have pre-compiled $file        = ' . $file . "\n");
-#            RPerl::diag('in 13_generate.t, have pre-compiled $file_base   = ' . $file_base . "\n");
-            if (($file_base =~ m/^(.*)[.]cpp$/gxms) or ($file_base =~ m/^(.*)[.]h$/gxms) or ($file_base =~ m/^(.*)[.]pmc$/gxms)) {
-                my string $file_prefix = $1;
-#                RPerl::diag('in 13_generate.t, have pre-compiled $file_prefix = ' . $file_prefix . "\n");
-                if ((-e ($file_prefix . '.pl')) and (-f ($file_prefix . '.pl')) and (-T ($file_prefix . '.pl'))) {
-                    $test_files->{$file_prefix . '.pl'} = undef;
-                }
-                elsif ((-e ($file_prefix . '.pm')) and (-f ($file_prefix . '.pm')) and (-T ($file_prefix . '.pm'))) {
-                    $test_files->{$file_prefix . '.pm'} = undef;
+# skip find() if command-line argument is provided
+if ( not defined $ARGV[0] ) {
+    # locate all *.*OPS_*TYPES pre-compiled files in PATH_PRECOMPILED directory
+    find(
+        sub {
+            my $file = $File::Find::name;
+#           RPerl::diag('in 13_generate.t, have $file = ' . $file . "\n");
+#            if ( $file !~ m/[.]pm$/xms ) { # TEMP DEBUGGING, ONLY FIND *.pm, NOT *.pl
+#            if ( $file !~ m/.*Module\/.*$/xms ) { # TEMP DEBUGGING, ONLY FIND FILES IN A CERTAIN DIRECTORY
+#            if ( $file =~ m/^(.*foo_bar_arith.*)[.].*OPS.*$/xms ) { # TEMP DEBUGGING, ONLY FIND CERTAIN FILES
+            if ( $file =~ m/^(.+)[.]\w+OPS_\w+TYPES$/gxms ) {    # find all pre-compiled files
+                my string $file_base = $1;
+#                RPerl::diag('in 13_generate.t, have pre-compiled $file        = ' . $file . "\n");
+#                RPerl::diag('in 13_generate.t, have pre-compiled $file_base   = ' . $file_base . "\n");
+                if (($file_base =~ m/^(.*)[.]cpp$/gxms) or ($file_base =~ m/^(.*)[.]h$/gxms) or ($file_base =~ m/^(.*)[.]pmc$/gxms)) {
+                    my string $file_prefix = $1;
+#                    RPerl::diag('in 13_generate.t, have pre-compiled $file_prefix = ' . $file_prefix . "\n");
+                    if ((-e ($file_prefix . '.pl')) and (-f ($file_prefix . '.pl')) and (-T ($file_prefix . '.pl'))) {
+                        $test_files->{$file_prefix . '.pl'} = undef;
+                    }
+                    elsif ((-e ($file_prefix . '.pm')) and (-f ($file_prefix . '.pm')) and (-T ($file_prefix . '.pm'))) {
+                        $test_files->{$file_prefix . '.pm'} = undef;
+                    }
+                    else {
+                        RPerl::warning( 'WARNING WTE13GE01, TEST GROUP 13, CODE GENERATOR: Missing non-compiled source code reference file ' . q{'} . $file_prefix . '.pl' . q{'} . ' or '  . q{'} . $file_prefix . '.pm' . q{'} . ', not performing difference check' . "\n" );
+                    }
                 }
                 else {
-                    RPerl::warning( 'WARNING WTE13GE01, TEST GROUP 13, CODE GENERATOR: Missing non-compiled source code reference file ' . q{'} . $file_prefix . '.pl' . q{'} . ' or '  . q{'} . $file_prefix . '.pm' . q{'} . ', not performing difference check' . "\n" );
+                    RPerl::warning( 'WARNING WTE13GE02, TEST GROUP 13, CODE GENERATOR: Unrecognized pre-compiled source code reference file base ' . q{'} . $file_base . q{'} . ', not performing difference check' . "\n" );
                 }
             }
-            else {
-                RPerl::warning( 'WARNING WTE13GE02, TEST GROUP 13, CODE GENERATOR: Unrecognized pre-compiled source code reference file base ' . q{'} . $file_base . q{'} . ', not performing difference check' . "\n" );
+            else {  # not a pre-compiled file
+#                RPerl::diag('in 13_generate.t, have NOT pre-compiled $file = ' . $file . "\n");
+                return;
             }
-        }
-        else {  # not a pre-compiled file
-#            RPerl::diag('in 13_generate.t, have NOT pre-compiled $file = ' . $file . "\n");
-            return;
-        }
-    },
-    PATH_PRECOMPILED()
-);
+        },
+        PATH_PRECOMPILED()
+    );
+}
 
 #=cut
 
