@@ -9,7 +9,7 @@ BEGIN { $ENV{RPERL_WARNINGS} = 0; }
 use strict;
 use warnings;
 use RPerl::AfterSubclass;
-our $VERSION = 0.008_000;
+our $VERSION = 0.010_000;
 
 # [[[ CRITICS ]]]
 ## no critic qw(ProhibitUselessNoCritic ProhibitMagicNumbers RequireCheckedSyscalls)  # USER DEFAULT 1: allow numeric values & print operator
@@ -82,7 +82,7 @@ find(
             return;
         }
     },
-    PATH_TESTS()
+    (defined $ARGV[0]) ? $ARGV[0] : PATH_TESTS()  # accept optional command-line argument
 );
 
 my integer $number_of_test_files = scalar keys %{$test_files};
@@ -161,10 +161,14 @@ for my $test_file ( sort keys %{$test_files} ) {
                 }
             }
             ok( ( ( scalar @{$missing_errors} ) == 0 ), 'Program or module parses with expected error(s):' . (q{ } x 2) . $test_file );
+            if (( scalar @{$missing_errors} ) != 0) {
+                diag((join "\n", @{$missing_errors}) . "\n");
+            }
 #            $number_of_tests_run++;
         }
         else {
             ok( 0, 'Program or module parses without errors:' . (q{ } x 10) . $test_file );
+            diag('Error output captured:' . "\n" . $EVAL_ERROR);
 #            $number_of_tests_run++;
         }
     }
