@@ -23,7 +23,6 @@ use PhysicsPerl::Astro::Body;
 use rperlsse;
 
 # [[[ OO PROPERTIES ]]]
-#our hashref $properties = { bodies => my PhysicsPerl::Astro::Body_arrayref $TYPED_bodies->[5 - 1] = undef };
 our hashref $properties = {};
 
 # [[[ SUBROUTINES & OO METHODS ]]]
