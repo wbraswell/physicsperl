@@ -23,7 +23,7 @@ use PhysicsPerl::Astro::Body;
 use rperlsse;
 
 # [[[ OO PROPERTIES ]]]
-our hashref $properties = {};
+our hashref $properties = {};  # DEV NOTE: must not declare 'bodies', to avoid clobbering property inherited from PhysicsPerl::Astro::System in CPPOPS_CPPTYPES mode
 
 # [[[ SUBROUTINES & OO METHODS ]]]
 
