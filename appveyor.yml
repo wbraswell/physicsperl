@@ -46,15 +46,15 @@ install:
 
     perl -le "print for @INC"
 
-    echo "RPerl dev install, GitHub latest code, starting..."
+    echo RPerl dev install, GitHub latest code, starting...
 
     set PWD_SAVED=$PWD
 
-    echo "RPerl dev install, saved current directory $PWD_SAVED"
+    echo RPerl dev install, saved current directory $PWD_SAVED
 
     cd ..
 
-    wget https://github.com/wbraswell/rperl/archive/master.tar.gz -O rperl-master.tar.gz
+    curl -fsS -o rperl-master.tar.gz https://github.com/wbraswell/rperl/archive/master.tar.gz
 
     tar -xzvf rperl-master.tar.gz
 
@@ -64,7 +64,7 @@ install:
 
     cpanm --installdeps --notest .
 
-    echo "Skip RPerl tests, `make test` takes a long time, keep RPerl testing in RPerl repo"
+    echo Skip RPerl tests, `make test` takes a long time, keep RPerl testing in RPerl repo
 
     dmake install
 
