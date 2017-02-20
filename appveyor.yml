@@ -76,7 +76,7 @@ install:
 
     perl Makefile.PL
 
-    cpanm --verbose --notest IO::Socket::SSL
+    cpanm --verbose --notest SDL
 
     cpanm --verbose --installdeps .
 
