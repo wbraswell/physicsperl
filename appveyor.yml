@@ -1,4 +1,4 @@
-# v0.021_000
+# v0.022_000
 version: 1.0.{build}
 pull_requests:
   do_not_increment_build_number: false
@@ -48,9 +48,9 @@ install:
 
     echo RPerl dev install, GitHub latest code, starting...
 
-    set PWD_SAVED=$PWD
+    set PWD_SAVED=%CD%
 
-    echo RPerl dev install, saved current directory $PWD_SAVED
+    echo RPerl dev install, saved current directory %PWD_SAVED%
 
     cd ..
 
@@ -68,7 +68,7 @@ install:
 
     dmake install
 
-    cd $PWD_SAVED
+    chdir /d %PWD_SAVED%
 
     unset PWD_SAVED
 
