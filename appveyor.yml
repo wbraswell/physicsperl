@@ -56,9 +56,7 @@ install:
 
     curl -fsS -o rperl-master.tar.gz https://github.com/wbraswell/rperl/archive/master.tar.gz
 
-    gunzip rperl-master.tar.gz
-    
-    7z x rperl-master.tar
+    7z x rperl-master.tar.gz
 
     cd rperl-master
 
