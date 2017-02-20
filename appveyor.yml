@@ -54,9 +54,9 @@ install:
 
     cd ..
 
-    curl -o rperl-master.tar.gz https://github.com/wbraswell/rperl/archive/master.tar.gz
+    curl -o rperl-master.tar.gz https://codeload.github.com/wbraswell/rperl/tar.gz/master
 
-    7z x rperl-master.tar.gz
+    tar -xzvf rperl-master.tar.gz
 
     cd rperl-master
 
