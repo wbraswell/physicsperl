@@ -49,6 +49,9 @@ if (defined $ARGV[1]) { $enable_graphics = string_to_boolean($ARGV[1]); }  # use
 my boolean $enable_sse = 0;  # default 
 if (defined $ARGV[2]) { $enable_sse = string_to_boolean($ARGV[2]); }  # user input, command-line argument
 
+my boolean $enable_monolith = 0;  # default 
+if (defined $ARGV[3]) { $enable_monolith = string_to_boolean($ARGV[3]); }  # user input, command-line argument
+
 my number $delta_time = 0.01;
 my integer $time_steps_per_frame = 1500;
 
@@ -56,12 +59,24 @@ my integer $time_steps_per_frame = 1500;
 my unknown $system;  # PhysicsPerl::Astro::System, because PhysicsPerl::Astro::SystemSSE ISA PhysicsPerl::Astro::System
 my unknown $eval_retval;
 if ($enable_sse) {
-    RPerl::eval_use('PhysicsPerl::Astro::SystemSSE', 1);
-    $system = PhysicsPerl::Astro::SystemSSE->new();
+    if ($enable_monolith) {
+        RPerl::eval_use('PhysicsPerl::Astro::SystemSSEMonolith', 1);
+        $system = PhysicsPerl::Astro::SystemSSE->new();
+    }
+    else {
+        RPerl::eval_use('PhysicsPerl::Astro::SystemSSE', 1);
+        $system = PhysicsPerl::Astro::SystemSSE->new();
+    }
 }
 else {
-    RPerl::eval_use('PhysicsPerl::Astro::System', 1);
-    $system = PhysicsPerl::Astro::System->new();
+    if ($enable_monolith) {
+        RPerl::eval_use('PhysicsPerl::Astro::SystemMonolith', 1);
+        $system = PhysicsPerl::Astro::System->new();
+    }
+    else {
+        RPerl::eval_use('PhysicsPerl::Astro::System', 1);
+        $system = PhysicsPerl::Astro::System->new();
+    }
 }
 
 my number $time_start = time();

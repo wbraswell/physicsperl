@@ -1,6 +1,5 @@
 # [[[ HEADER ]]]
 use RPerl;
-
 package PhysicsPerl::Astro::System;
 use strict;
 use warnings;
