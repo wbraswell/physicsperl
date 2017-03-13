@@ -19,7 +19,7 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 // [[[<<< BEGIN CPP TYPES >>>]]]
 
 // [[[ CONSTANTS ]]]
-const number PhysicsPerl__Astro__Body__SOLAR_MASS = 39.4784176043574;
+const number PhysicsPerl__Astro__Body__FOUR_PI_SQUARED = 39.4784176043574;
 const number PhysicsPerl__Astro__Body__DAYS_PER_YEAR = 365.24;
 
 // [[[ OO INHERITANCE ]]]
@@ -69,7 +69,7 @@ public:
     virtual string myclassname() { return (const string) "PhysicsPerl::Astro::Body"; }
 
     // <<< CONSTANTS, SHIMS >>>
-    const number SOLAR_MASS() { return PhysicsPerl__Astro__Body__SOLAR_MASS; }
+    const number FOUR_PI_SQUARED() { return PhysicsPerl__Astro__Body__FOUR_PI_SQUARED; }
     const number DAYS_PER_YEAR() { return PhysicsPerl__Astro__Body__DAYS_PER_YEAR; }
 };  // end of class
 

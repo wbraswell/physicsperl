@@ -31,7 +31,7 @@ use RPerl::CompileUnit::Module::Class;
 
 # [[[ CONSTANTS ]]]
 #use constant PI           => my number $TYPED_PI           = 3.141_592_653_589_793;  # CURRENTLY UNUSED
-use constant SOLAR_MASS   => my number $TYPED_SOLAR_MASS   = 39.478_417_604_357_4;    # 4 * PI() * PI()
+use constant FOUR_PI_SQUARED   => my number $TYPED_FOUR_PI_SQUARED   = 39.478_417_604_357_4;    # 4 * PI() * PI()
 #use constant SOLAR_RADIUS => my number $TYPED_SOLAR_RADIUS = 696_300;                 # kilometers, via Google  # CURRENTLY UNUSED
 use constant DAYS_PER_YEAR => my number $TYPED_DAYS_PER_YEAR = 365.24;
 
@@ -62,7 +62,7 @@ our PhysicsPerl::Astro::Body $sun = sub {
     $body->{vx}     = 0;
     $body->{vy}     = 0;
     $body->{vz}     = 0;
-    $body->{mass}   = PhysicsPerl::Astro::Body::SOLAR_MASS();
+    $body->{mass}   = PhysicsPerl::Astro::Body::FOUR_PI_SQUARED();
     $body->{radius} = 1;  # in units of solar radii
     $body->{color}  = [255, 245, 240];  # in RGB, estimate
     return $body;
@@ -77,7 +77,7 @@ our PhysicsPerl::Astro::Body $jupiter = sub {
     $body->{vx}     = +1.660_076_642_744_036_94e-03 * PhysicsPerl::Astro::Body::DAYS_PER_YEAR();
     $body->{vy}     = +7.699_011_184_197_404_25e-03 * PhysicsPerl::Astro::Body::DAYS_PER_YEAR();
     $body->{vz}     = -6.904_600_169_720_630_23e-05 * PhysicsPerl::Astro::Body::DAYS_PER_YEAR();
-    $body->{mass}   = +9.547_919_384_243_266_09e-04 * PhysicsPerl::Astro::Body::SOLAR_MASS();
+    $body->{mass}   = +9.547_919_384_243_266_09e-04 * PhysicsPerl::Astro::Body::FOUR_PI_SQUARED();
     $body->{radius} = +1.004_035_616_831_83e-01;                                           # in units of solar radii; 69_911 kilometers, via Google
     $body->{color}  = [175, 75, 25];  # in RGB, estimate
     return $body;
@@ -92,7 +92,7 @@ our PhysicsPerl::Astro::Body $saturn = sub {
     $body->{vx}     = -2.767_425_107_268_624_11e-03 * PhysicsPerl::Astro::Body::DAYS_PER_YEAR();
     $body->{vy}     = +4.998_528_012_349_172_38e-03 * PhysicsPerl::Astro::Body::DAYS_PER_YEAR();
     $body->{vz}     = +2.304_172_975_737_639_29e-05 * PhysicsPerl::Astro::Body::DAYS_PER_YEAR();
-    $body->{mass}   = +2.858_859_806_661_308_12e-04 * PhysicsPerl::Astro::Body::SOLAR_MASS();
+    $body->{mass}   = +2.858_859_806_661_308_12e-04 * PhysicsPerl::Astro::Body::FOUR_PI_SQUARED();
     $body->{radius} = +8.363_061_898_606_92e-02;                                           # in units of solar radii; 58_232 kilometers, via Google
     $body->{color}  = [250, 215, 160];  # in RGB, estimate
     return $body;
@@ -107,7 +107,7 @@ our PhysicsPerl::Astro::Body $uranus = sub {
     $body->{vx}     = +2.964_601_375_647_616_18e-03 * PhysicsPerl::Astro::Body::DAYS_PER_YEAR();
     $body->{vy}     = +2.378_471_739_594_809_50e-03 * PhysicsPerl::Astro::Body::DAYS_PER_YEAR();
     $body->{vz}     = -2.965_895_685_402_375_56e-05 * PhysicsPerl::Astro::Body::DAYS_PER_YEAR();
-    $body->{mass}   = +4.366_244_043_351_562_98e-05 * PhysicsPerl::Astro::Body::SOLAR_MASS();
+    $body->{mass}   = +4.366_244_043_351_562_98e-05 * PhysicsPerl::Astro::Body::FOUR_PI_SQUARED();
     $body->{radius} = +3.642_251_902_915_41e-02;                                           # in units of solar radii; 25_361 kilometers, via Google
     $body->{color}  = [0, 240, 255];  # in RGB, estimate
     return $body;
@@ -122,7 +122,7 @@ our PhysicsPerl::Astro::Body $neptune = sub {
     $body->{vx}     = +2.680_677_724_903_893_22e-03 * PhysicsPerl::Astro::Body::DAYS_PER_YEAR();
     $body->{vy}     = +1.628_241_700_382_422_95e-03 * PhysicsPerl::Astro::Body::DAYS_PER_YEAR();
     $body->{vz}     = -9.515_922_545_197_158_70e-05 * PhysicsPerl::Astro::Body::DAYS_PER_YEAR();
-    $body->{mass}   = +5.151_389_020_466_114_51e-05 * PhysicsPerl::Astro::Body::SOLAR_MASS();
+    $body->{mass}   = +5.151_389_020_466_114_51e-05 * PhysicsPerl::Astro::Body::FOUR_PI_SQUARED();
     $body->{radius} = +3.535_975_872_468_76e-02;                                           # in units of solar radii; 24_621 kilometers, via Google
     $body->{color}  = [55, 85, 230];  # in RGB, estimate
     return $body;
@@ -173,9 +173,9 @@ our void::method $init = sub {
         $pz += $self->{bodies}->[$i]->{vz} * $self->{bodies}->[$i]->{mass};
     }
 
-    $self->{bodies}->[0]->{vx} = -1 * ( $px / PhysicsPerl::Astro::Body::SOLAR_MASS() );
-    $self->{bodies}->[0]->{vy} = -1 * ( $py / PhysicsPerl::Astro::Body::SOLAR_MASS() );
-    $self->{bodies}->[0]->{vz} = -1 * ( $pz / PhysicsPerl::Astro::Body::SOLAR_MASS() );
+    $self->{bodies}->[0]->{vx} = -1 * ( $px / PhysicsPerl::Astro::Body::FOUR_PI_SQUARED() );
+    $self->{bodies}->[0]->{vy} = -1 * ( $py / PhysicsPerl::Astro::Body::FOUR_PI_SQUARED() );
+    $self->{bodies}->[0]->{vz} = -1 * ( $pz / PhysicsPerl::Astro::Body::FOUR_PI_SQUARED() );
 };
 
 our number::method $energy = sub {

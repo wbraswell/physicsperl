@@ -19,17 +19,24 @@ use RPerl::CompileUnit::Module::Class;
 use PhysicsPerl::Astro::Body;
 
 # [[[ OO PROPERTIES ]]]
-our hashref $properties = { bodies => my PhysicsPerl::Astro::Body_arrayref $TYPED_bodies->[5 - 1] = undef };
+our hashref $properties = { bodies => my PhysicsPerl::Astro::Body_arrayref $TYPED_bodies->[10 - 1] = undef };
 
 # [[[ SUBROUTINES & OO METHODS ]]]
 
 our void::method $init = sub {
     ( my PhysicsPerl::Astro::System $self ) = @ARG;
+
+    # DEV NOTE: must update hard-coded size of 'bodies' property above to match number of bodies below
     $self->{bodies}->[0] = PhysicsPerl::Astro::Body::sun();
-    $self->{bodies}->[1] = PhysicsPerl::Astro::Body::jupiter();
-    $self->{bodies}->[2] = PhysicsPerl::Astro::Body::saturn();
-    $self->{bodies}->[3] = PhysicsPerl::Astro::Body::uranus();
-    $self->{bodies}->[4] = PhysicsPerl::Astro::Body::neptune();
+    $self->{bodies}->[1] = PhysicsPerl::Astro::Body::mercury();
+    $self->{bodies}->[2] = PhysicsPerl::Astro::Body::venus();
+    $self->{bodies}->[3] = PhysicsPerl::Astro::Body::earth();
+    $self->{bodies}->[4] = PhysicsPerl::Astro::Body::mars();
+    $self->{bodies}->[5] = PhysicsPerl::Astro::Body::jupiter();
+    $self->{bodies}->[6] = PhysicsPerl::Astro::Body::saturn();
+    $self->{bodies}->[7] = PhysicsPerl::Astro::Body::uranus();
+    $self->{bodies}->[8] = PhysicsPerl::Astro::Body::neptune();
+    $self->{bodies}->[9] = PhysicsPerl::Astro::Body::pluto();
     my number $px = 0.0;
     my number $py = 0.0;
     my number $pz = 0.0;
@@ -40,9 +47,9 @@ our void::method $init = sub {
         $pz += $self->{bodies}->[$i]->{vz} * $self->{bodies}->[$i]->{mass};
     }
 
-    $self->{bodies}->[0]->{vx} = -1 * ( $px / PhysicsPerl::Astro::Body::SOLAR_MASS() );
-    $self->{bodies}->[0]->{vy} = -1 * ( $py / PhysicsPerl::Astro::Body::SOLAR_MASS() );
-    $self->{bodies}->[0]->{vz} = -1 * ( $pz / PhysicsPerl::Astro::Body::SOLAR_MASS() );
+    $self->{bodies}->[0]->{vx} = -1 * ( $px / PhysicsPerl::Astro::Body::FOUR_PI_SQUARED() );
+    $self->{bodies}->[0]->{vy} = -1 * ( $py / PhysicsPerl::Astro::Body::FOUR_PI_SQUARED() );
+    $self->{bodies}->[0]->{vz} = -1 * ( $pz / PhysicsPerl::Astro::Body::FOUR_PI_SQUARED() );
 };
 
 our number::method $energy = sub {

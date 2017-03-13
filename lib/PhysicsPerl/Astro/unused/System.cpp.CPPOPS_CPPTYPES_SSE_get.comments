@@ -87,9 +87,9 @@ void PhysicsPerl__Astro__System::init() {
         pz += this->bodies[i]->vz * this->bodies[i]->mass;
     }
 
-    this->bodies[0]->vx = -1 * (px / SOLAR_MASS);
-    this->bodies[0]->vy = -1 * (py / SOLAR_MASS);
-    this->bodies[0]->vz = -1 * (pz / SOLAR_MASS);
+    this->bodies[0]->vx = -1 * (px / FOUR_PI_SQUARED);
+    this->bodies[0]->vy = -1 * (py / FOUR_PI_SQUARED);
+    this->bodies[0]->vz = -1 * (pz / FOUR_PI_SQUARED);
 }
 
 number PhysicsPerl__Astro__System::energy() {

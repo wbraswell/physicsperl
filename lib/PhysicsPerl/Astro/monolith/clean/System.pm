@@ -31,7 +31,7 @@ use RPerl::CompileUnit::Module::Class;
 ## no critic qw(ProhibitConstantPragma ProhibitMagicNumbers)
 
 # [[[ CONSTANTS ]]]
-use constant SOLAR_MASS => my number $TYPED_SOLAR_MASS = 39.478_417_604_357_4;
+use constant FOUR_PI_SQUARED => my number $TYPED_FOUR_PI_SQUARED = 39.478_417_604_357_4;
 use constant DAYS_PER_YEAR => my number $TYPED_DAYS_PER_YEAR = 365.24;
 
 # [[[ OO PROPERTIES ]]]
@@ -59,7 +59,7 @@ our PhysicsPerl::Astro::Body $sun = sub {
     $body->{vx}   = 0;
     $body->{vy}   = 0;
     $body->{vz}   = 0;
-    $body->{mass} = PhysicsPerl::Astro::Body::SOLAR_MASS();
+    $body->{mass} = PhysicsPerl::Astro::Body::FOUR_PI_SQUARED();
     $body->{radius} = 1;
     $body->{color} = [ 255, 245, 240 ];
     return $body;
@@ -78,7 +78,7 @@ our PhysicsPerl::Astro::Body $jupiter = sub {
     $body->{vz} = -6.904_600_169_720_630_23e-05
         * PhysicsPerl::Astro::Body::DAYS_PER_YEAR();
     $body->{mass} = +9.547_919_384_243_266_09e-04
-        * PhysicsPerl::Astro::Body::SOLAR_MASS();
+        * PhysicsPerl::Astro::Body::FOUR_PI_SQUARED();
     $body->{radius} = +1.004_035_616_831_83e-01;
     $body->{color} = [ 175, 75, 25 ];
     return $body;
@@ -97,7 +97,7 @@ our PhysicsPerl::Astro::Body $saturn = sub {
     $body->{vz} = +2.304_172_975_737_639_29e-05
         * PhysicsPerl::Astro::Body::DAYS_PER_YEAR();
     $body->{mass} = +2.858_859_806_661_308_12e-04
-        * PhysicsPerl::Astro::Body::SOLAR_MASS();
+        * PhysicsPerl::Astro::Body::FOUR_PI_SQUARED();
     $body->{radius} = +8.363_061_898_606_92e-02;
     $body->{color} = [ 250, 215, 160 ];
     return $body;
@@ -116,7 +116,7 @@ our PhysicsPerl::Astro::Body $uranus = sub {
     $body->{vz} = -2.965_895_685_402_375_56e-05
         * PhysicsPerl::Astro::Body::DAYS_PER_YEAR();
     $body->{mass} = +4.366_244_043_351_562_98e-05
-        * PhysicsPerl::Astro::Body::SOLAR_MASS();
+        * PhysicsPerl::Astro::Body::FOUR_PI_SQUARED();
     $body->{radius} = +3.642_251_902_915_41e-02;
     $body->{color} = [ 0, 240, 255 ];
     return $body;
@@ -135,7 +135,7 @@ our PhysicsPerl::Astro::Body $neptune = sub {
     $body->{vz} = -9.515_922_545_197_158_70e-05
         * PhysicsPerl::Astro::Body::DAYS_PER_YEAR();
     $body->{mass} = +5.151_389_020_466_114_51e-05
-        * PhysicsPerl::Astro::Body::SOLAR_MASS();
+        * PhysicsPerl::Astro::Body::FOUR_PI_SQUARED();
     $body->{radius} = +3.535_975_872_468_76e-02;
     $body->{color} = [ 55, 85, 230 ];
     return $body;
@@ -189,11 +189,11 @@ our void::method $init = sub {
     }
 
     $self->{bodies}->[0]->{vx}
-        = -1 * ( $px / PhysicsPerl::Astro::Body::SOLAR_MASS() );
+        = -1 * ( $px / PhysicsPerl::Astro::Body::FOUR_PI_SQUARED() );
     $self->{bodies}->[0]->{vy}
-        = -1 * ( $py / PhysicsPerl::Astro::Body::SOLAR_MASS() );
+        = -1 * ( $py / PhysicsPerl::Astro::Body::FOUR_PI_SQUARED() );
     $self->{bodies}->[0]->{vz}
-        = -1 * ( $pz / PhysicsPerl::Astro::Body::SOLAR_MASS() );
+        = -1 * ( $pz / PhysicsPerl::Astro::Body::FOUR_PI_SQUARED() );
 };
 
 our number::method $energy = sub {

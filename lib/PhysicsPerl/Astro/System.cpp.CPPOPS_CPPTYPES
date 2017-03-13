@@ -34,9 +34,9 @@ void PhysicsPerl__Astro__System::init() {
         py += this->bodies[i]->vy * this->bodies[i]->mass;
         pz += this->bodies[i]->vz * this->bodies[i]->mass;
     }
-    this->bodies[0]->vx = -1 * (px / PhysicsPerl__Astro__Body__SOLAR_MASS);
-    this->bodies[0]->vy = -1 * (py / PhysicsPerl__Astro__Body__SOLAR_MASS);
-    this->bodies[0]->vz = -1 * (pz / PhysicsPerl__Astro__Body__SOLAR_MASS);
+    this->bodies[0]->vx = -1 * (px / PhysicsPerl__Astro__Body__FOUR_PI_SQUARED);
+    this->bodies[0]->vy = -1 * (py / PhysicsPerl__Astro__Body__FOUR_PI_SQUARED);
+    this->bodies[0]->vz = -1 * (pz / PhysicsPerl__Astro__Body__FOUR_PI_SQUARED);
 }
 
 number PhysicsPerl__Astro__System::energy() {

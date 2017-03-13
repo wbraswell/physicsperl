@@ -20,7 +20,7 @@ PhysicsPerl__Astro__Body_ptr sun() {
     body->vx =     0;
     body->vy =     0;
     body->vz =     0;
-    body->mass =   SOLAR_MASS;
+    body->mass =   FOUR_PI_SQUARED;
     body->radius = 1;
     body->color  = {255, 245, 240};
     return body;
@@ -35,7 +35,7 @@ PhysicsPerl__Astro__Body_ptr jupiter() {
     body->vx =     +1.66007664274403694e-03 * DAYS_PER_YEAR;
     body->vy =     +7.69901118419740425e-03 * DAYS_PER_YEAR;
     body->vz =     -6.90460016972063023e-05 * DAYS_PER_YEAR;
-    body->mass =   +9.54791938424326609e-04 * SOLAR_MASS;
+    body->mass =   +9.54791938424326609e-04 * FOUR_PI_SQUARED;
     body->radius = +1.00403561683183e-01;
     body->color  = {175, 75, 25};
     return body;
@@ -50,7 +50,7 @@ PhysicsPerl__Astro__Body_ptr saturn() {
     body->vx =     -2.76742510726862411e-03 * DAYS_PER_YEAR;
     body->vy =     +4.99852801234917238e-03 * DAYS_PER_YEAR;
     body->vz =     +2.30417297573763929e-05 * DAYS_PER_YEAR;
-    body->mass =   +2.85885980666130812e-04 * SOLAR_MASS;
+    body->mass =   +2.85885980666130812e-04 * FOUR_PI_SQUARED;
     body->radius = +8.36306189860692e-02;
     body->color  = {250, 215, 160};
     return body;
@@ -65,7 +65,7 @@ PhysicsPerl__Astro__Body_ptr uranus() {
     body->vx =     +2.96460137564761618e-03 * DAYS_PER_YEAR;
     body->vy =     +2.37847173959480950e-03 * DAYS_PER_YEAR;
     body->vz =     -2.96589568540237556e-05 * DAYS_PER_YEAR;
-    body->mass =   +4.36624404335156298e-05 * SOLAR_MASS;
+    body->mass =   +4.36624404335156298e-05 * FOUR_PI_SQUARED;
     body->radius = +3.64225190291541e-02;
     body->color  = {0, 240, 255};
     return body;
@@ -80,7 +80,7 @@ PhysicsPerl__Astro__Body_ptr neptune() {
     body->vx =     +2.68067772490389322e-03 * DAYS_PER_YEAR;
     body->vy =     +1.62824170038242295e-03 * DAYS_PER_YEAR;
     body->vz =     -9.51592254519715870e-05 * DAYS_PER_YEAR;
-    body->mass =   +5.15138902046611451e-05 * SOLAR_MASS;
+    body->mass =   +5.15138902046611451e-05 * FOUR_PI_SQUARED;
     body->radius = +3.53597587246876e-02;
     body->color  = {55, 85, 230};
     return body;

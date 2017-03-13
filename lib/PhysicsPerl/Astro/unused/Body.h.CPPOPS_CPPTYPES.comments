@@ -23,7 +23,7 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 
 // [[[ CONSTANTS ]]]
 //const number PhysicsPerl__Astro__Body__PI = 3.141592653589793;  // CURRENTLY UNUSED
-const number PhysicsPerl__Astro__Body__SOLAR_MASS = 39.4784176043574;
+const number PhysicsPerl__Astro__Body__FOUR_PI_SQUARED = 39.4784176043574;
 //const number PhysicsPerl__Astro__Body__SOLAR_RADIUS = 696300;  // CURRENTLY UNUSED
 const number PhysicsPerl__Astro__Body__DAYS_PER_YEAR = 365.24;
 
