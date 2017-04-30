@@ -14,14 +14,14 @@ our $VERSION = 0.003_000;
 ## no critic qw(ProhibitUselessNoCritic ProhibitMagicNumbers RequireCheckedSyscalls)  # USER DEFAULT 1: allow numeric values & print operator
 
 # [[[ INCLUDES ]]]
-use PhysicsPerl::Astro::SystemSSE;
+use PhysicsPerl::Astro::SystemSSEGasGiants;
 
 # [[[ OPERATIONS ]]]
 
 my integer $time_step_max = 10_000;
 my number $delta_time = 0.01;
 
-my PhysicsPerl::Astro::SystemSSE $system = PhysicsPerl::Astro::SystemSSE->new();
+my PhysicsPerl::Astro::SystemSSEGasGiants $system = PhysicsPerl::Astro::SystemSSEGasGiants->new();
 $system->init();
 print 'start energy: ' . number_to_string($system->energy()) . "\n";
 $system->advance_loop($delta_time, $time_step_max);

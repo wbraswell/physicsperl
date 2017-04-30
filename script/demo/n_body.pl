@@ -23,13 +23,9 @@
 # <<< EXECUTE_SUCCESS: '-0.169_075_16' >>>
 # <<< EXECUTE_SUCCESS: '-0.169_059_90' >>>
 
-BEGIN { print '<<< DEBUG 0a >>>', "\n"; }
-
 # [[[ HEADER ]]]
 use RPerl::AfterSubclass;
-BEGIN { print '<<< DEBUG 0b >>>', "\n"; }
 use rperltypesconv;
-BEGIN { print '<<< DEBUG 0c >>>', "\n"; }
 use strict;
 use warnings;
 our $VERSION = 0.002_000;
@@ -39,10 +35,6 @@ our $VERSION = 0.002_000;
 
 # [[[ INCLUDES ]]]
 use Time::HiRes qw(time);
-
-# TMP DEBUG
-BEGIN { print '<<< DEBUG 1 >>>', "\n"; }
-use PhysicsPerl::Astro::System;
 
 # [[[ OPERATIONS ]]]
 
@@ -63,40 +55,34 @@ if (defined $ARGV[3]) { $enable_monolith = string_to_boolean($ARGV[3]); }  # use
 my number $delta_time = 0.01;
 my integer $time_steps_per_frame = 1500;
 
-BEGIN { print '<<< DEBUG 2 >>>', "\n"; }
-
 # DEV NOTE: can't have compile-time class check w/ runtime eval_use(), using placeholder 'unknown' data type for now;
 my unknown $system;  # PhysicsPerl::Astro::System, because PhysicsPerl::Astro::SystemSSE ISA PhysicsPerl::Astro::System
 my unknown $eval_retval;
 if ($enable_sse) {
     if ($enable_monolith) {
-#        RPerl::eval_use('PhysicsPerl::Astro::SystemSSEMonolith', 1);
+        RPerl::eval_use('PhysicsPerl::Astro::SystemSSEMonolith', 1);
         $system = PhysicsPerl::Astro::SystemSSE->new();
     }
     else {
-#        RPerl::eval_use('PhysicsPerl::Astro::SystemSSE', 1);
+        RPerl::eval_use('PhysicsPerl::Astro::SystemSSE', 1);
         $system = PhysicsPerl::Astro::SystemSSE->new();
     }
 }
 else {
     if ($enable_monolith) {
-#        RPerl::eval_use('PhysicsPerl::Astro::SystemMonolith', 1);
+        RPerl::eval_use('PhysicsPerl::Astro::SystemMonolith', 1);
         $system = PhysicsPerl::Astro::System->new();
     }
     else {
-#        RPerl::eval_use('PhysicsPerl::Astro::System', 1);
+        RPerl::eval_use('PhysicsPerl::Astro::System', 1);
         $system = PhysicsPerl::Astro::System->new();
     }
 }
-
-BEGIN { print '<<< DEBUG 3 >>>', "\n"; }
 
 my number $time_start = time();
 
 $system->init();
 print 'start energy: ' . number_to_string($system->energy()) . "\n";
-
-BEGIN { print '<<< DEBUG 4 >>>', "\n"; }
 
 if ($enable_graphics) {
     RPerl::eval_use('PhysicsPerl::Astro::SystemRenderer2D', 1);
