@@ -3,7 +3,7 @@ use RPerl;
 package PhysicsPerl::Astro::Body;
 use strict;
 use warnings;
-our $VERSION = 0.006_100;
+our $VERSION = 0.007_000;
 
 # [[[ OO INHERITANCE ]]]
 use parent qw(RPerl::CompileUnit::Module::Class);    # no non-system inheritance, only inherit from base class
@@ -36,7 +36,8 @@ our hashref $properties = {
 
 # [[[ SUBROUTINES & OO METHODS ]]]
 
-our PhysicsPerl::Astro::Body $sun = sub {
+sub sun {
+    { my PhysicsPerl::Astro::Body $RETURN_TYPE };
     my PhysicsPerl::Astro::Body $body = PhysicsPerl::Astro::Body->new();
     $body->{name}   = 'The Sun (Sol)';
     $body->{x}      = 0;
@@ -49,12 +50,13 @@ our PhysicsPerl::Astro::Body $sun = sub {
     $body->{radius} = 1;                                        # in units of solar radii
     $body->{color}  = [ 255, 245, 240 ];                        # in RGB, estimate
     return $body;
-};
+}
 
 # http://ssd.jpl.nasa.gov/
 
 # NEED UPDATE: add real colors for all rocky planets
-our PhysicsPerl::Astro::Body $mercury = sub {
+sub mercury {
+    { my PhysicsPerl::Astro::Body $RETURN_TYPE };
     my PhysicsPerl::Astro::Body $body = PhysicsPerl::Astro::Body->new();
 #    $body->{name}   = '      Mercury';  # move name away from Sun, due to scale mismatch between body sizes & body distances
     $body->{name}   = '      M.';
@@ -68,9 +70,10 @@ our PhysicsPerl::Astro::Body $mercury = sub {
     $body->{radius} = +3.505e-03;                                                                  # in units of solar radii; 2_440 kilometers
     $body->{color}  = [ 0, 0, 0 ];                                                             # in RGB, estimate
     return $body;
-};
+}
 
-our PhysicsPerl::Astro::Body $venus = sub {
+sub venus {
+    { my PhysicsPerl::Astro::Body $RETURN_TYPE };
     my PhysicsPerl::Astro::Body $body = PhysicsPerl::Astro::Body->new();
 #    $body->{name}   = '          Venus';  # move name away from Sun, due to scale mismatch between body sizes & body distances
     $body->{name}   = '          V.';
@@ -84,9 +87,10 @@ our PhysicsPerl::Astro::Body $venus = sub {
     $body->{radius} = +8.695e-03;                                                                  # in units of solar radii; 6_052 kilometers
     $body->{color}  = [ 0, 0, 0 ];                                                             # in RGB, estimate
     return $body;
-};
+}
 
-our PhysicsPerl::Astro::Body $earth = sub {
+sub earth {
+    { my PhysicsPerl::Astro::Body $RETURN_TYPE };
     my PhysicsPerl::Astro::Body $body = PhysicsPerl::Astro::Body->new();
     $body->{name}   = '               Earth';  # move name away from Sun, due to scale mismatch between body sizes & body distances
     $body->{x}      = +3.371_149_298_368_602e-01;
@@ -99,9 +103,10 @@ our PhysicsPerl::Astro::Body $earth = sub {
     $body->{radius} = +9.154e-03;                                                                  # in units of solar radii; 6_371 kilometers
     $body->{color}  = [ 0, 0, 255 ];                                                             # in RGB, estimate
     return $body;
-};
+}
 
-our PhysicsPerl::Astro::Body $mars = sub {
+sub mars {
+    { my PhysicsPerl::Astro::Body $RETURN_TYPE };
     my PhysicsPerl::Astro::Body $body = PhysicsPerl::Astro::Body->new();
     $body->{name}   = '                   Mars';  # move name away from Sun, due to scale mismatch between body sizes & body distances
     $body->{x}      = +1.387_314_349_787_443e+00;
@@ -114,9 +119,10 @@ our PhysicsPerl::Astro::Body $mars = sub {
     $body->{radius} = +4.87e-03;                                                                  # in units of solar radii; 3_390 kilometers
     $body->{color}  = [ 255, 0, 0 ];                                                             # in RGB, estimate
     return $body;
-};
+}
 
-our PhysicsPerl::Astro::Body $jupiter = sub {
+sub jupiter {
+    { my PhysicsPerl::Astro::Body $RETURN_TYPE };
     my PhysicsPerl::Astro::Body $body = PhysicsPerl::Astro::Body->new();
     $body->{name}   = 'Jupiter';
     $body->{x}      = +4.841_431_442_464_720_90e+00;
@@ -129,9 +135,10 @@ our PhysicsPerl::Astro::Body $jupiter = sub {
     $body->{radius} = +1.004_035_616_831_83e-01;                                                   # in units of solar radii; 69_911 kilometers
     $body->{color}  = [ 175, 75, 25 ];                                                             # in RGB, estimate
     return $body;
-};
+}
 
-our PhysicsPerl::Astro::Body $saturn = sub {
+sub saturn {
+    { my PhysicsPerl::Astro::Body $RETURN_TYPE };
     my PhysicsPerl::Astro::Body $body = PhysicsPerl::Astro::Body->new();
     $body->{name}   = 'Saturn';
     $body->{x}      = +8.343_366_718_244_579_87e+00;
@@ -144,9 +151,10 @@ our PhysicsPerl::Astro::Body $saturn = sub {
     $body->{radius} = +8.363_061_898_606_92e-02;                                                   # in units of solar radii; 58_232 kilometers
     $body->{color}  = [ 250, 215, 160 ];                                                           # in RGB, estimate
     return $body;
-};
+}
 
-our PhysicsPerl::Astro::Body $uranus = sub {
+sub uranus {
+    { my PhysicsPerl::Astro::Body $RETURN_TYPE };
     my PhysicsPerl::Astro::Body $body = PhysicsPerl::Astro::Body->new();
     $body->{name}   = 'Uranus';
     $body->{x}      = +1.289_436_956_213_913_10e+01;
@@ -159,9 +167,10 @@ our PhysicsPerl::Astro::Body $uranus = sub {
     $body->{radius} = +3.642_251_902_915_41e-02;                                                   # in units of solar radii; 25_361 kilometers
     $body->{color}  = [ 0, 240, 255 ];                                                             # in RGB, estimate
     return $body;
-};
+}
 
-our PhysicsPerl::Astro::Body $neptune = sub {
+sub neptune {
+    { my PhysicsPerl::Astro::Body $RETURN_TYPE };
     my PhysicsPerl::Astro::Body $body = PhysicsPerl::Astro::Body->new();
     $body->{name}   = 'Neptune';
     $body->{x}      = +1.537_969_711_485_091_65e+01;
@@ -174,9 +183,10 @@ our PhysicsPerl::Astro::Body $neptune = sub {
     $body->{radius} = +3.535_975_872_468_76e-02;                                                   # in units of solar radii; 24_621 kilometers
     $body->{color}  = [ 55, 85, 230 ];                                                             # in RGB, estimate
     return $body;
-};
+}
 
-our PhysicsPerl::Astro::Body $pluto = sub {
+sub pluto {
+    { my PhysicsPerl::Astro::Body $RETURN_TYPE };
     my PhysicsPerl::Astro::Body $body = PhysicsPerl::Astro::Body->new();
     $body->{name}   = 'Pluto';
     $body->{x}      = +9.567_892_811_759_823e+00;
@@ -189,6 +199,6 @@ our PhysicsPerl::Astro::Body $pluto = sub {
     $body->{radius} = +1.705e-03;                                                   # in units of solar radii; 1_187 kilometers
     $body->{color}  = [ 0, 0, 255 ];                                                             # in RGB, estimate
     return $body;
-};
+}
 
 1;                                                                                                 # end of class

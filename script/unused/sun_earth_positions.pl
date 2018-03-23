@@ -13,7 +13,7 @@
 use RPerl;
 use strict;
 use warnings;
-our $VERSION = 0.003_000;
+our $VERSION = 0.004_000;
 
 # [[[ CRITICS ]]]
 ## no critic qw(ProhibitUselessNoCritic ProhibitMagicNumbers RequireCheckedSyscalls) # USER DEFAULT 1: allow numeric values &  print operator
@@ -70,7 +70,8 @@ use constant EARTH_GRAVITY_ACCELLERATION => my number $TYPED_EARTH_GRAVITY_ACCEL
    = 9.806_65;    # in meters per second per second
 
 # [[[ SUBROUTINES ]]]
-our void $sun_earth_positions = sub {
+sub sun_earth_positions {
+    { my void $RETURN_VALUE };
     #----------------------------------------------------------------------------------------#
     # Using the small-angle equation:                                                        #
     # a / SEC_IN_ARC = d / D with d the diameter of the sun and D its distance               #
@@ -148,6 +149,6 @@ our void $sun_earth_positions = sub {
     printf "Gravity from the Sun:  %3.2f * gravity from Earth\n",
         $sun_gravity / EARTH_GRAVITY_ACCELLERATION();
     return;
-};
+}
 
 sun_earth_positions();

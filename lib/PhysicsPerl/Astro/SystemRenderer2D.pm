@@ -3,7 +3,7 @@ package PhysicsPerl::Astro::SystemRenderer2D;
 use strict;
 use warnings;
 use RPerl::AfterSubclass;
-our $VERSION = 0.003_000;
+our $VERSION = 0.004_000;
 
 # [[[ OO INHERITANCE ]]]
 use parent qw(RPerl::CompileUnit::Module::Class);    # no non-system inheritance, only inherit from base class
@@ -46,7 +46,8 @@ our hashref $properties = {
 
 # [[[ SUBROUTINES & OO METHODS ]]]
 
-our void::method $init = sub {
+sub init {
+    { my void::method $RETURN_TYPE };
     # NEED FIX, CORRELATION #pp01: make SystemRenderer2D aware of SSE or non-SSE mode
 #    ( my PhysicsPerl::Astro::SystemRenderer2D $self, my PhysicsPerl::Astro::System $system, my number $delta_time, my integer $time_step_max, my integer $time_steps_per_frame, my number $time_start ) = @ARG;
     ( my PhysicsPerl::Astro::SystemRenderer2D $self, my $system, my number $delta_time, my integer $time_step_max, my integer $time_steps_per_frame, my number $time_start ) = @ARG;
@@ -81,14 +82,18 @@ our void::method $init = sub {
         height => $self->{window_height},
         delay => 15
     );
-};
+    return;
+}
 
-our void::method $events = sub {
+sub events {
+    { my void::method $RETURN_TYPE };
     ( my PhysicsPerl::Astro::SystemRenderer2D $self, my SDL::Event $event, my SDLx::App $app ) = @ARG;
     if ($event->type() == SDL_QUIT) { $app->stop(); }
-};
+    return;
+}
 
-our void::method $show = sub {
+sub show {
+    { my void::method $RETURN_TYPE };
     ( my PhysicsPerl::Astro::SystemRenderer2D $self, my number $dt, my SDLx::App $app ) = @ARG;
     SDL::Video::fill_rect( $app, SDL::Rect->new(0, 0, $app->w(), $app->h()), 0 );
 
@@ -142,9 +147,11 @@ our void::method $show = sub {
     )->write_to($app);
 
     $app->update();
-};
+    return;
+}
 
-our void::method $move = sub {
+sub move {
+    { my void::method $RETURN_TYPE };
     ( my PhysicsPerl::Astro::SystemRenderer2D $self, my number $dt, my SDLx::App $app, my number $t ) = @ARG;
     # don't overshoot your time_step_max
     if (($self->{time_step_current} + $self->{time_steps_per_frame}) > $self->{time_step_max}) {
@@ -153,9 +160,11 @@ our void::method $move = sub {
     $self->{system}->advance_loop($self->{delta_time}, $self->{time_steps_per_frame});
     $self->{time_step_current} += $self->{time_steps_per_frame};
     if ($self->{time_step_current} >= $self->{time_step_max}) { $app->stop(); }
-};
+    return;
+}
 
-our void::method $render2d_video = sub {
+sub render2d_video {
+    { my void::method $RETURN_TYPE };
     ( my PhysicsPerl::Astro::SystemRenderer2D $self ) = @ARG;
 
     $self->{app}->add_event_handler( sub { $self->events(@ARG) } );
@@ -164,6 +173,7 @@ our void::method $render2d_video = sub {
 
 #    $self->{app}->fullscreen();
     $self->{app}->run();
-};
+    return;
+}
 
 1;    # end of class

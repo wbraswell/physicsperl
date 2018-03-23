@@ -39,8 +39,9 @@ use Time::HiRes qw(time);
 # [[[ OPERATIONS ]]]
 
 #my integer $time_step_max = 50_000;  # run quick'ish
-#my integer $time_step_max = 50_000_000;  # default
-my integer $time_step_max = 50_000_000_000;  # run forever'ish
+#my integer $time_step_max = 100_000;  # run quick'ish
+my integer $time_step_max = 50_000_000;  # default
+#my integer $time_step_max = 50_000_000_000;  # run forever'ish
 if (defined $ARGV[0]) { $time_step_max = string_to_integer($ARGV[0]); }  # user input, command-line argument
 
 my boolean $enable_graphics = 1;  # default 
@@ -53,8 +54,8 @@ my boolean $enable_monolith = 0;  # default
 if (defined $ARGV[3]) { $enable_monolith = string_to_boolean($ARGV[3]); }  # user input, command-line argument
 
 my number $delta_time = 0.01;
-my integer $time_steps_per_frame = 10;   # PERLOPS_PERLTYPES
-#my integer $time_steps_per_frame = 1500;  # CPPOPS_CPPTYPES
+#my integer $time_steps_per_frame = 10;   # PERLOPS_PERLTYPES
+my integer $time_steps_per_frame = 1500;  # CPPOPS_CPPTYPES
 
 # DEV NOTE: can't have compile-time class check w/ runtime eval_use(), using placeholder 'unknown' data type for now;
 my unknown $system;  # PhysicsPerl::Astro::System, because PhysicsPerl::Astro::SystemSSE ISA PhysicsPerl::Astro::System

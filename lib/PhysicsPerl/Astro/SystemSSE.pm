@@ -4,7 +4,7 @@ use RPerl;
 package PhysicsPerl::Astro::SystemSSE;
 use strict;
 use warnings;
-our $VERSION = 0.007_000;
+our $VERSION = 0.008_000;
 
 # [[[ OO INHERITANCE ]]]
 #use parent qw(RPerl::CompileUnit::Module::Class);    # no non-system inheritance, only inherit from base class
@@ -27,7 +27,8 @@ our hashref $properties = {};  # DEV NOTE: must not declare 'bodies', to avoid c
 
 # [[[ SUBROUTINES & OO METHODS ]]]
 
-our void::method $advance_loop = sub {
+sub advance_loop {
+    { my void::method $RETURN_TYPE };
     ( my PhysicsPerl::Astro::SystemSSE $self, my constant_number $delta_time, my constant_integer $time_step_max ) = @ARG;
     my constant_integer $bodies_size = scalar @{ $self->{bodies} };
     my constant_unsigned_integer $bodies_size_triangle  = 10;
@@ -125,6 +126,7 @@ our void::method $advance_loop = sub {
             $body_i->{z} += $delta_time * $body_i->{vz};
         }
     }
-};
+    return;
+}
 
 1;  # end of class

@@ -3,7 +3,7 @@ package PhysicsPerl::Astro::BodyRenderer2D;
 use strict;
 use warnings;
 use RPerl::AfterSubclass;
-our $VERSION = 0.002_000;
+our $VERSION = 0.003_000;
 
 # [[[ OO INHERITANCE ]]]
 use parent qw(RPerl::CompileUnit::Module::Class);    # no non-system inheritance, only inherit from base class
@@ -27,7 +27,8 @@ our hashref $properties = {
 
 # [[[ SUBROUTINES & OO METHODS ]]]
 
-our void::method $draw = sub {
+sub draw {
+    { my void::method $RETURN_TYPE };
     ( my PhysicsPerl::Astro::BodyRenderer2D $self, my SDLx::App $app ) = @ARG;
 
     # NEED FIX: remove hard-coded radius scaling factor
@@ -47,6 +48,6 @@ our void::method $draw = sub {
             y => ( ( $self->{body}->get_y() * $self->{zoom} ) + $self->{y_offset} ),
         )->write_to($app);
     }
-};
+}
 
 1;    # end of class

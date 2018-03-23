@@ -3,7 +3,7 @@ use RPerl;
 package PhysicsPerl::Astro::SystemGasGiants;
 use strict;
 use warnings;
-our $VERSION = 0.006_100;
+our $VERSION = 0.007_000;
 
 # [[[ OO INHERITANCE ]]]
 use parent qw(RPerl::CompileUnit::Module::Class);    # no non-system inheritance, only inherit from base class
@@ -23,7 +23,8 @@ our hashref $properties = { bodies => my PhysicsPerl::Astro::Body_arrayref $TYPE
 
 # [[[ SUBROUTINES & OO METHODS ]]]
 
-our void::method $init = sub {
+sub init {
+    { my void::method $RETURN_TYPE };
     ( my PhysicsPerl::Astro::SystemGasGiants $self ) = @ARG;
 
     # DEV NOTE: must update hard-coded size of 'bodies' property above to match number of bodies below
@@ -45,9 +46,11 @@ our void::method $init = sub {
     $self->{bodies}->[0]->{vx} = -1 * ( $px / PhysicsPerl::Astro::Body::FOUR_PI_SQUARED() );
     $self->{bodies}->[0]->{vy} = -1 * ( $py / PhysicsPerl::Astro::Body::FOUR_PI_SQUARED() );
     $self->{bodies}->[0]->{vz} = -1 * ( $pz / PhysicsPerl::Astro::Body::FOUR_PI_SQUARED() );
-};
+    return;
+}
 
-our number::method $energy = sub {
+sub energy {
+    { my number::method $RETURN_TYPE };
     ( my PhysicsPerl::Astro::SystemGasGiants $self ) = @ARG;
     my number $dx;
     my number $dy;
@@ -69,9 +72,10 @@ our number::method $energy = sub {
         }
     }
     return $e;
-};
+}
 
-our void::method $advance_loop = sub {
+sub advance_loop {
+    { my void::method $RETURN_TYPE };
     ( my PhysicsPerl::Astro::SystemGasGiants $self, my constant_number $delta_time, my constant_integer $time_step_max ) = @ARG;
     my constant_integer $bodies_size = scalar @{ $self->{bodies} };
     my number $dx;
@@ -109,6 +113,7 @@ our void::method $advance_loop = sub {
             $body_i->{z} += $delta_time * $body_i->{vz};
         }
     }
-};
+    return;
+}
 
 1;    # end of class
