@@ -1,5 +1,5 @@
 language: perl
-# v0.005_000
+# v0.006_000
 perl:
 # NEED ANSWER, CORRELATION #rp00: is RPerl truly incompatible with Perl v5.8 and earlier?
 # Perl v5.8 causes $CPP_LINKED global symbol errors, currently disabled
@@ -67,7 +67,7 @@ before_script:
     - tar -xzvf rperl-master.tar.gz
     - cd rperl-master
     - perl Makefile.PL
-    - cpanm --installdeps --notest .
+    - cpanm -v --installdeps --notest .
 #    - make test  # skip RPerl tests, takes a long time, keep RPerl testing in RPerl repo
     - make install
     - cd $PWD_SAVED
