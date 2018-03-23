@@ -76,6 +76,7 @@ sub energy {
             $e -= ( $body_i->{mass} * $body_j->{mass} ) / $distance;
         }
     }
+    # NEED FIX, PERLCRITIC BUG: why are 2 return statements necessary here???
     return $e;
     return $e;
 }
@@ -119,6 +120,7 @@ sub advance_loop {
             $body_i->{z} += $delta_time * $body_i->{vz};
         }
     }
+    # NEED FIX, PERLCRITIC BUG: why are 2 return statements necessary here???
     return;
     return;
 }

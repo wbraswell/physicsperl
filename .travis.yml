@@ -1,5 +1,5 @@
 language: perl
-# v0.006_000
+# v0.007_000
 perl:
 # NEED ANSWER, CORRELATION #rp00: is RPerl truly incompatible with Perl v5.8 and earlier?
 # Perl v5.8 causes $CPP_LINKED global symbol errors, currently disabled
@@ -58,6 +58,18 @@ before_script:
 #    - export RPERL_DEBUG=1
 # UNCOMMENT FOLLOWING LINE FOR DEV VERSIONS OF MODULES, which travis can't get from Makefile.PL
 #  - cpanm -n INGY/Inline-C-0.62_03.tar.gz
+
+
+
+# DEV NOTE: verbose install to debug specific CPAN failures
+# NEED DISABLE, TMP DEBUG
+# NEED DISABLE, TMP DEBUG
+# NEED DISABLE, TMP DEBUG
+    - cpanm -n JHI/Time-HiRes-1.9756.tar.gz
+    - export ALIEN_GSL_REPO_FTP_PROTOCOL=http
+    - cpanm --verbose Alien::GSL
+
+
 
 # UNCOMMENT FOLLOWING LINES FOR DEV VERSIONS OF RPERL FROM GITHUB
     - export PWD_SAVED=$PWD
