@@ -9,7 +9,7 @@ BEGIN { $ENV{RPERL_WARNINGS} = 0; }
 use strict;
 use warnings;
 use RPerl::AfterSubclass;
-our $VERSION = 0.017_000;
+our $VERSION = 0.017_100;
 
 # [[[ CRITICS ]]]
 ## no critic qw(ProhibitUselessNoCritic ProhibitMagicNumbers RequireCheckedSyscalls)  # USER DEFAULT 1: allow numeric values & print operator
@@ -67,12 +67,12 @@ find(
     sub {
         my $file = $File::Find::name;
 
-#        RPerl::diag('in 12_parse.t, have $file = ' . $file . "\n");
+        RPerl::diag('in 12_parse.t, have $file = ' . $file . "\n");
 
         if (defined $ARGV[0]) {
             # restore saved path, because File::Find changes directories while searching for files
             my $file_full_path = File::Spec->catpath( $volume, $directories, $file );
-#            RPerl::diag('in 12_parse.t, have $file_full_path = ' . $file_full_path . "\n");
+            RPerl::diag('in 12_parse.t, have $file_full_path = ' . $file_full_path . "\n");
             $file = $file_full_path;
         }
 
@@ -146,9 +146,9 @@ foreach my string $test_file_key (sort keys %{$test_files}) {
 
 my integer $number_of_test_files = scalar keys %{$test_files};
 
-#RPerl::diag( 'in 12_parse.t, have $test_files = ' . "\n" . Dumper($test_files) . "\n" );
-#RPerl::diag( 'in 12_parse.t, have sort keys %{$test_files} = ' . "\n" . Dumper(sort keys %{$test_files}) . "\n" );
-#RPerl::diag( 'in 12_parse.t, have $number_of_test_files = ' . $number_of_test_files . "\n" );
+RPerl::diag( 'in 12_parse.t, have $test_files = ' . "\n" . Dumper($test_files) . "\n" );
+RPerl::diag( 'in 12_parse.t, have sort keys %{$test_files} = ' . "\n" . Dumper(sort keys %{$test_files}) . "\n" );
+RPerl::diag( 'in 12_parse.t, have $number_of_test_files = ' . $number_of_test_files . "\n" );
 
 plan tests => $number_of_test_files;
 
@@ -161,7 +161,7 @@ if ( $ENV{RPERL_VERBOSE} ) {
 # [[[ PRIMARY RUNLOOP ]]]
 
 for my $test_file ( sort keys %{$test_files} ) {
-#    RPerl::diag( 'in 12_parse.t, have $test_file = ' . $test_file . "\n" );
+    RPerl::diag( 'in 12_parse.t, have $test_file = ' . $test_file . "\n" );
     ( my string $rperl_input_file_name, my string_hashref $cpp_output_file_name_group, my string_hashref $cpp_source_group, my string_hashref $modes ) = @ARG;
 
     # NEED UPGRADE: enable file dependencies as in script/rperl depends_parse_generate_save_subcompile_execute()
@@ -187,7 +187,7 @@ for my $test_file ( sort keys %{$test_files} ) {
         1;    # return true
     };
 
-#    RPerl::diag( 'in 12_parse.t, have $eval_return_value = ' . $eval_return_value . "\n" );  # warning if undef retval
+    RPerl::diag( 'in 12_parse.t, have $eval_return_value = ' . $eval_return_value . "\n" ) if (defined $eval_return_value);  # FIXED??? warning if undef retval
 
     if ( ( defined $eval_return_value ) and $eval_return_value ) {    # Perl eval return code defined & true, success
         if ( ( $test_file =~ m/Bad/xms ) or ( $test_file =~ m/bad/xms ) ) {
@@ -202,13 +202,13 @@ for my $test_file ( sort keys %{$test_files} ) {
     else {                                                            # Perl eval return code undefined or false, error
         print $verbose_newline;
 
-#        RPerl::diag( "\n\n\n" . 'in 12_parse.t, have $EVAL_ERROR = ' . $EVAL_ERROR . "\n\n\n" );
+        RPerl::diag( "\n\n\n" . 'in 12_parse.t, have $EVAL_ERROR = ' . $EVAL_ERROR . "\n\n\n" );
         if ( ( $test_file =~ m/Bad/ms ) or ( $test_file =~ m/bad/ms ) ) {
-#            RPerl::diag( 'in 12_parse.t, have BAD $test_file = ' . $test_file . "\n" );
+            RPerl::diag( 'in 12_parse.t, have BAD $test_file = ' . $test_file . "\n" );
             my $missing_errors = [];
             if ( defined $test_files->{$test_file}->{errors} ) {
                 foreach my $error ( @{ $test_files->{$test_file}->{errors} } ) {
-#                    RPerl::diag('in 12_parse.t, have $error = ' . $error . "\n" );
+                    RPerl::diag('in 12_parse.t, have $error = ' . $error . "\n" );
                     # DEV NOTE: debug to show which tests trigger a Helpful Hint
 #                    if ( $EVAL_ERROR =~ /Helpful\ Hint/xms ) {
 #                        print '[[[ YES HELPFUL HINT ' . $test_file . ' ]]]' . "\n\n";
@@ -233,7 +233,7 @@ for my $test_file ( sort keys %{$test_files} ) {
     }
 }
 
-#RPerl::diag( 'in 12_parse.t, have $number_of_tests_run =' . $number_of_tests_run . "\n" );
+RPerl::diag( 'in 12_parse.t, have $number_of_tests_run =' . $number_of_tests_run . "\n" );
 
 done_testing();
 #done_testing($number_of_tests_run);
