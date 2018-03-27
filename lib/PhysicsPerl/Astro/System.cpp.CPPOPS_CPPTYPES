@@ -2,7 +2,7 @@
 using std::cout;  using std::cerr;  using std::endl;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp
-#define __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp 0.006_100
+#define __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp 0.007_000
 
 // [[[ INCLUDES ]]]
 #include "PhysicsPerl/Astro/System.h"
@@ -22,10 +22,15 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 void PhysicsPerl__Astro__System::init() {
     integer i;
     this->bodies[0] = PhysicsPerl__Astro__Body__sun();
-    this->bodies[1] = PhysicsPerl__Astro__Body__jupiter();
-    this->bodies[2] = PhysicsPerl__Astro__Body__saturn();
-    this->bodies[3] = PhysicsPerl__Astro__Body__uranus();
-    this->bodies[4] = PhysicsPerl__Astro__Body__neptune();
+    this->bodies[1] = PhysicsPerl__Astro__Body__mercury();
+    this->bodies[2] = PhysicsPerl__Astro__Body__venus();
+    this->bodies[3] = PhysicsPerl__Astro__Body__earth();
+    this->bodies[4] = PhysicsPerl__Astro__Body__mars();
+    this->bodies[5] = PhysicsPerl__Astro__Body__jupiter();
+    this->bodies[6] = PhysicsPerl__Astro__Body__saturn();
+    this->bodies[7] = PhysicsPerl__Astro__Body__uranus();
+    this->bodies[8] = PhysicsPerl__Astro__Body__neptune();
+    this->bodies[9] = PhysicsPerl__Astro__Body__pluto();
     number px = 0.0;
     number py = 0.0;
     number pz = 0.0;
@@ -37,6 +42,7 @@ void PhysicsPerl__Astro__System::init() {
     this->bodies[0]->vx = -1 * (px / PhysicsPerl__Astro__Body__FOUR_PI_SQUARED);
     this->bodies[0]->vy = -1 * (py / PhysicsPerl__Astro__Body__FOUR_PI_SQUARED);
     this->bodies[0]->vz = -1 * (pz / PhysicsPerl__Astro__Body__FOUR_PI_SQUARED);
+    return;
 }
 
 number PhysicsPerl__Astro__System::energy() {
@@ -59,6 +65,7 @@ number PhysicsPerl__Astro__System::energy() {
             e -= (body_i->mass * body_j->mass) / distance;
         }
     }
+    return e;
     return e;
 }
 
@@ -101,6 +108,8 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
             body_i->z += delta_time * body_i->vz;
         }
     }
+    return;
+    return;
 }
 
 // [[[<<< END CPP TYPES >>>]]]

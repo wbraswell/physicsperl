@@ -2,7 +2,7 @@
 using std::cout;  using std::cerr;  using std::endl;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__Body_h
-#define __CPP__INCLUDED__PhysicsPerl__Astro__Body_h 0.006_100
+#define __CPP__INCLUDED__PhysicsPerl__Astro__Body_h 0.007_000
 
 // [[[ INCLUDES & OO INHERITANCE INCLUDES ]]]
 #include <RPerl.cpp>  // -> RPerl.h -> (rperltypes_mode.h; rperloperations.h; rperltypes.h; HelperFunctions.cpp)
@@ -40,26 +40,26 @@ public:
     // [[[ OO METHODS ]]]
 
     // <<< OO PROPERTIES, ACCESSORS & MUTATORS >>>
-    string get_name() { return this->name; }
-    void set_name(string name_new) { this->name = name_new; }
-    number get_x() { return this->x; }
-    void set_x(number x_new) { this->x = x_new; }
-    number get_y() { return this->y; }
-    void set_y(number y_new) { this->y = y_new; }
-    number get_z() { return this->z; }
-    void set_z(number z_new) { this->z = z_new; }
-    number get_vx() { return this->vx; }
-    void set_vx(number vx_new) { this->vx = vx_new; }
-    number get_vy() { return this->vy; }
-    void set_vy(number vy_new) { this->vy = vy_new; }
-    number get_vz() { return this->vz; }
-    void set_vz(number vz_new) { this->vz = vz_new; }
-    number get_mass() { return this->mass; }
-    void set_mass(number mass_new) { this->mass = mass_new; }
-    number get_radius() { return this->radius; }
-    void set_radius(number radius_new) { this->radius = radius_new; }
-    integer_arrayref get_color() { return this->color; }
-    void set_color(integer_arrayref color_new) { this->color = color_new; }
+    string get_name() { return name; }
+    void set_name(string name_new) { name = name_new; }
+    number get_x() { return x; }
+    void set_x(number x_new) { x = x_new; }
+    number get_y() { return y; }
+    void set_y(number y_new) { y = y_new; }
+    number get_z() { return z; }
+    void set_z(number z_new) { z = z_new; }
+    number get_vx() { return vx; }
+    void set_vx(number vx_new) { vx = vx_new; }
+    number get_vy() { return vy; }
+    void set_vy(number vy_new) { vy = vy_new; }
+    number get_vz() { return vz; }
+    void set_vz(number vz_new) { vz = vz_new; }
+    number get_mass() { return mass; }
+    void set_mass(number mass_new) { mass = mass_new; }
+    number get_radius() { return radius; }
+    void set_radius(number radius_new) { radius = radius_new; }
+    integer_arrayref get_color() { return color; }
+    void set_color(integer_arrayref color_new) { color = color_new; }
 
     // <<< CONSTRUCTOR & DESTRUCTOR >>>
     PhysicsPerl__Astro__Body() {}
@@ -80,19 +80,49 @@ typedef std::vector<PhysicsPerl__Astro__Body_ptr> PhysicsPerl__Astro__Body_array
 typedef std::unordered_map<string, PhysicsPerl__Astro__Body_ptr> PhysicsPerl__Astro__Body_hashref;
 typedef std::unordered_map<string, PhysicsPerl__Astro__Body_ptr>::iterator PhysicsPerl__Astro__Body_hashref_iterator;
 
+// [[[ OO CONSTRUCTOR WRAPPER CLASS ]]]
+class NEW_PhysicsPerl__Astro__Body {
+public:
+    PhysicsPerl__Astro__Body_ptr wrapped_object;
+    NEW_PhysicsPerl__Astro__Body() : wrapped_object{new PhysicsPerl__Astro__Body()} {}
+    PhysicsPerl__Astro__Body_ptr&& NEW() { return std::move(wrapped_object); }
+
+    // <<< OO PROPERTIES, INITIALIZERS >>>
+    NEW_PhysicsPerl__Astro__Body& name(string name_init) { wrapped_object->name = name_init; return *this; }
+    NEW_PhysicsPerl__Astro__Body& x(number x_init) { wrapped_object->x = x_init; return *this; }
+    NEW_PhysicsPerl__Astro__Body& y(number y_init) { wrapped_object->y = y_init; return *this; }
+    NEW_PhysicsPerl__Astro__Body& z(number z_init) { wrapped_object->z = z_init; return *this; }
+    NEW_PhysicsPerl__Astro__Body& vx(number vx_init) { wrapped_object->vx = vx_init; return *this; }
+    NEW_PhysicsPerl__Astro__Body& vy(number vy_init) { wrapped_object->vy = vy_init; return *this; }
+    NEW_PhysicsPerl__Astro__Body& vz(number vz_init) { wrapped_object->vz = vz_init; return *this; }
+    NEW_PhysicsPerl__Astro__Body& mass(number mass_init) { wrapped_object->mass = mass_init; return *this; }
+    NEW_PhysicsPerl__Astro__Body& radius(number radius_init) { wrapped_object->radius = radius_init; return *this; }
+    NEW_PhysicsPerl__Astro__Body& color(integer_arrayref color_init) { wrapped_object->color = color_init; return *this; }
+};
+
 // [[[ SUBROUTINES ]]]
 PhysicsPerl__Astro__Body_ptr PhysicsPerl__Astro__Body__sun();
+PhysicsPerl__Astro__Body_ptr PhysicsPerl__Astro__Body__mercury();
+PhysicsPerl__Astro__Body_ptr PhysicsPerl__Astro__Body__venus();
+PhysicsPerl__Astro__Body_ptr PhysicsPerl__Astro__Body__earth();
+PhysicsPerl__Astro__Body_ptr PhysicsPerl__Astro__Body__mars();
 PhysicsPerl__Astro__Body_ptr PhysicsPerl__Astro__Body__jupiter();
 PhysicsPerl__Astro__Body_ptr PhysicsPerl__Astro__Body__saturn();
 PhysicsPerl__Astro__Body_ptr PhysicsPerl__Astro__Body__uranus();
 PhysicsPerl__Astro__Body_ptr PhysicsPerl__Astro__Body__neptune();
+PhysicsPerl__Astro__Body_ptr PhysicsPerl__Astro__Body__pluto();
 
 // <<< SHIM MACROS >>>
 #define sun() PhysicsPerl__Astro__Body__sun()
+#define mercury() PhysicsPerl__Astro__Body__mercury()
+#define venus() PhysicsPerl__Astro__Body__venus()
+#define earth() PhysicsPerl__Astro__Body__earth()
+#define mars() PhysicsPerl__Astro__Body__mars()
 #define jupiter() PhysicsPerl__Astro__Body__jupiter()
 #define saturn() PhysicsPerl__Astro__Body__saturn()
 #define uranus() PhysicsPerl__Astro__Body__uranus()
 #define neptune() PhysicsPerl__Astro__Body__neptune()
+#define pluto() PhysicsPerl__Astro__Body__pluto()
 
 // <<< OPERATIONS & DATA TYPES REPORTER >>>
 integer PhysicsPerl__Astro__Body__MODE_ID() { return 2; }  // CPPOPS_CPPTYPES is 2

@@ -2,7 +2,7 @@
 using std::cout;  using std::cerr;  using std::endl;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__Body_cpp
-#define __CPP__INCLUDED__PhysicsPerl__Astro__Body_cpp 0.006_100
+#define __CPP__INCLUDED__PhysicsPerl__Astro__Body_cpp 0.007_000
 
 // [[[ INCLUDES ]]]
 #include "PhysicsPerl/Astro/Body.h"
@@ -31,6 +31,66 @@ PhysicsPerl__Astro__Body_ptr PhysicsPerl__Astro__Body__sun() {
     body->mass = PhysicsPerl__Astro__Body__FOUR_PI_SQUARED;
     body->radius = 1;
     body->color = {255, 245, 240};
+    return body;
+}
+
+PhysicsPerl__Astro__Body_ptr PhysicsPerl__Astro__Body__mercury() {
+    PhysicsPerl__Astro__Body_ptr body(new PhysicsPerl__Astro__Body);
+    body->name = (const string) "      M.";
+    body->x = +3.067925455119497e-01;
+    body->y = -2.695851754307215e-01;
+    body->z = -5.017408038016835e-02;
+    body->vx = +1.300791785131080e-02 * PhysicsPerl__Astro__Body__DAYS_PER_YEAR;
+    body->vy = +2.245507195129482e-02 * PhysicsPerl__Astro__Body__DAYS_PER_YEAR;
+    body->vz = +6.414809034847098e-04 * PhysicsPerl__Astro__Body__DAYS_PER_YEAR;
+    body->mass = +1.6601367952719304e-07 * PhysicsPerl__Astro__Body__FOUR_PI_SQUARED;
+    body->radius = +3.505e-03;
+    body->color = {0, 0, 0};
+    return body;
+}
+
+PhysicsPerl__Astro__Body_ptr PhysicsPerl__Astro__Body__venus() {
+    PhysicsPerl__Astro__Body_ptr body(new PhysicsPerl__Astro__Body);
+    body->name = (const string) "          V.";
+    body->x = +7.248985943229426e-01;
+    body->y = +2.250842837066930e-02;
+    body->z = -4.152252796285734e-02;
+    body->vx = -7.115663662455383e-04 * PhysicsPerl__Astro__Body__DAYS_PER_YEAR;
+    body->vy = +2.012442278126239e-02 * PhysicsPerl__Astro__Body__DAYS_PER_YEAR;
+    body->vz = +3.170051245998433e-04 * PhysicsPerl__Astro__Body__DAYS_PER_YEAR;
+    body->mass = +2.4478383396645447e-06 * PhysicsPerl__Astro__Body__FOUR_PI_SQUARED;
+    body->radius = +8.695e-03;
+    body->color = {0, 0, 0};
+    return body;
+}
+
+PhysicsPerl__Astro__Body_ptr PhysicsPerl__Astro__Body__earth() {
+    PhysicsPerl__Astro__Body_ptr body(new PhysicsPerl__Astro__Body);
+    body->name = (const string) "               Earth";
+    body->x = +3.371149298368602e-01;
+    body->y = +9.264627375634086e-01;
+    body->z = -3.656592330717117e-05;
+    body->vx = -1.644763250008539e-02 * PhysicsPerl__Astro__Body__DAYS_PER_YEAR;
+    body->vy = +5.818900153313822e-03 * PhysicsPerl__Astro__Body__DAYS_PER_YEAR;
+    body->vz = -1.401742451705546e-07 * PhysicsPerl__Astro__Body__DAYS_PER_YEAR;
+    body->mass = +3.0404326462685257e-06 * PhysicsPerl__Astro__Body__FOUR_PI_SQUARED;
+    body->radius = +9.154e-03;
+    body->color = {0, 0, 255};
+    return body;
+}
+
+PhysicsPerl__Astro__Body_ptr PhysicsPerl__Astro__Body__mars() {
+    PhysicsPerl__Astro__Body_ptr body(new PhysicsPerl__Astro__Body);
+    body->name = (const string) "                   Mars";
+    body->x = +1.387314349787443e+00;
+    body->y = -6.417694205651260e-02;
+    body->z = -3.539252627294046e-02;
+    body->vx = +1.182433685289971e-03 * PhysicsPerl__Astro__Body__DAYS_PER_YEAR;
+    body->vy = +1.517628652546086e-02 * PhysicsPerl__Astro__Body__DAYS_PER_YEAR;
+    body->vz = +2.890089362707097e-04 * PhysicsPerl__Astro__Body__DAYS_PER_YEAR;
+    body->mass = +3.2271514450538743e-07 * PhysicsPerl__Astro__Body__FOUR_PI_SQUARED;
+    body->radius = +4.87e-03;
+    body->color = {255, 0, 0};
     return body;
 }
 
@@ -91,6 +151,21 @@ PhysicsPerl__Astro__Body_ptr PhysicsPerl__Astro__Body__neptune() {
     body->mass = +5.15138902046611451e-05 * PhysicsPerl__Astro__Body__FOUR_PI_SQUARED;
     body->radius = +3.53597587246876e-02;
     body->color = {55, 85, 230};
+    return body;
+}
+
+PhysicsPerl__Astro__Body_ptr PhysicsPerl__Astro__Body__pluto() {
+    PhysicsPerl__Astro__Body_ptr body(new PhysicsPerl__Astro__Body);
+    body->name = (const string) "Pluto";
+    body->x = +9.567892811759823e+00;
+    body->y = -3.181011870947866e+01;
+    body->z = +6.350230130441942e-01;
+    body->vx = +3.063970287718061e-03 * PhysicsPerl__Astro__Body__DAYS_PER_YEAR;
+    body->vy = +2.416600270961735e-04 * PhysicsPerl__Astro__Body__DAYS_PER_YEAR;
+    body->vz = -9.066478029110260e-04 * PhysicsPerl__Astro__Body__DAYS_PER_YEAR;
+    body->mass = +7.407407407407407e-09 * PhysicsPerl__Astro__Body__FOUR_PI_SQUARED;
+    body->radius = +1.705e-03;
+    body->color = {0, 0, 255};
     return body;
 }
 

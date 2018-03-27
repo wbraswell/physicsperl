@@ -5,6 +5,9 @@ use warnings;
 use RPerl::AfterSubclass;
 our $VERSION = 0.001_000;
 
+# [[[ OO INHERITANCE ]]]
+our @ISA = qw(RPerl::CompileUnit::Module::Class);
+
 # [[[ CRITICS ]]]
 ## no critic qw(ProhibitStringyEval)  # SYSTEM DEFAULT 1: allow eval()
 
@@ -17,6 +20,14 @@ use PhysicsPerl::Config;
 # <<< OO PROPERTIES, SUBROUTINES, SHIMS >>>
 undef &PhysicsPerl::Astro::Body::sun;
 *PhysicsPerl::Astro::Body::sun = sub { return main::PhysicsPerl__Astro__Body__sun(@ARG); };
+undef &PhysicsPerl::Astro::Body::mercury;
+*PhysicsPerl::Astro::Body::mercury = sub { return main::PhysicsPerl__Astro__Body__mercury(@ARG); };
+undef &PhysicsPerl::Astro::Body::venus;
+*PhysicsPerl::Astro::Body::venus = sub { return main::PhysicsPerl__Astro__Body__venus(@ARG); };
+undef &PhysicsPerl::Astro::Body::earth;
+*PhysicsPerl::Astro::Body::earth = sub { return main::PhysicsPerl__Astro__Body__earth(@ARG); };
+undef &PhysicsPerl::Astro::Body::mars;
+*PhysicsPerl::Astro::Body::mars = sub { return main::PhysicsPerl__Astro__Body__mars(@ARG); };
 undef &PhysicsPerl::Astro::Body::jupiter;
 *PhysicsPerl::Astro::Body::jupiter = sub { return main::PhysicsPerl__Astro__Body__jupiter(@ARG); };
 undef &PhysicsPerl::Astro::Body::saturn;
@@ -25,10 +36,12 @@ undef &PhysicsPerl::Astro::Body::uranus;
 *PhysicsPerl::Astro::Body::uranus = sub { return main::PhysicsPerl__Astro__Body__uranus(@ARG); };
 undef &PhysicsPerl::Astro::Body::neptune;
 *PhysicsPerl::Astro::Body::neptune = sub { return main::PhysicsPerl__Astro__Body__neptune(@ARG); };
+undef &PhysicsPerl::Astro::Body::pluto;
+*PhysicsPerl::Astro::Body::pluto = sub { return main::PhysicsPerl__Astro__Body__pluto(@ARG); };
 
 # <<< C++ LOADER >>>
-#our void::method $cpp_load = sub {
 sub cpp_load {
+    { my void::method $RETURN_TYPE };
     my $need_load_cpp = 0;
     if (    ( exists $main::{'PhysicsPerl__Astro__Body__MODE_ID'} )
         and ( defined &{ $main::{'PhysicsPerl__Astro__Body__MODE_ID'} } ) )
@@ -52,7 +65,7 @@ sub cpp_load {
 package main;
 use RPerl::Inline;
 BEGIN { RPerl::diag("[[[ BEGIN 'use Inline' STAGE for 'PhysicsPerl/Astro/Body.cpp' ]]]\n" x 1); }
-use Inline (CPP => '$main::INCLUDE_PATH' . '/PhysicsPerl/Astro/Body.cpp', \%RPerl::Inline::ARGS);
+use Inline (CPP => '$main::INCLUDE_PATH' . '/' . 'PhysicsPerl/Astro/Body.cpp', \%RPerl::Inline::ARGS);
 RPerl::diag("[[[ END   'use Inline' STAGE for 'PhysicsPerl/Astro/Body.cpp' ]]]\n" x 1);
 1;
 EOF

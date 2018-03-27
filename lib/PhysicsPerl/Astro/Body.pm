@@ -1,3 +1,7 @@
+# [[[ PREPROCESSOR ]]]
+# <<< PARSE: ON >>>
+# <<< GENERATE: ON >>>
+
 # [[[ HEADER ]]]
 use RPerl;
 package PhysicsPerl::Astro::Body;

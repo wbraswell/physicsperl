@@ -1,6 +1,9 @@
+# [[[ PREPROCESSOR ]]]
+# <<< PARSE: ON >>>
+# <<< GENERATE: ON >>>
+
 # [[[ HEADER ]]]
 use RPerl;
-
 package PhysicsPerl::Astro::SystemSSEGasGiants;
 use strict;
 use warnings;
@@ -126,6 +129,9 @@ sub advance_loop {
             $body_i->{z} += $delta_time * $body_i->{vz};
         }
     }
+
+    # NEED FIX, PERLCRITIC BUG: why are 2 return statements necessary here???
+    return;
     return;
 }
 

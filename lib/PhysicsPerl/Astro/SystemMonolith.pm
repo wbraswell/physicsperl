@@ -1,5 +1,9 @@
 ## no critic qw(Capitalization ProhibitMultiplePackages ProhibitReusedNames RequireFilenameMatchesPackage)  # SYSTEM DEFAULT 3: allow multiple & lower case package names
 
+# [[[ PREPROCESSOR ]]]
+# <<< PARSE: ON >>>
+# <<< GENERATE: ON >>>
+
 # [[[ HEADER ]]]
 use RPerl;
 package PhysicsPerl::Astro::Body;
@@ -56,7 +60,6 @@ sub sun {
 
 # http://ssd.jpl.nasa.gov/
 
-=DISABLE_ROCKY_PLANETS
 # NEED UPDATE: add real colors for all rocky planets
 sub mercury {
     { my PhysicsPerl::Astro::Body $RETURN_TYPE };
@@ -123,7 +126,6 @@ sub mars {
     $body->{color}  = [ 255, 0, 0 ];                                                             # in RGB, estimate
     return $body;
 }
-=cut
 
 sub jupiter {
     { my PhysicsPerl::Astro::Body $RETURN_TYPE };
@@ -173,7 +175,6 @@ sub uranus {
     return $body;
 }
 
-=DISABLE_ROCKY_PLANETS
 sub neptune {
     { my PhysicsPerl::Astro::Body $RETURN_TYPE };
     my PhysicsPerl::Astro::Body $body = PhysicsPerl::Astro::Body->new();
@@ -205,7 +206,6 @@ sub pluto {
     $body->{color}  = [ 0, 0, 255 ];                                                             # in RGB, estimate
     return $body;
 }
-=cut
 
 1;                                                                                                 # end of class
 
@@ -281,6 +281,9 @@ sub energy {
             $e -= ( $body_i->{mass} * $body_j->{mass} ) / $distance;
         }
     }
+
+    # NEED FIX, PERLCRITIC BUG: why are 2 return statements necessary here???
+    return $e;
     return $e;
 }
 
@@ -323,6 +326,9 @@ sub advance_loop {
             $body_i->{z} += $delta_time * $body_i->{vz};
         }
     }
+
+    # NEED FIX, PERLCRITIC BUG: why are 2 return statements necessary here???
+    return;
     return;
 }
 

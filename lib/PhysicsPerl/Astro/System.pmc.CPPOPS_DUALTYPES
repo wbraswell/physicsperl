@@ -5,6 +5,9 @@ use warnings;
 use RPerl::AfterSubclass;
 our $VERSION = 0.001_000;
 
+# [[[ OO INHERITANCE ]]]
+our @ISA = qw(RPerl::CompileUnit::Module::Class);
+
 # [[[ CRITICS ]]]
 ## no critic qw(ProhibitStringyEval)  # SYSTEM DEFAULT 1: allow eval()
 
@@ -25,8 +28,8 @@ undef &PhysicsPerl::Astro::System::get_bodies_element;
 };
 
 # <<< C++ LOADER >>>
-#our void::method $cpp_load = sub {
 sub cpp_load {
+    { my void::method $RETURN_TYPE };
     my $need_load_cpp = 0;
     if (    ( exists $main::{'PhysicsPerl__Astro__System__MODE_ID'} )
         and ( defined &{ $main::{'PhysicsPerl__Astro__System__MODE_ID'} } ) )
@@ -50,7 +53,7 @@ sub cpp_load {
 package main;
 use RPerl::Inline;
 BEGIN { RPerl::diag("[[[ BEGIN 'use Inline' STAGE for 'PhysicsPerl/Astro/System.cpp' ]]]\n" x 1); }
-use Inline (CPP => '$main::INCLUDE_PATH' . '/PhysicsPerl/Astro/System.cpp', \%RPerl::Inline::ARGS);
+use Inline (CPP => '$main::INCLUDE_PATH' . '/' . 'PhysicsPerl/Astro/System.cpp', \%RPerl::Inline::ARGS);
 RPerl::diag("[[[ END   'use Inline' STAGE for 'PhysicsPerl/Astro/System.cpp' ]]]\n" x 1);
 1;
 EOF
