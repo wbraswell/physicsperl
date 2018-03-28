@@ -233,7 +233,7 @@ for my $test_file ( sort keys %{$test_files} ) {
     }
 }
 
-RPerl::diag( 'in 12_parse.t, have $number_of_tests_run =' . $number_of_tests_run . "\n" );
+#RPerl::diag( 'in 12_parse.t, have $number_of_tests_run =' . $number_of_tests_run . "\n" );
 
 done_testing();
 #done_testing($number_of_tests_run);
