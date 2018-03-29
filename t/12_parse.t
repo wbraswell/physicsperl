@@ -58,6 +58,7 @@ BEGIN {
 
 my $test_files = {};    # string_hashref
 
+# NEED UPDATE: use 'no_chdir => 1' like 13_generate.t
 # save current directory for file checks, because File::Find changes directory;
 # use File::Spec for MS Windows support, etc.
 my $current_working_directory = getcwd;
@@ -232,6 +233,14 @@ for my $test_file ( sort keys %{$test_files} ) {
         }
     }
 }
+
+
+
+# START HERE: debug Travis stalls!!!
+# START HERE: debug Travis stalls!!!
+# START HERE: debug Travis stalls!!!
+
+
 
 #RPerl::diag( 'in 12_parse.t, have $number_of_tests_run =' . $number_of_tests_run . "\n" );
 
