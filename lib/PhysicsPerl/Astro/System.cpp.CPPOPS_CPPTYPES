@@ -2,7 +2,7 @@
 using std::cout;  using std::cerr;  using std::endl;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp
-#define __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp 0.007_000
+#define __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp 0.008_000
 
 // [[[ INCLUDES ]]]
 #include "PhysicsPerl/Astro/System.h"
@@ -83,6 +83,9 @@ void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const int
     PhysicsPerl__Astro__Body_rawptr body_i;
     PhysicsPerl__Astro__Body_rawptr body_j;
     for ( time_step = 1; time_step <= time_step_max; time_step++ ) {
+        if ( (time_step % 25000) == 0 ) {
+            print "Time Step " << integer_to_string(time_step) << " of " << integer_to_string(time_step_max) << ", energy = " << number_to_string(this->energy()) << endl;
+        }
         for ( i = 0; i < bodies_size; i++ ) {
             body_i = this->bodies[i].get_raw();
             for ( j = (i + 1); j < bodies_size; j++ ) {

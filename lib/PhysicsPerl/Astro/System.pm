@@ -7,7 +7,7 @@ use RPerl;
 package PhysicsPerl::Astro::System;
 use strict;
 use warnings;
-our $VERSION = 0.007_000;
+our $VERSION = 0.008_000;
 
 # [[[ OO INHERITANCE ]]]
 use parent qw(RPerl::CompileUnit::Module::Class);    # no non-system inheritance, only inherit from base class
@@ -100,6 +100,10 @@ sub advance_loop {
     my PhysicsPerl::Astro::Body_raw $body_j;
 
     for my integer $time_step ( 1 .. $time_step_max ) {
+        if (($time_step % 25_000) == 0) {
+            print 'Time Step ', ::integer_to_string($time_step), ' of ', ::integer_to_string($time_step_max), ', energy = ', ::number_to_string($self->energy()), "\n";
+        }
+
         for my integer $i ( 0 .. ( $bodies_size - 1 ) ) {
             $body_i = $self->{bodies}->[$i]->get_raw();
             for my integer $j ( ( $i + 1 ) .. ( $bodies_size - 1 ) ) {
