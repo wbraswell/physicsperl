@@ -2,7 +2,7 @@
 
 use strict;
 use warnings;
-our $VERSION = 0.003_100;
+our $VERSION = 0.003_200;
 use ExtUtils::MakeMaker;
 
 BEGIN { use English; }
