@@ -1,6 +1,6 @@
 # NEED UPDATE, CORRELATION #rp037: all changes made to this file MUST be propagated to the corresponding .travis.yml files for all other RPerl Family software suites 
 language: perl
-# v0.109_000
+# v0.110_000
 perl:
 # NEED ANSWER, CORRELATION #rp000: is RPerl truly incompatible with Perl v5.8 and earlier?
 # Perl v5.8 causes $CPP_LINKED global symbol errors, currently disabled
@@ -86,6 +86,9 @@ before_script:
 
     # Test::Harness 3.43_01 RESULTS:
     # RPERL_VERBOSE=1, RPERL_DEBUG=1: passes on none, fails on all
+    # RPERL_VERBOSE=0, RPERL_DEBUG=0: passes on none, fails on all
+
+    # t/12 autoflush, Test::Harness 3.43_01 RESULTS:
     # RPERL_VERBOSE=0, RPERL_DEBUG=0: passes on ???
 
     # VERBOSE BUILD: modify following line to enable TEST_VERBOSE stdout during `make test`

@@ -5,11 +5,17 @@
 # also 'WARNING WCOCODE00, COMPILER, FIND DEPENDENCIES: Failed to eval-use package' due to RPerl/Test/*/*Bad*.pm & RPerl/Test/*/*bad*.pl
 BEGIN { $ENV{RPERL_WARNINGS} = 0; }
 
+# avoid freeze/hang in TAP::Parser::Iterator::Process::next_raw() via Test::Harness::run_tests() via ExtUtils::Command::MM::test_harness(),
+# or PPI via Perl::Critic::criticize()
+use IO::Handle;
+*STDOUT->autoflush(1);
+*STDERR->autoflush(1);
+
 # [[[ HEADER ]]]
 use strict;
 use warnings;
 use RPerl::AfterSubclass;
-our $VERSION = 0.017_100;
+our $VERSION = 0.018_000;
 
 # [[[ CRITICS ]]]
 ## no critic qw(ProhibitUselessNoCritic ProhibitMagicNumbers RequireCheckedSyscalls)  # USER DEFAULT 1: allow numeric values & print operator
