@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 
 # Copyright © 2015, Jean-Phillipe Cassar and William N. Braswell, Jr.. All Rights Reserved.
 # Based on original code from unknown author at http://www.sci.fi/~benefon/solarsys.txt

@@ -1,6 +1,6 @@
 # NEED UPDATE, CORRELATION #rp037: all changes made to this file MUST be propagated to the corresponding .travis.yml files for all other RPerl Family software suites 
 language: perl
-# v0.111_000
+# v0.112_000
 perl:
 # NEED ANSWER, CORRELATION #rp000: is RPerl truly incompatible with Perl v5.8 and earlier?
 # Perl v5.8 causes $CPP_LINKED global symbol errors, currently disabled
@@ -104,7 +104,7 @@ before_script:
 
     # TMP DEBUG, NEED FIX: frozen call to critique() in RPerl::Parser::rperl_source__criticize()
     - cpanm -n LEONT/Test-Harness-3.43_01.tar.gz
-    - cpanm -n THALJEF/Perl-Critic-1.121.tar.gz
+#    - cpanm -n THALJEF/Perl-Critic-1.121.tar.gz
 
     # DEV NOTE: beginning in mid-March 2018, Travis must be forced to use HTTP for file transfers, at least in the case of Alien::GSL; reason unknown
     # EXAMPLE ERROR:  Could not find any matching files at /home/travis/perl5/perlbrew/perls/5.10/lib/site_perl/5.10.1/Alien/Base/ModuleBuild.pm line 404.
@@ -113,6 +113,23 @@ before_script:
 
     # DEV NOTE: verbose install to debug specific CPAN failures
 #    - cpanm --verbose SOME::BUGGY::DISTRIBUTION
+
+# https://github.com/adamkennedy/PPI/pull/230
+# [ BEGIN PPI dev version fork from GitHub, for PPI::Token::Number::Exp::literal() bug fix ]
+    - export PWD_SAVED=$PWD
+    - echo Before PPI fork dev install, saved current directory $PWD_SAVED
+    - cd /tmp
+    - wget https://github.com/wbraswell/PPI/archive/master.tar.gz -O ppi-master.tar.gz
+    - tar -xzvf ppi-master.tar.gz
+    - cd PPI-master
+    - cpanm -v --notest Module::Install
+    - perl Makefile.PL
+    - cpanm -v --installdeps --notest .
+    - make test
+    - make install
+    - cd $PWD_SAVED
+    - unset PWD_SAVED
+# [ END PPI dev version fork from GitHub, for PPI::Token::Number::Exp::literal() bug fix ]
 
 # [ BEGIN RPerl dev version from GitHub, for testing pre-release RPerl features ]
     - export PWD_SAVED=$PWD
