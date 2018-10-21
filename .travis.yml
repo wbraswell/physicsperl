@@ -1,6 +1,6 @@
 # NEED UPDATE, CORRELATION #rp037: all changes made to this file MUST be propagated to the corresponding .travis.yml files for all other RPerl Family software suites 
 language: perl
-# v0.112_000
+# v0.113_000
 perl:
 # NEED ANSWER, CORRELATION #rp000: is RPerl truly incompatible with Perl v5.8 and earlier?
 # Perl v5.8 causes $CPP_LINKED global symbol errors, currently disabled
@@ -72,28 +72,6 @@ before_script:
     # NEED FIX: remove following 1 line when bug is fixed    https://github.com/daoswald/Inline-CPP/issues/38
     - cpanm --verbose --force ExtUtils::CppGuess
 
-    # NEED FIX: enabling both RPERL_VERBOSE & RPERL_DEBUG causes freeze/hang in t/12_parse.t,
-    # possibly related to call to Perl::Critic::critique() in RPerl::Parser::rperl_source__criticize(), and/or TAP::Parser::Iterator::Process;
-
-    # Perl::Critic 1.121:
-    # RPERL_VERBOSE=1, RPERL_DEBUG=1: passes on none, freezes on all
-    # RPERL_VERBOSE=1, RPERL_DEBUG=0: passes on Perl 5.10 - 5.22, freezes on 5.24 & newer;
-    # RPERL_VERBOSE=0, RPERL_DEBUG=1: passes on none, exceeds log length limit w/ Perl::Critic object Dumper()
-    # RPERL_VERBOSE=0, RPERL_DEBUG=0: passes on Perl 5.10 - 5.22, freezes on 5.24 & newer; 
-
-    # Perl::Critic 1.121, Test::Harness 3.43_01:
-    # RPERL_VERBOSE=1, RPERL_DEBUG=1: passes on Perl 5.10 - 5.22, freezes on 5.24 & newer;
-
-    # Test::Harness 3.43_01:
-    # RPERL_VERBOSE=1, RPERL_DEBUG=1: passes on none, fails on all
-    # RPERL_VERBOSE=0, RPERL_DEBUG=0: passes on none, fails on all
-
-    # Test::Harness 3.43_01, autoflush:
-    # RPERL_VERBOSE=0, RPERL_DEBUG=0: passes on none, fails on all
-
-    # Perl::Critic 1.121, Test::Harness 3.43_01, autoflush:
-    # RPERL_VERBOSE=0, RPERL_DEBUG=0: passes on ???
-
     # VERBOSE BUILD: modify following line to enable TEST_VERBOSE stdout during `make test`
     - export RPERL_VERBOSE=0
     # DEBUG BUILD: uncomment following line to enable noisy build during `make test`; REQUIRES RPERL_VERBOSE=1 ABOVE
@@ -102,8 +80,8 @@ before_script:
     # DEV MODULES: uncomment following line for dev versions of modules, which travis can't get from Makefile.PL
 #    - cpanm -n INGY/Inline-C-0.62_03.tar.gz
 
-    # TMP DEBUG, NEED FIX: frozen call to critique() in RPerl::Parser::rperl_source__criticize()
-    - cpanm -n LEONT/Test-Harness-3.43_01.tar.gz
+    # TMP DEBUG, NEED REMOVE: frozen call to critique() in RPerl::Parser::rperl_source__criticize()
+#    - cpanm -n LEONT/Test-Harness-3.43_01.tar.gz
 #    - cpanm -n THALJEF/Perl-Critic-1.121.tar.gz
 
     # DEV NOTE: beginning in mid-March 2018, Travis must be forced to use HTTP for file transfers, at least in the case of Alien::GSL; reason unknown
