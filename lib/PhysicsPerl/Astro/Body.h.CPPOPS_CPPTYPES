@@ -42,24 +42,37 @@ public:
     // <<< OO PROPERTIES, ACCESSORS & MUTATORS >>>
     string get_name() { return name; }
     void set_name(string name_new) { name = name_new; }
+
     number get_x() { return x; }
     void set_x(number x_new) { x = x_new; }
+
     number get_y() { return y; }
     void set_y(number y_new) { y = y_new; }
+
     number get_z() { return z; }
     void set_z(number z_new) { z = z_new; }
+
     number get_vx() { return vx; }
     void set_vx(number vx_new) { vx = vx_new; }
+
     number get_vy() { return vy; }
     void set_vy(number vy_new) { vy = vy_new; }
+
     number get_vz() { return vz; }
     void set_vz(number vz_new) { vz = vz_new; }
+
     number get_mass() { return mass; }
     void set_mass(number mass_new) { mass = mass_new; }
+
     number get_radius() { return radius; }
     void set_radius(number radius_new) { radius = radius_new; }
+
+    integer get_color_size() { return this->color.size(); }  // call from Perl or C++
     integer_arrayref get_color() { return color; }
     void set_color(integer_arrayref color_new) { color = color_new; }
+    integer get_color_element(integer i) { return color[i]; }  // call from C++
+    void set_color_element(integer i, integer value_new) { color[i] = value_new; }  // call from C++
+
 
     // <<< CONSTRUCTOR & DESTRUCTOR >>>
     PhysicsPerl__Astro__Body() {}
