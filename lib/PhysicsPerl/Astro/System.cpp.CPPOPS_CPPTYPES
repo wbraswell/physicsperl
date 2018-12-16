@@ -20,7 +20,7 @@ Purposefully_die_from_a_compile-time_error,_due_to____PERL__TYPES_being_defined.
 // [[[ SUBROUTINES & OO METHODS ]]]
 
 void PhysicsPerl__Astro__System::init() {
-    integer i;
+    unsigned_integer i;
     this->bodies[0] = PhysicsPerl__Astro__Body__sun();
     this->bodies[1] = PhysicsPerl__Astro__Body__mercury();
     this->bodies[2] = PhysicsPerl__Astro__Body__venus();
@@ -46,8 +46,8 @@ void PhysicsPerl__Astro__System::init() {
 }
 
 number PhysicsPerl__Astro__System::energy() {
-    integer i;
-    integer j;
+    unsigned_integer i;
+    unsigned_integer j;
     number dx;
     number dy;
     number dz;

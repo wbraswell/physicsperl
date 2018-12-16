@@ -7,7 +7,7 @@ use RPerl;
 package PhysicsPerl::Astro::System;
 use strict;
 use warnings;
-our $VERSION = 0.008_000;
+our $VERSION = 0.009_000;
 
 # [[[ OO INHERITANCE ]]]
 use parent qw(RPerl::CompileUnit::Module::Class);    # no non-system inheritance, only inherit from base class
@@ -46,7 +46,7 @@ sub init {
     my number $py = 0.0;
     my number $pz = 0.0;
 
-    for my integer $i ( 0 .. ( ( scalar @{ $self->{bodies} } ) - 1 ) ) {
+    for my unsigned_integer $i ( 0 .. ( ( scalar @{ $self->{bodies} } ) - 1 ) ) {
         $px += $self->{bodies}->[$i]->{vx} * $self->{bodies}->[$i]->{mass};
         $py += $self->{bodies}->[$i]->{vy} * $self->{bodies}->[$i]->{mass};
         $pz += $self->{bodies}->[$i]->{vz} * $self->{bodies}->[$i]->{mass};
@@ -67,11 +67,11 @@ sub energy {
     my number $distance;
     my number $e = 0.0;
 
-    for my integer $i ( 0 .. ( ( scalar @{ $self->{bodies} } ) - 1 ) ) {
+    for my unsigned_integer $i ( 0 .. ( ( scalar @{ $self->{bodies} } ) - 1 ) ) {
         my PhysicsPerl::Astro::Body_raw $body_i = $self->{bodies}->[$i]->get_raw();
         $e += 0.5 * $body_i->{mass} * ( ( $body_i->{vx} * $body_i->{vx} ) + ( $body_i->{vy} * $body_i->{vy} ) + ( $body_i->{vz} * $body_i->{vz} ) );
 
-        for my integer $j ( ( $i + 1 ) .. ( ( scalar @{ $self->{bodies} } ) - 1 ) ) {
+        for my unsigned_integer $j ( ( $i + 1 ) .. ( ( scalar @{ $self->{bodies} } ) - 1 ) ) {
             my PhysicsPerl::Astro::Body_raw $body_j = $self->{bodies}->[$j]->get_raw();
             $dx       = $body_i->{x} - $body_j->{x};
             $dy       = $body_i->{y} - $body_j->{y};

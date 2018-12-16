@@ -82,8 +82,9 @@ public:
     virtual string myclassname() { return (const string) "PhysicsPerl::Astro::Body"; }
 
     // <<< CONSTANTS, SHIMS >>>
-    const number FOUR_PI_SQUARED() { return PhysicsPerl__Astro__Body__FOUR_PI_SQUARED; }
-    const number DAYS_PER_YEAR() { return PhysicsPerl__Astro__Body__DAYS_PER_YEAR; }
+    number FOUR_PI_SQUARED() { return PhysicsPerl__Astro__Body__FOUR_PI_SQUARED; }
+    number DAYS_PER_YEAR() { return PhysicsPerl__Astro__Body__DAYS_PER_YEAR; }
+
 };  // end of class
 
 // [[[ OO SUBCLASSES ]]]
