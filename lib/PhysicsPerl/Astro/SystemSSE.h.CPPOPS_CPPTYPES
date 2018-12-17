@@ -2,7 +2,7 @@
 using std::cout;  using std::cerr;  using std::endl;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__SystemSSE_h
-#define __CPP__INCLUDED__PhysicsPerl__Astro__SystemSSE_h 0.007_000
+#define __CPP__INCLUDED__PhysicsPerl__Astro__SystemSSE_h 0.010_000
 
 // [[[ INCLUDES & OO INHERITANCE INCLUDES ]]]
 #include <RPerl.cpp>  // -> RPerl.h -> (rperltypes_mode.h; rperloperations.h; rperltypes.h; HelperFunctions.cpp)
@@ -49,6 +49,15 @@ typedef std::unique_ptr<PhysicsPerl__Astro__SystemSSE> PhysicsPerl__Astro__Syste
 typedef std::vector<PhysicsPerl__Astro__SystemSSE_ptr> PhysicsPerl__Astro__SystemSSE_arrayref;
 typedef std::unordered_map<string, PhysicsPerl__Astro__SystemSSE_ptr> PhysicsPerl__Astro__SystemSSE_hashref;
 typedef std::unordered_map<string, PhysicsPerl__Astro__SystemSSE_ptr>::iterator PhysicsPerl__Astro__SystemSSE_hashref_iterator;
+
+// [[[ OO CONSTRUCTOR WRAPPER CLASS ]]]
+class NEW_PhysicsPerl__Astro__SystemSSE {
+public:
+    PhysicsPerl__Astro__SystemSSE_ptr wrapped_object;
+    NEW_PhysicsPerl__Astro__SystemSSE() : wrapped_object{new PhysicsPerl__Astro__SystemSSE()} {}
+    PhysicsPerl__Astro__SystemSSE_ptr&& NEW() { return std::move(wrapped_object); }
+
+};
 
 // <<< OPERATIONS & DATA TYPES REPORTER >>>
 integer PhysicsPerl__Astro__SystemSSE__MODE_ID() { return 2; }  // CPPOPS_CPPTYPES is 2

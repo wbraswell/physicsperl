@@ -7,7 +7,7 @@ use RPerl;
 package PhysicsPerl::Astro::System;
 use strict;
 use warnings;
-our $VERSION = 0.009_000;
+our $VERSION = 0.010_000;
 
 # [[[ OO INHERITANCE ]]]
 use parent qw(RPerl::CompileUnit::Module::Class);    # no non-system inheritance, only inherit from base class
@@ -23,7 +23,11 @@ use RPerl::CompileUnit::Module::Class;
 use PhysicsPerl::Astro::Body;
 
 # [[[ OO PROPERTIES ]]]
+# DEV NOTE, CORRELATION #pp20: use only 5 gas giants for matching output w/ Alioth Benchmark code; comment to change hard-coded number of bodies, match below & in Body.pm
+#our hashref $properties = { bodies => my PhysicsPerl::Astro::Body_arrayref $TYPED_bodies->[5 - 1] = undef };
 our hashref $properties = { bodies => my PhysicsPerl::Astro::Body_arrayref $TYPED_bodies->[10 - 1] = undef };
+
+# DEV NOTE: must update hard-coded size of 'bodies' property above to match number of bodies below
 
 # [[[ SUBROUTINES & OO METHODS ]]]
 
@@ -31,7 +35,13 @@ sub init {
     { my void::method $RETURN_TYPE };
     ( my PhysicsPerl::Astro::System $self ) = @ARG;
 
-    # DEV NOTE: must update hard-coded size of 'bodies' property above to match number of bodies below
+# DEV NOTE, CORRELATION #pp20: use only 5 gas giants for matching output w/ Alioth Benchmark code; comment to change hard-coded number of bodies, match above & in Body.pm
+#    $self->{bodies}->[0] = PhysicsPerl::Astro::Body::sun();
+#    $self->{bodies}->[1] = PhysicsPerl::Astro::Body::jupiter();
+#    $self->{bodies}->[2] = PhysicsPerl::Astro::Body::saturn();
+#    $self->{bodies}->[3] = PhysicsPerl::Astro::Body::uranus();
+#    $self->{bodies}->[4] = PhysicsPerl::Astro::Body::neptune();
+
     $self->{bodies}->[0] = PhysicsPerl::Astro::Body::sun();
     $self->{bodies}->[1] = PhysicsPerl::Astro::Body::mercury();
     $self->{bodies}->[2] = PhysicsPerl::Astro::Body::venus();
@@ -42,6 +52,7 @@ sub init {
     $self->{bodies}->[7] = PhysicsPerl::Astro::Body::uranus();
     $self->{bodies}->[8] = PhysicsPerl::Astro::Body::neptune();
     $self->{bodies}->[9] = PhysicsPerl::Astro::Body::pluto();
+
     my number $px = 0.0;
     my number $py = 0.0;
     my number $pz = 0.0;
@@ -88,8 +99,11 @@ sub energy {
 
 sub advance_loop {
     { my void::method $RETURN_TYPE };
+    # NEED UPGRADE COMPILER: constant_unsigned_integer not currently supported in subroutine input arguments
+    # Can't locate object method "advance_loop" via package "PhysicsPerl::Astro::System"
+#    ( my PhysicsPerl::Astro::System $self, my constant_number $delta_time, my constant_unsigned_integer $time_step_max ) = @ARG;
     ( my PhysicsPerl::Astro::System $self, my constant_number $delta_time, my constant_integer $time_step_max ) = @ARG;
-    my constant_integer $bodies_size = scalar @{ $self->{bodies} };
+    my constant_unsigned_integer $bodies_size = scalar @{ $self->{bodies} };
     my number $dx;
     my number $dy;
     my number $dz;
@@ -104,9 +118,9 @@ sub advance_loop {
             print 'Time Step ', ::integer_to_string($time_step), ' of ', ::integer_to_string($time_step_max), ', energy = ', ::number_to_string($self->energy()), "\n";
         }
 
-        for my integer $i ( 0 .. ( $bodies_size - 1 ) ) {
+        for my unsigned_integer $i ( 0 .. ( $bodies_size - 1 ) ) {
             $body_i = $self->{bodies}->[$i]->get_raw();
-            for my integer $j ( ( $i + 1 ) .. ( $bodies_size - 1 ) ) {
+            for my unsigned_integer $j ( ( $i + 1 ) .. ( $bodies_size - 1 ) ) {
                 $body_j           = $self->{bodies}->[$j]->get_raw();
                 $dx               = $body_i->{x} - $body_j->{x};
                 $dy               = $body_i->{y} - $body_j->{y};
@@ -122,7 +136,7 @@ sub advance_loop {
                 $body_j->{vz} += $dz * $body_i->{mass} * $magnitude;
             }
         }
-        for my integer $i ( 0 .. ( $bodies_size - 1 ) ) {
+        for my unsigned_integer $i ( 0 .. ( $bodies_size - 1 ) ) {
             $body_i = $self->{bodies}->[$i]->get_raw();
             $body_i->{x} += $delta_time * $body_i->{vx};
             $body_i->{y} += $delta_time * $body_i->{vy};

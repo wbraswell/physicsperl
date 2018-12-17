@@ -2,7 +2,7 @@
 using std::cout;  using std::cerr;  using std::endl;
 
 #ifndef __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp
-#define __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp 0.008_000
+#define __CPP__INCLUDED__PhysicsPerl__Astro__System_cpp 0.010_000
 
 // [[[ INCLUDES ]]]
 #include "PhysicsPerl/Astro/System.h"
@@ -70,10 +70,10 @@ number PhysicsPerl__Astro__System::energy() {
 }
 
 void PhysicsPerl__Astro__System::advance_loop(const number delta_time, const integer time_step_max) {
-    integer i;
-    integer j;
+    unsigned_integer i;
+    unsigned_integer j;
     integer time_step;
-    const integer bodies_size = this->bodies.size();
+    const unsigned_integer bodies_size = this->bodies.size();
     number dx;
     number dy;
     number dz;

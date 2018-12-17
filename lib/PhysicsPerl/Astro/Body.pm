@@ -7,7 +7,7 @@ use RPerl;
 package PhysicsPerl::Astro::Body;
 use strict;
 use warnings;
-our $VERSION = 0.007_000;
+our $VERSION = 0.008_000;
 
 # [[[ OO INHERITANCE ]]]
 use parent qw(RPerl::CompileUnit::Module::Class);    # no non-system inheritance, only inherit from base class
@@ -59,6 +59,7 @@ sub sun {
 # http://ssd.jpl.nasa.gov/
 
 # NEED UPDATE: add real colors for all rocky planets
+
 sub mercury {
     { my PhysicsPerl::Astro::Body $RETURN_TYPE };
     my PhysicsPerl::Astro::Body $body = PhysicsPerl::Astro::Body->new();
@@ -88,7 +89,7 @@ sub venus {
     $body->{vy}     = +2.012_442_278_126_239e-02 * PhysicsPerl::Astro::Body::DAYS_PER_YEAR();
     $body->{vz}     = +3.170_051_245_998_433e-04 * PhysicsPerl::Astro::Body::DAYS_PER_YEAR();
     $body->{mass}   = +2.447_838_339_664_544_7e-06 * PhysicsPerl::Astro::Body::FOUR_PI_SQUARED();
-    $body->{radius} = +8.695e-03;                                                                  # in units of solar radii; 6_052 kilometers
+   $body->{radius} = +8.695e-03;                                                                  # in units of solar radii; 6_052 kilometers
     $body->{color}  = [ 0, 0, 0 ];                                                             # in RGB, estimate
     return $body;
 }
