@@ -120,7 +120,9 @@ print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.e, ha
 print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.f, have $dy->[1] = ', $dy->[1], "\n";
 print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.g, have $dz->[1] = ', $dz->[1], "\n";
 
-            $distance_squared = ( $dx sse_mul $dx ) sse_add ( $dy sse_mul $dy ) sse_add ( $dz sse_mul $dz );
+# PERLTIDY BUG: must use strange formatting instead of clean formatting to avoid PERLOPS_PERLTYPES generation failure to match
+#            $distance_squared = ( $dx sse_mul $dx ) sse_add ( $dy sse_mul $dy ) sse_add ( $dz sse_mul $dz );
+            $distance_squared = ( $dx sse_mul $dx) sse_add( $dy sse_mul $dy) sse_add( $dz sse_mul $dz);
 print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.h, have $distance_squared->[0] = ', $distance_squared->[0], "\n";
 print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.h, have $distance_squared->[1] = ', $distance_squared->[1], "\n";
 
@@ -128,15 +130,24 @@ print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.h, ha
 print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.i, have $distance->[0] = ', $distance->[0], "\n";
 print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.i, have $distance->[1] = ', $distance->[1], "\n";
 
-            $distance = $distance sse_mul $one_point_five sse_sub ( ( $zero_point_five sse_mul $distance_squared) sse_mul $distance ) sse_mul ( $distance sse_mul $distance );
+# PERLTIDY BUG: must use strange formatting instead of clean formatting to avoid PERLOPS_PERLTYPES generation failure to match
+#            $distance = $distance sse_mul $one_point_five sse_sub ( ( $zero_point_five sse_mul $distance_squared) sse_mul $distance ) sse_mul ( $distance sse_mul $distance );
+            $distance = $distance sse_mul $one_point_five sse_sub( ( $zero_point_five sse_mul $distance_squared) sse_mul $distance)
+                sse_mul( $distance sse_mul $distance);
+
 print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.j, have $distance->[0] = ', $distance->[0], "\n";
 print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.j, have $distance->[1] = ', $distance->[1], "\n";
 
-            $distance = $distance sse_mul $one_point_five sse_sub ( ( $zero_point_five sse_mul $distance_squared) sse_mul $distance ) sse_mul ( $distance sse_mul $distance );
+# PERLTIDY BUG: must use strange formatting instead of clean formatting to avoid PERLOPS_PERLTYPES generation failure to match
+#            $distance = $distance sse_mul $one_point_five sse_sub ( ( $zero_point_five sse_mul $distance_squared) sse_mul $distance ) sse_mul ( $distance sse_mul $distance );
+            $distance = $distance sse_mul $one_point_five sse_sub( ( $zero_point_five sse_mul $distance_squared) sse_mul $distance)
+                sse_mul( $distance sse_mul $distance);
 print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.k, have $distance->[0] = ', $distance->[0], "\n";
 print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.k, have $distance->[1] = ', $distance->[1], "\n";
 
-            $magnitude                    = ( $delta_time_sse sse_div $distance_squared ) sse_mul $distance;
+# PERLTIDY BUG: must use strange formatting instead of clean formatting to avoid PERLOPS_PERLTYPES generation failure to match
+#            $magnitude = ( $delta_time_sse sse_div $distance_squared ) sse_mul $distance;
+            $magnitude = ( $delta_time_sse sse_div $distance_squared) sse_mul $distance;
 print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.l, have $magnitude->[0] = ', $magnitude->[0], "\n";
 print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.l, have $magnitude->[1] = ', $magnitude->[1], "\n";
 
