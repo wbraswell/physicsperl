@@ -72,97 +72,90 @@ sub advance_loop {
 
     for my integer $time_step ( 0 .. ( $time_step_max - 1 ) ) {  # loop 0
 
-print {*STDERR} 'in SystemSSE::advance_loop(), before loop 0.0, have $bodies_size = ', $bodies_size, "\n";
-print {*STDERR} 'in SystemSSE::advance_loop(), before loop 0.0, have $bodies_size_triangle = ', $bodies_size_triangle, "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), before loop 0.0, have $bodies_size = ', $bodies_size, "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), before loop 0.0, have $bodies_size_triangle = ', $bodies_size_triangle, "\n";
         $k = 0;
         for my unsigned_integer $i ( 0 .. ( $bodies_size - 2 ) ) {  # loop 0.0
-print {*STDERR} 'in SystemSSE::advance_loop(), top of loop 0.0, have $i = ', $i, ', $k = ', $k, "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), top of loop 0.0, have $i = ', $i, ', $k = ', $k, "\n";
             $body_i = $self->{bodies}->[$i]->get_raw();
             for my unsigned_integer $j ( ( $i + 1 ) .. ( $bodies_size - 1 ) ) {  # loop 0.0.0
-print {*STDERR} 'in SystemSSE::advance_loop(), top of loop 0.0.0, have $i = ', $i, ', $j = ', $j, ', $k = ', $k, "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), top of loop 0.0.0, have $i = ', $i, ', $j = ', $j, ', $k = ', $k, "\n";
                 $body_j         = $self->{bodies}->[$j]->get_raw();
                 $dx_array->[$k] = $body_i->{x} - $body_j->{x};
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.0.0, have $dx_array->[$k] = ', $dx_array->[$k], "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.0.0, have $dx_array->[$k] = ', $dx_array->[$k], "\n";
                 $dy_array->[$k] = $body_i->{y} - $body_j->{y};
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.0.0, have $dy_array->[$k] = ', $dy_array->[$k], "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.0.0, have $dy_array->[$k] = ', $dy_array->[$k], "\n";
                 $dz_array->[$k] = $body_i->{z} - $body_j->{z};
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.0.0, have $dz_array->[$k] = ', $dz_array->[$k], "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.0.0, have $dz_array->[$k] = ', $dz_array->[$k], "\n";
                 $k++;
             }
 
             # DEV NOTE: possibly initialize one final (x,y,z) component to (0,0,0); avoid Perl error 'use of uninitialized value' in loop 0.1 '$dx->[1] = $dx_array->[$i_plus_1];' and friends below
             if ($k <= $bodies_size_triangle) {
-print {*STDERR} 'in SystemSSE::advance_loop(), bottom of loop 0.0, have $i = ', $i, ', $k = ', $k, ', YES (0,0,0) INITIALIZE', "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), bottom of loop 0.0, have $i = ', $i, ', $k = ', $k, ', YES (0,0,0) INITIALIZE', "\n";
                 $dx_array->[$k] = 0;
                 $dy_array->[$k] = 0;
                 $dz_array->[$k] = 0;
             }
-            else {
-print {*STDERR} 'in SystemSSE::advance_loop(), bottom of loop 0.0, have $i = ', $i, ', $k = ', $k, ', NO  (0,0,0) INITIALIZE', "\n";
-            }
+#            else { print {*STDERR} 'in SystemSSE::advance_loop(), bottom of loop 0.0, have $i = ', $i, ', $k = ', $k, ', NO  (0,0,0) INITIALIZE', "\n"; }
         }
 
         for ( my unsigned_integer $i = 0; $i < $bodies_size_triangle; $i += 2 ) {  # loop 0.1
-print {*STDERR} 'in SystemSSE::advance_loop(), top of loop 0.1, have $i = ', $i, "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), top of loop 0.1, have $i = ', $i, "\n";
             $i_plus_1         = $i + 1;
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.a, have $i_plus_1 = ', $i_plus_1, "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.a, have $i_plus_1 = ', $i_plus_1, "\n";
             $dx->[0]          = $dx_array->[$i];
             $dx->[1]          = $dx_array->[$i_plus_1];
             $dy->[0]          = $dy_array->[$i];
             $dy->[1]          = $dy_array->[$i_plus_1];
             $dz->[0]          = $dz_array->[$i];
             $dz->[1]          = $dz_array->[$i_plus_1];
-
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.b, have $dx->[0] = ', $dx->[0], "\n";
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.c, have $dy->[0] = ', $dy->[0], "\n";
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.d, have $dz->[0] = ', $dz->[0], "\n";
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.e, have $dx->[1] = ', $dx->[1], "\n";
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.f, have $dy->[1] = ', $dy->[1], "\n";
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.g, have $dz->[1] = ', $dz->[1], "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.b, have $dx->[0] = ', $dx->[0], "\n"; #print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.c, have $dy->[0] = ', $dy->[0], "\n"; #print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.d, have $dz->[0] = ', $dz->[0], "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.e, have $dx->[1] = ', $dx->[1], "\n"; #print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.f, have $dy->[1] = ', $dy->[1], "\n"; #print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.g, have $dz->[1] = ', $dz->[1], "\n";
 
 # PERLTIDY BUG: must use strange formatting instead of clean formatting to avoid PERLOPS_PERLTYPES generation failure to match
 #            $distance_squared = ( $dx sse_mul $dx ) sse_add ( $dy sse_mul $dy ) sse_add ( $dz sse_mul $dz );
             $distance_squared = ( $dx sse_mul $dx) sse_add( $dy sse_mul $dy) sse_add( $dz sse_mul $dz);
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.h, have $distance_squared->[0] = ', $distance_squared->[0], "\n";
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.h, have $distance_squared->[1] = ', $distance_squared->[1], "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.h, have $distance_squared->[0] = ', $distance_squared->[0], "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.h, have $distance_squared->[1] = ', $distance_squared->[1], "\n";
 
             $distance = sse_recip_sqrt_32bit_on_64bit($distance_squared);    # limited 32-bit precision, increase precision via Newton-Rhapson method below
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.i, have $distance->[0] = ', $distance->[0], "\n";
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.i, have $distance->[1] = ', $distance->[1], "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.i, have $distance->[0] = ', $distance->[0], "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.i, have $distance->[1] = ', $distance->[1], "\n";
 
 # PERLTIDY BUG: must use strange formatting instead of clean formatting to avoid PERLOPS_PERLTYPES generation failure to match
 #            $distance = $distance sse_mul $one_point_five sse_sub ( ( $zero_point_five sse_mul $distance_squared) sse_mul $distance ) sse_mul ( $distance sse_mul $distance );
             $distance = $distance sse_mul $one_point_five sse_sub( ( $zero_point_five sse_mul $distance_squared) sse_mul $distance)
                 sse_mul( $distance sse_mul $distance);
 
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.j, have $distance->[0] = ', $distance->[0], "\n";
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.j, have $distance->[1] = ', $distance->[1], "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.j, have $distance->[0] = ', $distance->[0], "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.j, have $distance->[1] = ', $distance->[1], "\n";
 
 # PERLTIDY BUG: must use strange formatting instead of clean formatting to avoid PERLOPS_PERLTYPES generation failure to match
 #            $distance = $distance sse_mul $one_point_five sse_sub ( ( $zero_point_five sse_mul $distance_squared) sse_mul $distance ) sse_mul ( $distance sse_mul $distance );
             $distance = $distance sse_mul $one_point_five sse_sub( ( $zero_point_five sse_mul $distance_squared) sse_mul $distance)
                 sse_mul( $distance sse_mul $distance);
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.k, have $distance->[0] = ', $distance->[0], "\n";
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.k, have $distance->[1] = ', $distance->[1], "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.k, have $distance->[0] = ', $distance->[0], "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.k, have $distance->[1] = ', $distance->[1], "\n";
 
 # PERLTIDY BUG: must use strange formatting instead of clean formatting to avoid PERLOPS_PERLTYPES generation failure to match
 #            $magnitude = ( $delta_time_sse sse_div $distance_squared ) sse_mul $distance;
             $magnitude = ( $delta_time_sse sse_div $distance_squared) sse_mul $distance;
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.l, have $magnitude->[0] = ', $magnitude->[0], "\n";
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.l, have $magnitude->[1] = ', $magnitude->[1], "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.l, have $magnitude->[0] = ', $magnitude->[0], "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.l, have $magnitude->[1] = ', $magnitude->[1], "\n";
 
             $magnitude_array->[$i]        = $magnitude->[0];
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.m, have $magnitude_array->[$i] = ', $magnitude_array->[$i], "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.m, have $magnitude_array->[$i] = ', $magnitude_array->[$i], "\n";
             $magnitude_array->[$i_plus_1] = $magnitude->[1];
-print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.n, have $magnitude_array->[$i_plus_1] = ', $magnitude_array->[$i_plus_1], "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), in loop 0.1, checkpoint 0.1.n, have $magnitude_array->[$i_plus_1] = ', $magnitude_array->[$i_plus_1], "\n";
         }
 
         $k = 0;
         for my unsigned_integer $i ( 0 .. ( $bodies_size - 2 ) ) {  # loop 0.2
-print {*STDERR} 'in SystemSSE::advance_loop(), top of loop 0.2, have $i = ', $i, "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), top of loop 0.2, have $i = ', $i, "\n";
             $body_i = $self->{bodies}->[$i]->get_raw();
             for my unsigned_integer $j ( ( $i + 1 ) .. ( $bodies_size - 1 ) ) {  # loop 0.2.1
-print {*STDERR} 'in SystemSSE::advance_loop(), top of loop 0.2.1, have $k = ', $k, "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), top of loop 0.2.1, have $k = ', $k, "\n";
 
                 $body_j      = $self->{bodies}->[$j]->get_raw();
                 $dx_array_k  = $dx_array->[$k];
@@ -186,7 +179,7 @@ print {*STDERR} 'in SystemSSE::advance_loop(), top of loop 0.2.1, have $k = ', $
         }
 
         for my unsigned_integer $i ( 0 .. ( $bodies_size - 1 ) ) {  # loop 0.3
-print {*STDERR} 'in SystemSSE::advance_loop(), top of loop 0.3, have $i = ', $i, "\n";
+#print {*STDERR} 'in SystemSSE::advance_loop(), top of loop 0.3, have $i = ', $i, "\n";
             $body_i = $self->{bodies}->[$i]->get_raw();
             $body_i->{x} += $delta_time * $body_i->{vx};
             $body_i->{y} += $delta_time * $body_i->{vy};
