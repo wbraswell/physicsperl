@@ -1,6 +1,6 @@
 # NEED UPDATE, CORRELATION #rp037: all changes made to this file MUST be propagated to the corresponding .travis.yml files for all other RPerl Family software suites 
 language: perl
-# v0.115_000
+# v0.116_000
 perl:
 # NEED ANSWER, CORRELATION #rp000: is RPerl truly incompatible with Perl v5.8 and earlier?
 # Perl v5.8 causes $CPP_LINKED global symbol errors, currently disabled
@@ -89,6 +89,7 @@ before_script:
 #    - cpanm --verbose SOME::BUGGY::DISTRIBUTION
 
 # https://github.com/adamkennedy/PPI/pull/230
+    - cpanm --verbose PPI
 # [ BEGIN PPI dev version fork from GitHub, for PPI::Token::Number::Exp::literal() bug fix ]
 #    - export PWD_SAVED=$PWD
 #    - echo Before PPI fork dev install, saved current directory $PWD_SAVED
