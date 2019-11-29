@@ -24,7 +24,7 @@ our hashref $properties = {
 
 
     # shininess exponent
-    exponent => my number $TYPED_exponent undef,
+    exponent => my number $TYPED_exponent = undef,
 };
 
 # [[[ SUBROUTINES & OO METHODS ]]]
