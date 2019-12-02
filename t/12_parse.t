@@ -9,7 +9,7 @@ BEGIN { $ENV{RPERL_WARNINGS} = 0; }
 use strict;
 use warnings;
 use RPerl::AfterSubclass;
-our $VERSION = 0.020_000;
+our $VERSION = 0.021_000;
 
 # [[[ CRITICS ]]]
 ## no critic qw(ProhibitUselessNoCritic ProhibitMagicNumbers RequireCheckedSyscalls)  # USER DEFAULT 1: allow numeric values & print operator
@@ -64,76 +64,94 @@ my $test_files = {};    # string_hashref
 my $current_working_directory = getcwd;
 (my $volume, my $directories, my $dummy_file) = File::Spec->splitpath( $current_working_directory, 1 );  # no_file = 1
 
+sub find_tests {
+    ( my string $file_full_path_arg ) = @ARG;
+    
+    # accept optional argument with pre-defined file path if provided, else fall back to File::Find
+    my string $file_full_path;
+    if (defined $file_full_path_arg) {
+        $file_full_path = $file_full_path_arg;
+    }
+    else {
+        $file_full_path = $File::Find::name;
+    }
+
+#    RPerl::diag('in 12_parse.t, have $file_full_path = ' . $file_full_path . "\n");
+
+=cut DISABLE_REPLACED_BY_nochdir
+    die 'TMP DEBUG';
+    if (defined $ARGV[0]) {
+        # restore saved path, because File::Find changes directories while searching for files
+        my $file_full_path = File::Spec->catpath( $volume, $directories, $file );
+#        RPerl::diag('in 12_parse.t, have $file_full_path = ' . $file_full_path . "\n");
+        $file = $file_full_path;
+    }
+=cut
+
+#    if ( $file_full_path !~ m/.*Header\/program_00_bad_00.*[.]p[lm]$/xms ) { # TEMP DEBUGGING, ONLY FIND CERTAIN FILES
+#    if ( $file_full_path !~ m/.*Operator12CompareEqualNotEqual\/\w+[.]p[lm]$/xms ) { # TEMP DEBUGGING, ONLY FIND CERTAIN DIRECTORY
+    if ( $file_full_path !~ m/.p[lm]$/xms ) {  # FIND ALL TEST FILES
+        return;
+    }
+
+    if ( ( $file_full_path =~ m/Good/ms ) or ( $file_full_path =~ m/good/ms ) ) {
+        $test_files->{$file_full_path} = undef;
+
+        # check for existence of PARSE preprocessor directive, skip file if parsing is explicitly disabled, <<< PARSE: OFF >>>
+        open my filehandleref $FILE_HANDLE, '<', $file_full_path
+            or croak 'ERROR, Cannot open file ' . $file_full_path . ' for reading,' . $OS_ERROR . ', croaking';
+        while (<$FILE_HANDLE>) {
+            if (m/^\#\s*\<\<\<\s*PARSE\s*\:\s*OFF\s*\>\>\>/xms) {
+                delete $test_files->{$file_full_path};
+                last;
+            }
+        }
+        close $FILE_HANDLE
+            or croak 'ERROR, Cannot close file ' . $file_full_path . ' after reading,' . $OS_ERROR . ', croaking';
+    }
+    elsif ( ( $file_full_path =~ m/Bad/ms ) or ( $file_full_path =~ m/bad/ms ) ) {
+        # check for existence of PARSE & PARSE_ERROR preprocessor directives, compile list of expected parse errors, <<< PARSE_ERROR: 'FOO' >>>
+        open my filehandleref $FILE_HANDLE, '<', $file_full_path
+            or croak 'ERROR, Cannot open file ' . $file_full_path . ' for reading,' . $OS_ERROR . ', croaking';
+        while (<$FILE_HANDLE>) {
+            if (m/^\#\s*\<\<\<\s*PARSE\s*\:\s*OFF\s*\>\>\>/xms) {
+                delete $test_files->{$file_full_path};
+                last;
+            }
+            if (m/^\#\s*\<\<\<\s*PARSE_ERROR\s*\:\s*['"](.*)['"]\s*\>\>\>/xms) {
+                push @{ $test_files->{$file_full_path}->{errors} }, $1;
+            }
+        }
+        close $FILE_HANDLE
+            or croak 'ERROR, Cannot close file ' . $file_full_path . ' after reading,' . $OS_ERROR . ', croaking';
+    }
+    else {  # file named neither Good nor Bad
+        # check for existence of PARSE preprocessor directive, do NOT skip file if parsing is explicitly enabled, <<< PARSE: ON >>>
+        open my filehandleref $FILE_HANDLE, '<', $file_full_path
+            or croak 'ERROR, Cannot open file ' . $file_full_path . ' for reading,' . $OS_ERROR . ', croaking';
+        while (<$FILE_HANDLE>) {
+            if (m/^\#\s*\<\<\<\s*PARSE\s*\:\s*ON\s*\>\>\>/xms) {
+                $test_files->{$file_full_path} = undef;
+                last;
+            }
+        }
+        close $FILE_HANDLE
+            or croak 'ERROR, Cannot close file ' . $file_full_path . ' after reading,' . $OS_ERROR . ', croaking';
+    }
+}
+
 find(
-    sub {
-        my $file = $File::Find::name;
-
-        RPerl::diag('in 12_parse.t, have $file = ' . $file . "\n");
-
-        if (defined $ARGV[0]) {
-            # restore saved path, because File::Find changes directories while searching for files
-            my $file_full_path = File::Spec->catpath( $volume, $directories, $file );
-            RPerl::diag('in 12_parse.t, have $file_full_path = ' . $file_full_path . "\n");
-            $file = $file_full_path;
-        }
-
-#        if ( $file !~ m/.*Header\/program_00_bad_00.*[.]p[lm]$/xms ) { # TEMP DEBUGGING, ONLY FIND CERTAIN FILES
-#        if ( $file !~ m/.*Operator12CompareEqualNotEqual\/\w+[.]p[lm]$/xms ) { # TEMP DEBUGGING, ONLY FIND CERTAIN DIRECTORY
-        if ( $file !~ m/.p[lm]$/xms ) {  # FIND ALL TEST FILES
-            return;
-        }
-
-        if ( ( $file =~ m/Good/ms ) or ( $file =~ m/good/ms ) ) {
-            $test_files->{$file} = undef;
-
-            # check for existence of PARSE preprocessor directive, skip file if parsing is explicitly disabled, <<< PARSE: OFF >>>
-            # NEED UPDATE: remove use of $_ magic variable
-            open my filehandleref $FILE_HANDLE, '<', $_
-                or croak 'ERROR, Cannot open file ' . $file . ' for reading,' . $OS_ERROR . ', croaking';
-            while (<$FILE_HANDLE>) {
-                if (m/^\#\s*\<\<\<\s*PARSE\s*\:\s*OFF\s*\>\>\>/xms) {
-                    delete $test_files->{$file};
-                    last;
-                }
-            }
-            close $FILE_HANDLE
-                or croak 'ERROR, Cannot close file ' . $file . ' after reading,' . $OS_ERROR . ', croaking';
-        }
-        elsif ( ( $file =~ m/Bad/ms ) or ( $file =~ m/bad/ms ) ) {
-            # check for existence of PARSE & PARSE_ERROR preprocessor directives, compile list of expected parse errors, <<< PARSE_ERROR: 'FOO' >>>
-            # NEED UPDATE: remove use of $_ magic variable
-            open my filehandleref $FILE_HANDLE, '<', $_
-                or croak 'ERROR, Cannot open file ' . $file . ' for reading,' . $OS_ERROR . ', croaking';
-            while (<$FILE_HANDLE>) {
-                if (m/^\#\s*\<\<\<\s*PARSE\s*\:\s*OFF\s*\>\>\>/xms) {
-                    delete $test_files->{$file};
-                    last;
-                }
-                if (m/^\#\s*\<\<\<\s*PARSE_ERROR\s*\:\s*['"](.*)['"]\s*\>\>\>/xms) {
-                    push @{ $test_files->{$file}->{errors} }, $1;
-                }
-            }
-            close $FILE_HANDLE
-                or croak 'ERROR, Cannot close file ' . $file . ' after reading,' . $OS_ERROR . ', croaking';
-        }
-        else {  # file named neither Good nor Bad
-            # check for existence of PARSE preprocessor directive, do NOT skip file if parsing is explicitly enabled, <<< PARSE: ON >>>
-            # NEED UPDATE: remove use of $_ magic variable
-            open my filehandleref $FILE_HANDLE, '<', $_
-                or croak 'ERROR, Cannot open file ' . $file . ' for reading,' . $OS_ERROR . ', croaking';
-            while (<$FILE_HANDLE>) {
-                if (m/^\#\s*\<\<\<\s*PARSE\s*\:\s*ON\s*\>\>\>/xms) {
-                    $test_files->{$file} = undef;
-                    last;
-                }
-            }
-            close $FILE_HANDLE
-                or croak 'ERROR, Cannot close file ' . $file . ' after reading,' . $OS_ERROR . ', croaking';
-        }
+    {
+        no_chdir => 1,  # if not set, causes incorrect paths when $ARGV[0] is defined
+        wanted => \&find_tests
     },
     (defined $ARGV[0]) ? $ARGV[0] : (PATH_TESTS(), PATH_ASTRO())  # accept optional command-line argument
-
 );
+
+if (not defined $ARGV[0]) {
+    # locate _MyClass.pm w/out unnecessary additional searching
+    find_tests(PATH_ASTRO());
+}
 
 # trim unnecessary (and possibly problematic) absolute paths from input file names
 # must be done outside find() to properly utilize getcwd()
@@ -147,9 +165,9 @@ foreach my string $test_file_key (sort keys %{$test_files}) {
 
 my integer $number_of_test_files = scalar keys %{$test_files};
 
-RPerl::diag( 'in 12_parse.t, have $test_files = ' . "\n" . Dumper($test_files) . "\n" );
-RPerl::diag( 'in 12_parse.t, have sort keys %{$test_files} = ' . "\n" . Dumper(sort keys %{$test_files}) . "\n" );
-RPerl::diag( 'in 12_parse.t, have $number_of_test_files = ' . $number_of_test_files . "\n" );
+#RPerl::diag( 'in 12_parse.t, have $test_files = ' . "\n" . Dumper($test_files) . "\n" );
+#RPerl::diag( 'in 12_parse.t, have sort keys %{$test_files} = ' . "\n" . Dumper(sort keys %{$test_files}) . "\n" );
+#RPerl::diag( 'in 12_parse.t, have $number_of_test_files = ' . $number_of_test_files . "\n" );
 
 plan tests => $number_of_test_files;
 
@@ -162,7 +180,7 @@ if ( $ENV{RPERL_VERBOSE} ) {
 # [[[ PRIMARY RUNLOOP ]]]
 
 for my $test_file ( sort keys %{$test_files} ) {
-    RPerl::diag( 'in 12_parse.t, have $test_file = ' . $test_file . "\n" );
+#    RPerl::diag( 'in 12_parse.t, have $test_file = ' . $test_file . "\n" );
     ( my string $rperl_input_file_name, my string_hashref $cpp_output_file_name_group, my string_hashref $cpp_source_group, my string_hashref $modes ) = @ARG;
 
     # NEED UPGRADE: enable file dependencies as in script/rperl depends_parse_generate_save_subcompile_execute()
@@ -188,7 +206,7 @@ for my $test_file ( sort keys %{$test_files} ) {
         1;    # return true
     };
 
-    RPerl::diag( 'in 12_parse.t, have $eval_return_value = ' . $eval_return_value . "\n" ) if (defined $eval_return_value);  # FIXED??? warning if undef retval
+#    RPerl::diag( 'in 12_parse.t, have $eval_return_value = ' . $eval_return_value . "\n" );  # warning if undef retval
 
     if ( ( defined $eval_return_value ) and $eval_return_value ) {    # Perl eval return code defined & true, success
         if ( ( $test_file =~ m/Bad/xms ) or ( $test_file =~ m/bad/xms ) ) {
@@ -203,13 +221,13 @@ for my $test_file ( sort keys %{$test_files} ) {
     else {                                                            # Perl eval return code undefined or false, error
         print $verbose_newline;
 
-        RPerl::diag( "\n\n\n" . 'in 12_parse.t, have $EVAL_ERROR = ' . $EVAL_ERROR . "\n\n\n" );
+#        RPerl::diag( "\n\n\n" . 'in 12_parse.t, have $EVAL_ERROR = ' . $EVAL_ERROR . "\n\n\n" );
         if ( ( $test_file =~ m/Bad/ms ) or ( $test_file =~ m/bad/ms ) ) {
-            RPerl::diag( 'in 12_parse.t, have BAD $test_file = ' . $test_file . "\n" );
+#            RPerl::diag( 'in 12_parse.t, have BAD $test_file = ' . $test_file . "\n" );
             my $missing_errors = [];
             if ( defined $test_files->{$test_file}->{errors} ) {
                 foreach my $error ( @{ $test_files->{$test_file}->{errors} } ) {
-                    RPerl::diag('in 12_parse.t, have $error = ' . $error . "\n" );
+#                    RPerl::diag('in 12_parse.t, have $error = ' . $error . "\n" );
                     # DEV NOTE: debug to show which tests trigger a Helpful Hint
 #                    if ( $EVAL_ERROR =~ /Helpful\ Hint/xms ) {
 #                        print '[[[ YES HELPFUL HINT ' . $test_file . ' ]]]' . "\n\n";
@@ -233,14 +251,6 @@ for my $test_file ( sort keys %{$test_files} ) {
         }
     }
 }
-
-
-
-# START HERE: debug Travis stalls!!!
-# START HERE: debug Travis stalls!!!
-# START HERE: debug Travis stalls!!!
-
-
 
 #RPerl::diag( 'in 12_parse.t, have $number_of_tests_run =' . $number_of_tests_run . "\n" );
 
