@@ -36,7 +36,7 @@ use constant PATH_TESTS => my string $TYPED_PATH_TESTS = $PhysicsPerl::INCLUDE_P
 use constant PATH_PRECOMPILED => my string $TYPED_PATH_PRECOMPILED = $PhysicsPerl::INCLUDE_PATH . '/PhysicsPerl';
 
 # CURRENTLY UNUSED
-#use constant PATH_TESTS_MYCLASS => my string $TYPED_PATH_TESTS_MYCLASS = $PhysicsPerl::INCLUDE_PATH . '/_MyClass_Bad.pm';  # curntly unused
+#use constant PATH_TESTS_MYCLASS => my string $TYPED_PATH_TESTS_MYCLASS = $PhysicsPerl::INCLUDE_PATH . '/_MyClass_Bad.pm';
 #use constant PATH_PRECOMPILED_MYCLASS1 => my string $TYPED_PATH_PRECOMPILED_MYCLASS1 = $PhysicsPerl::INCLUDE_PATH . '/MyClass_Good.pm';
 #use constant PATH_PRECOMPILED_MYCLASS2 => my string $TYPED_PATH_PRECOMPILED_MYCLASS2 = $PhysicsPerl::INCLUDE_PATH . '/MyClass_Good.pm.CPPOPS_DUALTYPES';
 #use constant PATH_PRECOMPILED_MYCLASS3 => my string $TYPED_PATH_PRECOMPILED_MYCLASS3 = $PhysicsPerl::INCLUDE_PATH . '/MyClass_Good.cpp.CPPOPS_CPPTYPES';
