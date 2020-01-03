@@ -1,16 +1,25 @@
-# [[[ EXCLUDE ALL AUTOMATICALLY-GENERATED FILES FROM GITHUB ]]]
-# [ GitHub ]
+# [[[ EXCLUDE ALL AUTOMATICALLY-GENERATED FILES FROM GIT ]]]
+# v0.120_000
+
+# [ Git ]
 # .gitignore is not auto-generated, do not exclude self
 
 # [ Inline Build ]
+# NEED UPDATE, CORRELATION #pp005: list of _Inline directories to delete/exclude in Makefile.PL, .gitignore, and MANIFEST.SKIP
 /_Inline/
+/lib/_Inline/
+/script/_Inline/
+/script/development/_Inline/
+/script/development/unused/_Inline/
+/t/_Inline/
 
 # [ CPAN Build & Distribution ]
-# NEED UPDATE, CORRELATION #pp00: list of CPAN files & directories to delete/exclude in Makefile.PL, .gitignore, and MANIFEST.SKIP
+# NEED UPDATE, CORRELATION #pp006: list of CPAN files & directories to delete/exclude in Makefile.PL, .gitignore, and MANIFEST.SKIP
 # MANIFEST.SKIP is not auto-generated, do not exclude
+# META.* are required for build dependencies, do not exclude, git only
 /MANIFEST
 /MANIFEST.bak
-/META.*
+#/META.*
 /MYMETA.*
 /Makefile
 /Makefile.old
@@ -21,5 +30,14 @@
 /PhysicsPerl-*.tar.gz
 /MakeMaker-*
 
+# [ NEED FIX: Unknown Files ]
+/out
+
 # [ POD ]
 /pod2htmd.tmp
+
+# [ PhysicsPerl Compile ]
+# NEED UPDATE, CORRELATION #pp013: list of PhysicsPerl build files & directories to delete/exclude in Makefile.PL, .gitignore, and MANIFEST.SKIP
+/lib/PhysicsPerl/FOO.pmc
+/lib/PhysicsPerl/FOO.h
+/lib/PhysicsPerl/FOO.cpp

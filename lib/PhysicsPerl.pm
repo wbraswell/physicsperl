@@ -3,7 +3,9 @@ package PhysicsPerl;
 use strict;
 use warnings;
 use RPerl::AfterSubclass;
-our $VERSION = 0.200_000;
+
+# DEV NOTE, CORRELATION #rp016: CPAN's underscore-is-beta (NOT RPerl's underscore-is-comma) numbering scheme utilized here, to preserve trailing zeros
+our $VERSION = '0.200000';
 
 # [[[ OO INHERITANCE ]]]
 use parent qw(RPerl::CompileUnit::Module::Class);  # no non-system inheritance, only inherit from base class
