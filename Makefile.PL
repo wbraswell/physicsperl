@@ -17,7 +17,7 @@ WriteMakefile(
     VERSION_FROM => 'lib/PhysicsPerl.pm',
     LICENSE      => 'perl_5',
     EXE_FILES    => [ 'script/physicsperl', 'script/demo/n_body.pl' ],
-    MIN_PERL_VERSION => '5.10.0',    # NEED ANSWER, CORRELATION #rp00: is RPerl truly incompatible with Perl v5.8 and earlier?
+    MIN_PERL_VERSION => '5.10.0',    # NEED ANSWER, CORRELATION #rp000: is RPerl truly incompatible with Perl v5.8 and earlier?
     PREREQ_PM        => {
         'ExtUtils::MakeMaker' => '7.04',       # for compatibility with Inline::C >= v0.75
         'CPAN::Meta'          => '2.150005',   # RPerl system devs only, used for generating CPAN metadata from this file during dist build
